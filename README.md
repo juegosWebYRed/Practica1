@@ -1,6 +1,6 @@
 # Get out of me!
 
-Trasfondo y temática
+## Trasfondo y temática
 
 Avenida Verno nº 17 es una mansión encantada la cual ha permanecido felizmente abandonada durante ya varias décadas. Es notoriamente conocida por los horrores que alberga y misterios que la rodean, por lo que de vez en cuando es visitada por intrépidos exploradores y curiosos que, inevitablemente, acaban huyendo de sus espeluznantes encantamientos. 
 
@@ -12,7 +12,7 @@ Mientras pretenden hacer de A.Verno nº 17 su nuevo hogar, la mansión se escand
 
 Herido su orgullo, los compañeros caen en su trampa y comienzan a competir por ver quién, por cuenta propia, es capaz de habitar la casa por más tiempo.
 
-Mecánicas de juego
+## Mecánicas de juego
 
 En "Get out of me!" manejaremos a los nuevos inquilinos que tanto incordian a A.Verno nº 17, pudiendo jugar desde 1 a 4 personas simultáneamente. El objetivo del juego es el de sobrevivir el mayor tiempo posible (o al menos más que tus compañeros de partida) en el escenario que se nos presenta, con la diferencia de que en este caso nuestro principal enemigo será el propio escenario.
 
