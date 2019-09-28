@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+
+    <meta charset="utf-8" />
+
+    <!-- Título de la página -->
+    <title>Get out of me!</title>
+
+    <!-- Cargamos los archivos JS -->
+    <script src="scripts/phaser.min.js"></script>
+    <script src="src/states/boot.js"></script>
+    <script src="src/states/preload.js"></script>
+    <script src="src/states/menu.js"></script>
+    <script src="src/states/title.js"></script>
+    <script src="src/states/single.js"></script>
+    <script src="src/index.js"></script>
+
+</head>
+<body>
+
+    <!-- div donde ubicaremos el juego -->
+    <div id="gameDiv">
+        <script type="text/javascript">
+
+            game.state.add('boot', SplendorousGames.bootState);
+            game.state.add('preload', SplendorousGames.preloadState);
+            game.state.add('menu', SplendorousGames.menuState);
+            game.state.add('title', SplendorousGames.titleState);
+            game.state.add('local', SplendorousGames.localState);
+            game.state.add('single', SplendorousGames.singleState);
+
+            game.state.start('boot');
+
+        </script>
+
+    </div>
+   
+
+</body >
+</html >
