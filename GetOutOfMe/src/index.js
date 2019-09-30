@@ -1,3 +1,3 @@
-game = new Phaser.Game(800, 600, Phaser.AUTO, 'gameDiv')
+game = new Phaser.Game(1280, 720, Phaser.AUTO, 'gameDiv')
   
 
