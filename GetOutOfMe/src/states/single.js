@@ -41,16 +41,17 @@ SplendorousGames.singleState.prototype = {
         game.physics.startSystem(Phaser.Physics.ARCADE);
 
         //JUGADOR 1
-        player = game.add.sprite(100, 450, 'dude');
+        player = game.add.sprite(100, 450, 'personaje');
         game.physics.enable(player, Phaser.Physics.ARCADE);
         player.body.collideWorldBounds = true;
         player.body.gravity.y = 1000;
         player.body.maxVelocity.y = 500;
 
         //animaciones
-        player.animations.add('left', [0, 1, 2, 3], 10, true);
-        player.animations.add('turn', [4], 20, true);
-        player.animations.add('right', [5, 6, 7, 8], 10, true);
+        player.animations.add('left', [7, 6, 5, 4], 10, true);
+		player.animations.add('idleleft', [4], 1, true);
+        player.animations.add('idleright', [1], 1, true);
+        player.animations.add('right', [0, 1, 2, 3], 10, true);
     
 
         //Plataformas
@@ -96,9 +97,6 @@ SplendorousGames.singleState.prototype = {
 },
 
     update: function () {
-
-        console.log(jumpCount)
-
         game.physics.arcade.collide(player, platforms);
 
         player.body.velocity.x = 0;
@@ -118,7 +116,11 @@ SplendorousGames.singleState.prototype = {
             }
         }
         else {
-                player.animations.play('turn');
+				if(player.facing === 'left'){
+					player.animations.play('idleleft');
+				}else if(player.facing === 'right'){
+					player.animations.play('idleright');
+				}
                 player.facing = 'idle';
         }
         if (player.body.onFloor() || player.body.velocity.y === 0) {
