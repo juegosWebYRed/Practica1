@@ -14,6 +14,7 @@
     <script src="src/states/menu.js"></script>
     <script src="src/states/title.js"></script>
     <script src="src/states/single.js"></script>
+    <script src="src/states/multi.js"></script>
     <script src="src/index.js"></script>
 
 </head>
@@ -29,6 +30,7 @@
             game.state.add('title', SplendorousGames.titleState);
             game.state.add('local', SplendorousGames.localState);
             game.state.add('single', SplendorousGames.singleState);
+            game.state.add('multi', SplendorousGames.multiState);
 
             game.state.start('boot');
 
