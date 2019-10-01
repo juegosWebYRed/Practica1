@@ -7,6 +7,9 @@ var cursors;
 var jumpCount;
 var jumpCount2;
 var platforms;
+var proyectil;
+var timerProyectil;
+
 
 // Funciones necesarias para implementar el doble salto
 function jump1() {
@@ -40,6 +43,7 @@ SplendorousGames.singleState.prototype = {
 
         game.physics.startSystem(Phaser.Physics.ARCADE);
 
+
         //JUGADOR 1
         player = game.add.sprite(100, 450, 'personaje');
         game.physics.enable(player, Phaser.Physics.ARCADE);
@@ -47,12 +51,21 @@ SplendorousGames.singleState.prototype = {
         player.body.gravity.y = 1000;
         player.body.maxVelocity.y = 500;
 
+		
+
         //animaciones
         player.animations.add('left', [7, 6, 5, 4], 10, true);
 		player.animations.add('idleleft', [4], 1, true);
         player.animations.add('idleright', [1], 1, true);
         player.animations.add('right', [0, 1, 2, 3], 10, true);
     
+		//Proyectil
+		var randTimer = game.rnd.integerInRange(1000,5000);
+		timerProyectil = game.time.create(false);
+
+		timerProyectil.loop(randTimer,this.generarProyectil,this);
+
+		timerProyectil.start();
 
         //Plataformas
 
@@ -100,7 +113,7 @@ SplendorousGames.singleState.prototype = {
         game.physics.arcade.collide(player, platforms);
 
         player.body.velocity.x = 0;
-      
+		
         if (cursors.left.isDown) {           
                 player.body.velocity.x = -200;
             if (player.facing != 'left') {
@@ -126,6 +139,29 @@ SplendorousGames.singleState.prototype = {
         if (player.body.onFloor() || player.body.velocity.y === 0) {
             jumpCount = 0;
         }
+		if(proyectil != null){
+			game.physics.arcade.overlap(player,proyectil,this.destruirProyectil,null,this);
+		}
+		if(proyectil!=null && proyectil.body.onFloor()){
+			this.destruirProyectil();
+		}
+
         cursors.up.onDown.add(jump);
-    }      
+    },
+	
+	generarProyectil:function(){
+	
+		var randProyectilAparicion = game.rnd.integerInRange(-100,100);
+		var randTimer = game.rnd.integerInRange(1000,5000);
+        proyectil = game.add.sprite(player.body.x+randProyectilAparicion, 0, 'proyectil');
+		console.log(randProyectilAparicion);
+        game.physics.enable(proyectil, Phaser.Physics.ARCADE);
+        proyectil.body.collideWorldBounds = true;
+        proyectil.body.gravity.y = 1000;
+		timerProyectil.delay=randTimer;
+	},
+	destruirProyectil:function(){
+		proyectil.destroy();
+		proyectil=null;
+	}
 }
