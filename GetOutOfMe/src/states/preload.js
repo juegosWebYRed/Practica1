@@ -8,6 +8,7 @@ SplendorousGames.preloadState.prototype = {
 		this.load.crossOrigin = 'Anonymous';
 		this.load.spritesheet('personaje', 'https://i.imgur.com/Oh6jnOC.png', 50, 100);
         this.load.image('ground', 'https://i.imgur.com/cSBy8Xo.png');
+		this.load.image('proyectil','https://i.imgur.com/pHkpyji.png')
     },
 
     create: function () {
