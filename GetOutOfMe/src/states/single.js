@@ -7,9 +7,12 @@ var cursors;
 var jumpCount;
 var jumpCount2;
 var platforms;
-var proyectil;
-var timerProyectil;
-
+var proyectiles = [];
+var timerProyectilCercaJugador;
+var timerProyectilIzquierdo;
+var timerProyectilDerecho;
+var timerProyectilHorizontal;
+var gravedad=1000;
 
 // Funciones necesarias para implementar el doble salto
 function jump1() {
@@ -48,7 +51,7 @@ SplendorousGames.singleState.prototype = {
         player = game.add.sprite(100, 450, 'personaje');
         game.physics.enable(player, Phaser.Physics.ARCADE);
         player.body.collideWorldBounds = true;
-        player.body.gravity.y = 1000;
+        player.body.gravity.y = gravedad;
         player.body.maxVelocity.y = 500;
 
 		
@@ -59,14 +62,38 @@ SplendorousGames.singleState.prototype = {
         player.animations.add('idleright', [1], 1, true);
         player.animations.add('right', [0, 1, 2, 3], 10, true);
     
-		//Proyectil
+		//Proyectiles
 		var randTimer = game.rnd.integerInRange(1000,5000);
-		timerProyectil = game.time.create(false);
 
-		timerProyectil.loop(randTimer,this.generarProyectil,this);
+		timerProyectilCercaJugador = game.time.create(false);
 
-		timerProyectil.start();
+        timerProyectilCercaJugador.loop(randTimer,this.generarProyectilCercaJugador,this)
+        
+        timerProyectilCercaJugador.start();
+        
+        var randTimerIzquierdo = game.rnd.integerInRange(1000,5000);
 
+		timerProyectilIzquierdo = game.time.create(false);
+
+        timerProyectilIzquierdo.loop(randTimerIzquierdo,this.generarProyectilIzquierdo,this)
+        
+        timerProyectilIzquierdo.start();
+        
+        var randTimerDerecho= game.rnd.integerInRange(1000,5000);
+
+		timerProyectilDerecho = game.time.create(false);
+
+        timerProyectilDerecho.loop(randTimerDerecho,this.generarProyectilDerecho,this)
+        
+        timerProyectilDerecho.start();
+        
+        var randTimerHorizontal= game.rnd.integerInRange(1000,5000);
+
+		timerProyectilHorizontal = game.time.create(false);
+
+        timerProyectilHorizontal.loop(randTimerHorizontal,this.generarProyectilHorizontal,this)
+        
+		timerProyectilHorizontal.start();
         //Plataformas
 
         platforms = game.add.group();
@@ -139,29 +166,91 @@ SplendorousGames.singleState.prototype = {
         if (player.body.onFloor() || player.body.velocity.y === 0) {
             jumpCount = 0;
         }
-		if(proyectil != null){
-			game.physics.arcade.overlap(player,proyectil,this.destruirProyectil,null,this);
-		}
-		if(proyectil!=null && proyectil.body.onFloor()){
-			this.destruirProyectil();
-		}
+        for(var i =0;i<proyectiles.length;i++){
+		    if(proyectiles[i].sprite.body!=null && proyectiles[i].sprite.body.onFloor() && proyectiles[i].tipo=="Vertical"){
+                i=this.destruirProyectil(i);
+            }else if(proyectiles[i].sprite.body!=null && proyectiles[i].sprite.body.x>=1190 && proyectiles[i].tipo=="Horizontal"){
+                i=this.destruirProyectil(i);
+            }else if(proyectiles[i].sprite!=null && game.physics.arcade.overlap(player,proyectiles[i].sprite)){
+                    i=this.destruirProyectil(i);
+            }
+        }
 
         cursors.up.onDown.add(jump);
     },
-	
-	generarProyectil:function(){
-	
-		var randProyectilAparicion = game.rnd.integerInRange(-100,100);
+    
+    generarProyectilCercaJugador:function(){
+        var proyectil = new Object();
+        proyectil.tipo="Vertical";
+        proyectil.gravedadX=0;
+        proyectil.gravedadY=gravedad;
+        var randAparicion = game.rnd.integerInRange(-100,100);
+        var posCercaJugador=player.body.x+randAparicion;
+        proyectil.posX=posCercaJugador;
+        proyectil.posY=0;
+        
 		var randTimer = game.rnd.integerInRange(1000,5000);
-        proyectil = game.add.sprite(player.body.x+randProyectilAparicion, 0, 'proyectil');
-		console.log(randProyectilAparicion);
-        game.physics.enable(proyectil, Phaser.Physics.ARCADE);
-        proyectil.body.collideWorldBounds = true;
-        proyectil.body.gravity.y = 1000;
-		timerProyectil.delay=randTimer;
-	},
-	destruirProyectil:function(){
-		proyectil.destroy();
-		proyectil=null;
+		timerProyectilCercaJugador.delay=randTimer;
+        this.generarProyectil(proyectil);
+    },
+
+    generarProyectilIzquierdo:function(){
+        var proyectil = new Object();
+        proyectil.tipo="Vertical";
+        proyectil.gravedadX=0;
+        proyectil.gravedadY=gravedad;
+        var randAparicion = game.rnd.integerInRange(0,640);
+        proyectil.posX=randAparicion;
+        proyectil.posY=0;
+        
+		var randTimer = game.rnd.integerInRange(1000,5000);
+		timerProyectilIzquierdo.delay=randTimer;
+        this.generarProyectil(proyectil);
+    },
+    generarProyectilDerecho:function(){
+        var proyectil = new Object();
+        proyectil.tipo="Vertical";
+        proyectil.gravedadX=0;
+        proyectil.gravedadY=gravedad;
+
+        var randAparicion = game.rnd.integerInRange(640,1080);
+        proyectil.posX=randAparicion;
+        proyectil.posY=0;
+        
+		var randTimer = game.rnd.integerInRange(1000,5000);
+		timerProyectilDerecho.delay=randTimer;
+        this.generarProyectil(proyectil);
+    },
+    generarProyectilHorizontal:function(){
+        var proyectil = new Object();
+        proyectil.tipo="Horizontal";
+        proyectil.gravedadX=gravedad;
+        proyectil.gravedadY=0;
+        proyectil.posX=0;
+        proyectil.posY=player.body.y;
+
+		var randTimer = game.rnd.integerInRange(1000,5000);
+		timerProyectilHorizontal.delay=randTimer;
+        this.generarProyectil(proyectil);
+    },
+
+	generarProyectil:function(proyectil){
+        proyectil.sprite = game.add.sprite(proyectil.posX, proyectil.posY, 'proyectil');
+
+        game.physics.enable(proyectil.sprite, Phaser.Physics.ARCADE);
+            
+        proyectil.sprite.body.collideWorldBounds = true;
+        proyectil.sprite.body.gravity.x = proyectil.gravedadX;
+        proyectil.sprite.body.gravity.y = proyectil.gravedadY;
+
+        proyectiles.push(proyectil);
+        
+    },
+    
+	destruirProyectil:function(pos){
+        proyectiles[pos].sprite.destroy();
+        proyectiles.splice(pos,1);
+
+        return pos--;
 	}
 }
