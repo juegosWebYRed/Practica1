@@ -13,6 +13,9 @@ SplendorousGames.menuState.prototype = {
     create: function() {
         var style = { font: "65px Arial", fill: "#ff0044", align: "center" };
 
+        var fullscreen_boton = game.add.button(1240, 680, 'fullscreen', this.fullscreen, this, 1, 0, 0);
+        fullscreen_boton.scale.setTo(0.5, 0.5);
+
         var single = game.add.text(game.world.centerX - 300, 0, "UN JUGADOR", style);
         single.ns = 'single';
         single.inputEnabled = true;
@@ -34,5 +37,17 @@ SplendorousGames.menuState.prototype = {
 
     update: function() {
         
-    }
+    },
+
+    fullscreen: function() {
+        if (game.scale.isFullScreen)
+        {
+            game.scale.stopFullScreen();
+        }
+        else
+        {
+            game.scale.startFullScreen(false);
+        }
+
+    },
 }
