@@ -2,6 +2,8 @@ SplendorousGames.singleState = function(game) {
 }
 
 var player;
+var phantom1;
+var phantom2;
 var jumpTimer = 0;
 var cursors;
 var jumpCount;
@@ -13,6 +15,8 @@ var timerProyectilIzquierdo;
 var timerProyectilDerecho;
 var timerProyectilHorizontal;
 var gravedad=1000;
+var xvelFantasma1 = 100;
+var xvelFantasma2 = 120;
 
 // Funciones necesarias para implementar el doble salto
 function jump1() {
@@ -57,14 +61,29 @@ SplendorousGames.singleState.prototype = {
         player.body.gravity.y = gravedad;
         player.body.maxVelocity.y = 500;
 
-		
-
-        //animaciones
+		//Animaciones del jugador
         player.animations.add('left', [7, 6, 5, 4], 10, true);
 		player.animations.add('idleleft', [4], 1, true);
         player.animations.add('idleright', [1], 1, true);
         player.animations.add('right', [0, 1, 2, 3], 10, true);
-    
+
+        //Fantasmas
+        phantom1 = game.add.sprite(25, 300, 'fantasma');
+        phantom2 = game.add.sprite(900, 150, 'fantasma');
+        game.physics.enable(phantom1, Phaser.Physics.ARCADE);
+        phantom1.body.collideWorldBounds = true;
+        game.physics.enable(phantom2, Phaser.Physics.ARCADE);
+        phantom2.body.collideWorldBounds = true;
+
+        //Animaciones de los fantasmas
+        phantom1.animations.add('patrullarDer', [0, 1, 2], true);
+        phantom1.animations.add('patrullarIzq', [5, 4, 3], true);
+        phantom2.animations.add('patrullarDer', [0, 1, 2], true);
+        phantom2.animations.add('patrullarIzq', [5, 4, 3], true);
+        phantom1.body.velocity.x = xvelFantasma1;
+        phantom2.body.velocity.x = -xvelFantasma2;
+        phantom1.animations.play('patrullarDer', 6, true);
+        phantom2.animations.play('patrullarIzq', 6, true);
 		//Proyectiles
 		var randTimer = game.rnd.integerInRange(1000,5000);
 
@@ -140,6 +159,24 @@ SplendorousGames.singleState.prototype = {
 },
 
     update: function () {
+        //Movimiento de los fantasmas
+        if(phantom1.body.blocked.right){
+            phantom1.animations.play('patrullarIzq', 6, true);
+            phantom1.body.velocity.x = -xvelFantasma1;
+        }
+        if(phantom1.body.blocked.left){
+            phantom1.animations.play('patrullarDer', 6, true);
+            phantom1.body.velocity.x = xvelFantasma1;
+        }
+        if(phantom2.body.blocked.right){
+            phantom2.animations.play('patrullarIzq', 6, true);
+            phantom2.body.velocity.x = -xvelFantasma2;
+        }
+        if(phantom2.body.blocked.left){
+            phantom2.animations.play('patrullarDer', 6, true);
+            phantom2.body.velocity.x = xvelFantasma2;
+        }
+        
         game.physics.arcade.collide(player, platforms);
 
         player.body.velocity.x = 0;
