@@ -4,6 +4,8 @@ SplendorousGames.singleState = function(game) {
 var player;
 var phantom1;
 var phantom2;
+var levelGround;
+var levelGroundInvisible = true; //var booleana para cuando desparezca el suelo
 var jumpTimer = 0;
 var cursors;
 var jumpCount;
@@ -47,8 +49,15 @@ SplendorousGames.singleState.prototype = {
     },
 
     create: function () {
-
         game.physics.startSystem(Phaser.Physics.ARCADE);
+
+        //ESCENARIO
+        //Para que el jugador camine "encima" del suelo y no en el extremo inferior
+        this.game.world.setBounds(0, 0, 1280, 665);
+        //Suelo
+        levelGround = game.add.sprite(640, 265, 'sueloNivel');
+        levelGround.anchor.setTo(0.5);
+        levelGround.scale.setTo(0.37, 0.37);
 
         //Botón de pantalla completa
         var fullscreen_boton = game.add.button(1240, 680, 'fullscreen', this.fullscreen, this, 1, 0, 0);
@@ -84,6 +93,7 @@ SplendorousGames.singleState.prototype = {
         phantom2.body.velocity.x = -xvelFantasma2;
         phantom1.animations.play('patrullarDer', 6, true);
         phantom2.animations.play('patrullarIzq', 6, true);
+
 		//Proyectiles
 		var randTimer = game.rnd.integerInRange(1000,5000);
 
@@ -115,9 +125,9 @@ SplendorousGames.singleState.prototype = {
 
         timerProyectilHorizontal.loop(randTimerHorizontal,this.generarProyectilHorizontal,this)
         
-		timerProyectilHorizontal.start();
+        timerProyectilHorizontal.start();
+        
         //Plataformas
-
         platforms = game.add.group();
         
         platforms.enableBody = true;
@@ -138,10 +148,7 @@ SplendorousGames.singleState.prototype = {
         p3.body.immovable = true;
 
 
-        
-
         //Controles
-
         cursors = game.input.keyboard.createCursorKeys();
         one = game.input.keyboard.addKey(Phaser.Keyboard.ONE);
 
@@ -175,6 +182,13 @@ SplendorousGames.singleState.prototype = {
         if(phantom2.body.blocked.left){
             phantom2.animations.play('patrullarDer', 6, true);
             phantom2.body.velocity.x = xvelFantasma2;
+        }
+
+        //Floor is lava (el suelo desaparece para siempre en la partida)
+        var key1 = game.input.keyboard.addKey(Phaser.Keyboard.ONE); //Pulsar 1 para que desaparezca (solo para probar)
+        if(levelGroundInvisible && key1.isDown){
+            levelGround.destroy();
+            this.game.world.setBounds(0, 0, 1280, 720);
         }
         
         game.physics.arcade.collide(player, platforms);
