@@ -9,9 +9,14 @@ SplendorousGames.preloadState.prototype = {
         this.load.image('ground', 'https://i.imgur.com/cSBy8Xo.png');
         this.load.image('proyectil','https://i.imgur.com/pHkpyji.png');
         this.load.image('sueloNivel', 'https://i.imgur.com/dArAwzD.png');
+        this.load.image('candelabro', 'https://i.imgur.com/WKuBQVm.png?1');
+        this.load.image('pared', 'https://i.imgur.com/kV7nxIs.png');
+        this.load.image('muebles', 'https://i.imgur.com/eyqq59x.png?1');
+        this.load.image('silla', 'https://i.imgur.com/rnANYdK.png?1');
         this.load.spritesheet('personaje', 'https://i.imgur.com/Oh6jnOC.png', 50, 100);
         this.load.spritesheet('fullscreen', 'https://i.imgur.com/upDM70Y.png', 71, 71);
         this.load.spritesheet('fantasma', 'https://i.imgur.com/LV8OUcv.png?1', 152, 100);
+
     },
 
     create: function () {
