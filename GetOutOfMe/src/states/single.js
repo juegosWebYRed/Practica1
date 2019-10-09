@@ -216,23 +216,6 @@ SplendorousGames.singleState.prototype = {
             }*/
         }
 
-        /*
-        if(phantom1.body.blocked.right){
-            phantom1.animations.play('patrullarIzq', 6, true);
-            phantom1.body.velocity.x = -xvelFantasma1;
-        }
-        if(phantom1.body.blocked.left){
-            phantom1.animations.play('patrullarDer', 6, true);
-            phantom1.body.velocity.x = xvelFantasma1;
-        }
-        if(phantom2.body.blocked.right){
-            phantom2.animations.play('patrullarIzq', 6, true);
-            phantom2.body.velocity.x = -xvelFantasma2;
-        }
-        if(phantom2.body.blocked.left){
-            phantom2.animations.play('patrullarDer', 6, true);
-            phantom2.body.velocity.x = xvelFantasma2;
-        }*/
 
         //Floor is lava (el suelo desaparece para siempre en la partida)
         var key1 = game.input.keyboard.addKey(Phaser.Keyboard.ONE); //Pulsar 1 para que desaparezca (solo para probar)
@@ -246,14 +229,14 @@ SplendorousGames.singleState.prototype = {
         player.body.velocity.x = 0;
 		
         if (cursors.left.isDown) {           
-                player.body.velocity.x = -200;
+                player.body.velocity.x = -400;
             if (player.facing != 'left') {
                 player.animations.play('left');
                 player.facing = 'left';
             }
         }
         else if (cursors.right.isDown) {
-                player.body.velocity.x = 200;
+                player.body.velocity.x = 400;
             if (player.facing != 'right') {
                 player.animations.play('right');
                 player.facing = 'right';
@@ -273,7 +256,7 @@ SplendorousGames.singleState.prototype = {
         for(var i =0;i<proyectiles.length;i++){
 		    if(proyectiles[i].sprite.body!=null && proyectiles[i].sprite.body.onFloor() && proyectiles[i].tipo=="Vertical"){
                 i=this.destruirProyectil(i);
-            }else if(proyectiles[i].sprite.body!=null && proyectiles[i].sprite.body.x + game.cache.getImage("candelabro").width>=1280 && proyectiles[i].tipo=="Horizontal"){
+            }else if(proyectiles[i].sprite.body!=null && proyectiles[i].sprite.body.blocked.right && proyectiles[i].tipo=="Horizontal"){
                 i=this.destruirProyectil(i);
             }else if(proyectiles[i].sprite!=null && game.physics.arcade.overlap(player,proyectiles[i].sprite)){
                     player.vida -= proyectiles[i].damage;
@@ -354,6 +337,7 @@ SplendorousGames.singleState.prototype = {
 
 	generarProyectil:function(proyectil){
         proyectil.sprite = game.add.sprite(proyectil.posX, proyectil.posY, proyectil.imagen);
+        proyectil.sprite.scale.setTo(0.7,0.7);
         game.physics.enable(proyectil.sprite, Phaser.Physics.ARCADE);
             
         proyectil.sprite.body.collideWorldBounds = true;
