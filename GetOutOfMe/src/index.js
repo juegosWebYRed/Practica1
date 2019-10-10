@@ -1,3 +1,5 @@
-game = new Phaser.Game(1280, 720, Phaser.AUTO, 'gameDiv')
+var gameHeight=1280;
+var gameWidth =720;
+game = new Phaser.Game(gameHeight, gameWidth, Phaser.AUTO, 'gameDiv')
   
 

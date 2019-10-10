@@ -10,6 +10,7 @@
     <!-- Cargamos los archivos JS -->
     <script src="scripts/phaser.min.js"></script>
     <script src="src/states/boot.js"></script>
+    <script src="src/states/gameOver.js"></script>
     <script src="src/states/preload.js"></script>
     <script src="src/states/menu.js"></script>
     <script src="src/states/title.js"></script>
@@ -31,6 +32,7 @@
             game.state.add('local', SplendorousGames.localState);
             game.state.add('single', SplendorousGames.singleState);
             game.state.add('multi', SplendorousGames.multiState);
+            game.state.add('gameOver', SplendorousGames.gameOverState);
 
             game.state.start('boot');
 

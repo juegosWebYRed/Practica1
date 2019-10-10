@@ -12,10 +12,6 @@ SplendorousGames.bootState.prototype = {
 
 
     create: function () {
-        var text = "LOADING";
-        var style = { font: "65px Arial", fill: "#ff0044", align: "center" };
-
-        var t = game.add.text(game.world.centerX - 300, 0, text, style);
         this.state.start('preload');
     },
 

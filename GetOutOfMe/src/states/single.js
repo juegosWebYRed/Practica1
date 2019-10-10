@@ -265,6 +265,10 @@ SplendorousGames.singleState.prototype = {
                     i=this.destruirProyectil(i);
                     if(player.vida <= 0){
                         //Cambiar estado muerte
+                        proyectiles = [];
+                        phantoms = [];
+                        plataformas = [];
+                        game.state.start("gameOver");
                     }
             }
         }

@@ -13,6 +13,12 @@ SplendorousGames.preloadState.prototype = {
         this.load.image('pared', 'https://i.imgur.com/kV7nxIs.png');
         this.load.image('muebles', 'https://i.imgur.com/eyqq59x.png?1');
         this.load.image('silla', 'https://i.imgur.com/rnANYdK.png?1');
+        this.load.image('btn-jugar', 'https://i.imgur.com/6jm8Tkk.png');
+        this.load.image('btn-singleplayer', 'https://i.imgur.com/E5wlwn6.png');
+        this.load.image('btn-multiplayer', 'https://i.imgur.com/crwWPxc.png');
+        this.load.image('btn-online', 'https://i.imgur.com/QOUz9lu.png');
+        this.load.image('btn-volverMenu', 'https://i.imgur.com/kAJVGWH.png');
+        this.load.image('menuBackground', 'https://i.imgur.com/7uIVjNs.png');
         this.load.spritesheet('personaje', 'https://i.imgur.com/Oh6jnOC.png', 50, 100);
         this.load.spritesheet('fullscreen', 'https://i.imgur.com/upDM70Y.png', 71, 71);
         this.load.spritesheet('fantasma', 'https://i.imgur.com/LV8OUcv.png?1', 152, 100);

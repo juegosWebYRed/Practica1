@@ -1,11 +1,10 @@
 SplendorousGames.titleState = function(game) {
 }
 
-function nextState(object){
-    this.state.start(object.ns);
-}
 
-
+//Buttons
+var buttonsColorOut=0xf0e800;
+var buttonsColorOver=0xb01000;
 
 SplendorousGames.titleState.prototype = {
 
@@ -15,22 +14,51 @@ SplendorousGames.titleState.prototype = {
 
 
     create: function() {
+        var generalX=640;
+        var initialY=500;
+        //Use for sorting
+        this.background = this.createBackground();
 
-        var text = "JUGAR";
-        var style = { font: "65px Arial", fill: "#ff0044", align: "center" };
+        buttonJugar = game.add.button(generalX,initialY, 'btn-jugar', this.menuState, this, 0);
+        //Centrado de botones.
+        buttonJugar.anchor.x=0.5;
+        buttonJugar.anchor.y=0.5;
+        //Escalado de botones.
+        buttonJugar.scale.x = 0.2;
+        buttonJugar.scale.y = 0.2;
+        //Tintado de botones
+        buttonJugar.tint=buttonsColorOut;
+    },
 
-        var fullscreen_boton = game.add.button(1240, 680, 'fullscreen', this.fullscreen, this, 1, 0, 0);
-        fullscreen_boton.scale.setTo(0.5, 0.5);
+    createBackground: function()
+    {
+        var background = game.add.sprite(0, 0, "menuBackground");
         
-        var t = game.add.text(game.world.centerX - 300, 0, text, style);
+        //Placement
+        background.scale.setTo(0.4, 0.4);
 
+        return background;
+    },
 
-        t.ns = 'menu';
+    menuState: function(){
+        game.state.start("menu");
+    },
 
-        t.inputEnabled = true;
+    update: function() {
+        this.changeButtonsColors(buttonJugar);
+    },
 
-        t.events.onInputDown.add(nextState, this);
+    changeButtonsColors: function(button){
+        button.onInputOver.add(this.ColorOver,this);
+        button.onInputOut.add(this.ColorOut,this);
+    },
 
+    ColorOver: function (button){
+        button.tint=buttonsColorOver;
+    },
+
+    ColorOut:function (button){
+        button.tint=buttonsColorOut;
     },
 
     fullscreen: function() {
