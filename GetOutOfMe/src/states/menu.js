@@ -143,6 +143,14 @@ SplendorousGames.menuState.prototype = {
     },
     level1:function(){
         reglasNivel.phantoms=false;
+        reglasNivel.plataforms=true;
+        //Definimos el numero de plataformas.
+        reglasNivel.numPlataforms=2;
+        //Definimos la x de cada una de las plataformas.
+        reglasNivel.posPlataformsX=[600, 50];
+        //Definimos la y de cada una de las plataformas.
+        reglasNivel.posPlataformsY=[450,250];
+        reglasNivel.velPlataforms=[0,200];
         reglasNivel.frecuenciaDeAparicion=8000;
         reglasNivel.pared="pared";
         reglasNivel.muebles="muebles";
@@ -151,6 +159,18 @@ SplendorousGames.menuState.prototype = {
     },
     level2:function(){
         reglasNivel.phantoms=true;
+        reglasNivel.plataforms=true;
+        //Definimos el numero de plataformas.
+        reglasNivel.numPlataforms=2;
+        //Definimos la x de cada una de las plataformas.
+        reglasNivel.posPlataformsX=[600, 50];
+        //Definimos la y de cada una de las plataformas.
+        reglasNivel.posPlataformsY=[450,250];
+        reglasNivel.velPlataforms=[0,200];
+        reglasNivel.numPhantoms=2;
+        reglasNivel.posPhantomsX=[50,650];
+        reglasNivel.posPhantomsY=[130,350];
+        reglasNivel.velPhantoms=[100,120];
         reglasNivel.frecuenciaDeAparicion=7000;
         reglasNivel.pared="pared";
         reglasNivel.muebles="muebles";
@@ -159,6 +179,18 @@ SplendorousGames.menuState.prototype = {
     },
     level3:function(){
         reglasNivel.phantoms=true;
+        reglasNivel.plataforms=true;
+        //Definimos el numero de plataformas.
+        reglasNivel.numPlataforms=2;
+        //Definimos la x de cada una de las plataformas.
+        reglasNivel.posPlataformsX=[600, 50];
+        //Definimos la y de cada una de las plataformas.
+        reglasNivel.posPlataformsY=[450,250];
+        reglasNivel.velPlataforms=[0,200];
+        reglasNivel.numPhantoms=2;
+        reglasNivel.posPhantomsX=[50,650];
+        reglasNivel.posPhantomsY=[130,350];
+        reglasNivel.velPhantoms=[100,120];
         reglasNivel.frecuenciaDeAparicion=5000;
         reglasNivel.pared="pared";
         reglasNivel.muebles="muebles";

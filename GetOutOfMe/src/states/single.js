@@ -18,9 +18,6 @@ var timerProyectilIzquierdo;
 var timerProyectilDerecho;
 var timerProyectilHorizontal;
 var gravedad=1000;
-var xvelFantasma1 = 100;
-var xvelFantasma2 = 120;
-var xVelPlatform = 200;
 var vidasRestantes;
 var acumulacionCandelabros=0;
 
@@ -97,25 +94,20 @@ SplendorousGames.singleState.prototype = {
         player.animations.add('right', [0, 1, 2, 3], 10, true);
 
         if(reglasNivel.phantoms===true){
-            //Fantasmas
-            phantom1 = game.add.sprite(25, 350, 'fantasma');
-            phantom2 = game.add.sprite(900, 150, 'fantasma');
-            game.physics.enable(phantom1, Phaser.Physics.ARCADE);
-            phantom1.body.collideWorldBounds = true;
-            game.physics.enable(phantom2, Phaser.Physics.ARCADE);
-            phantom2.body.collideWorldBounds = true;
+            for(var i=0;i<reglasNivel.numPhantoms;i++){
+                //Fantasmas
+                phantom = game.add.sprite(reglasNivel.posPhantomsX[i], reglasNivel.posPhantomsY[i], 'fantasma');
+                game.physics.enable(phantom, Phaser.Physics.ARCADE);
+                phantom.body.collideWorldBounds = true;
 
-            //Animaciones de los fantasmas
-            phantom1.animations.add('patrullarDer', [0, 1, 2], true);
-            phantom1.animations.add('patrullarIzq', [5, 4, 3], true);
-            phantom2.animations.add('patrullarDer', [0, 1, 2], true);
-            phantom2.animations.add('patrullarIzq', [5, 4, 3], true);
-            phantom1.body.velocity.x = xvelFantasma1;
-            phantom2.body.velocity.x = -xvelFantasma2;
-            phantom1.animations.play('patrullarDer', 6, true);
-            phantom2.animations.play('patrullarIzq', 6, true);
+                //Animaciones de los fantasmas
+                phantom.animations.add('patrullarDer', [0, 1, 2], true);
+                phantom.animations.add('patrullarIzq', [5, 4, 3], true);
+                phantom.body.velocity.x = reglasNivel.velPhantoms[i];
+                phantom.animations.play('patrullarDer', 6, true);
 
-            phantoms.push(phantom1, phantom2);
+                phantoms.push(phantom);
+            }
         }
 
 		//Proyectiles
@@ -150,7 +142,7 @@ SplendorousGames.singleState.prototype = {
         timerProyectilHorizontal.loop(randTimerHorizontal,this.generarProyectilHorizontal,this)
         
         timerProyectilHorizontal.start();
-        
+
         //Plataformas
         platforms = game.add.group();
         
@@ -158,23 +150,20 @@ SplendorousGames.singleState.prototype = {
         
         game.physics.enable(platforms, Phaser.Physics.ARCADE);
 
-        p1 = platforms.create(600, 450, 'ground');
-        p2 = platforms.create(50, 250, 'ground');
-        //p3 = platforms.create(750, 150, 'ground');
+        if(reglasNivel.plataforms===true){
+            for(var i=0;i<reglasNivel.numPlataforms;i++){
 
-        p1.body.collideWorldBounds = true;
-        p1.body.velocity.x = xVelPlatform;
-        p1.body.immovable = true;
-        p1.movility = true;
+                plataform = platforms.create(reglasNivel.posPlataformsX[i], reglasNivel.posPlataformsY[i], 'ground');
 
-        p2.body.collideWorldBounds = true;
-        p2.body.immovable = true;
-        p2.movility = false;
+                plataform.body.collideWorldBounds = true;
+                plataform.body.velocity.x = reglasNivel.velPlataforms[i];
+                plataform.body.immovable = true;
+                plataform.movility = true;
 
-        plataformas.push(p1, p2);
 
-        /*p3.body.collideWorldBounds = true;
-        p3.body.immovable = true;*/
+                plataformas.push(plataform);
+            }
+        }
 
 
         //Controles
@@ -225,10 +214,10 @@ SplendorousGames.singleState.prototype = {
         //Movimiento de las plataformas
         for(var i = 0; i < plataformas.length; i++){
             if(plataformas[i].movility && plataformas[i].body.blocked.right){
-                plataformas[i].body.velocity.x = -xVelPlatform;
+                plataformas[i].body.velocity.x = -reglasNivel.velPlataforms[i];
             }
             if(plataformas[i].movility && plataformas[i].body.blocked.left){
-                plataformas[i].body.velocity.x = xVelPlatform;
+                plataformas[i].body.velocity.x = reglasNivel.velPlataforms[i];
             }
         }
 
