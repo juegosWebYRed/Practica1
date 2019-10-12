@@ -189,11 +189,11 @@ SplendorousGames.singleState.prototype = {
             for(var i = 0; i < phantoms.length; i++){
                 if(phantoms[i].body.blocked.right){
                     phantoms[i].animations.play('patrullarIzq', 6, true);
-                    phantoms[i].body.velocity.x = -xvelFantasma1;
+                    phantoms[i].body.velocity.x = -reglasNivel.velPhantoms[i];
                 }
                 if(phantoms[i].body.blocked.left){
                     phantoms[i].animations.play('patrullarDer', 6, true);
-                    phantoms[i].body.velocity.x = xvelFantasma1;
+                    phantoms[i].body.velocity.x = reglasNivel.velPhantoms[i];
                 }
                 if(game.physics.arcade.overlap(player,phantoms[i])&&player.invulnerabilidad<=0){
                     player.vida-=1;
