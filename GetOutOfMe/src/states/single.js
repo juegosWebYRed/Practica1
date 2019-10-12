@@ -22,7 +22,7 @@ var xvelFantasma1 = 100;
 var xvelFantasma2 = 120;
 var xVelPlatform = 200;
 var vidasRestantes;
-
+var acumulacionCandelabros=0;
 
 // Funciones necesarias para implementar el doble salto
 function jump1() {
@@ -57,15 +57,15 @@ SplendorousGames.singleState.prototype = {
 
         //ESCENARIO
         //---Pared---
-        var wall = game.add.sprite(0, 0, 'pared');
+        var wall = game.add.sprite(0, 0, reglasNivel.pared);
         wall.scale.setTo(0.5, 0.27);
         //---Muebles---
-        var furniture = game.add.sprite(150, 0, 'muebles');
+        var furniture = game.add.sprite(150, 0, reglasNivel.muebles);
         furniture.scale.setTo(0.7, 0.68);
         //---Suelo---
         //Para que el jugador camine "encima" del suelo y no en el extremo inferior
         game.world.setBounds(0, 0, 1280, 665);
-        levelGround = game.add.sprite(640, 265, 'sueloNivel');
+        levelGround = game.add.sprite(640, 265, reglasNivel.sueloNivel);
         levelGround.anchor.setTo(0.5);
         levelGround.scale.setTo(0.37, 0.37);
         
@@ -81,38 +81,45 @@ SplendorousGames.singleState.prototype = {
         player.body.gravity.y = gravedad;
         player.body.maxVelocity.y = 500;
         player.vida = 3;
+        player.invulnerabilidad=0;
+        player.puntuacion=0;
+        player.candelabrosEsquivados=0;
+        player.candelabrosEsquivadosTotal=0;
 
         //Vidas restantes
         vidasRestantes = game.add.text(50, 30, "Vida: " + player.vida);
-
+        //Candelabros esquivados
+        rachaCandelabros=game.add.text(1200, 30, "x"+player.candelabrosEsquivados);
 		//Animaciones del jugador
         player.animations.add('left', [7, 6, 5, 4], 10, true);
 		player.animations.add('idleleft', [4], 1, true);
         player.animations.add('idleright', [1], 1, true);
         player.animations.add('right', [0, 1, 2, 3], 10, true);
 
-        //Fantasmas
-        phantom1 = game.add.sprite(25, 350, 'fantasma');
-        phantom2 = game.add.sprite(900, 150, 'fantasma');
-        game.physics.enable(phantom1, Phaser.Physics.ARCADE);
-        phantom1.body.collideWorldBounds = true;
-        game.physics.enable(phantom2, Phaser.Physics.ARCADE);
-        phantom2.body.collideWorldBounds = true;
+        if(reglasNivel.phantoms===true){
+            //Fantasmas
+            phantom1 = game.add.sprite(25, 350, 'fantasma');
+            phantom2 = game.add.sprite(900, 150, 'fantasma');
+            game.physics.enable(phantom1, Phaser.Physics.ARCADE);
+            phantom1.body.collideWorldBounds = true;
+            game.physics.enable(phantom2, Phaser.Physics.ARCADE);
+            phantom2.body.collideWorldBounds = true;
 
-        //Animaciones de los fantasmas
-        phantom1.animations.add('patrullarDer', [0, 1, 2], true);
-        phantom1.animations.add('patrullarIzq', [5, 4, 3], true);
-        phantom2.animations.add('patrullarDer', [0, 1, 2], true);
-        phantom2.animations.add('patrullarIzq', [5, 4, 3], true);
-        phantom1.body.velocity.x = xvelFantasma1;
-        phantom2.body.velocity.x = -xvelFantasma2;
-        phantom1.animations.play('patrullarDer', 6, true);
-        phantom2.animations.play('patrullarIzq', 6, true);
+            //Animaciones de los fantasmas
+            phantom1.animations.add('patrullarDer', [0, 1, 2], true);
+            phantom1.animations.add('patrullarIzq', [5, 4, 3], true);
+            phantom2.animations.add('patrullarDer', [0, 1, 2], true);
+            phantom2.animations.add('patrullarIzq', [5, 4, 3], true);
+            phantom1.body.velocity.x = xvelFantasma1;
+            phantom2.body.velocity.x = -xvelFantasma2;
+            phantom1.animations.play('patrullarDer', 6, true);
+            phantom2.animations.play('patrullarIzq', 6, true);
 
-        phantoms.push(phantom1, phantom2);
+            phantoms.push(phantom1, phantom2);
+        }
 
 		//Proyectiles
-		var randTimer = game.rnd.integerInRange(1000,5000);
+		var randTimer = game.rnd.integerInRange(1000,reglasNivel.fr);
 
 		timerProyectilCercaJugador = game.time.create(false);
 
@@ -120,7 +127,7 @@ SplendorousGames.singleState.prototype = {
         
         timerProyectilCercaJugador.start();
         
-        var randTimerIzquierdo = game.rnd.integerInRange(1000,5000);
+        var randTimerIzquierdo = game.rnd.integerInRange(1000,reglasNivel.frecuenciaDeAparicion);
 
 		timerProyectilIzquierdo = game.time.create(false);
 
@@ -128,7 +135,7 @@ SplendorousGames.singleState.prototype = {
         
         timerProyectilIzquierdo.start();
         
-        var randTimerDerecho= game.rnd.integerInRange(1000,5000);
+        var randTimerDerecho= game.rnd.integerInRange(1000,reglasNivel.frecuenciaDeAparicion);
 
 		timerProyectilDerecho = game.time.create(false);
 
@@ -136,7 +143,7 @@ SplendorousGames.singleState.prototype = {
         
         timerProyectilDerecho.start();
         
-        var randTimerHorizontal= game.rnd.integerInRange(1000,5000);
+        var randTimerHorizontal= game.rnd.integerInRange(1000,reglasNivel.frecuenciaDeAparicion);
 
 		timerProyectilHorizontal = game.time.create(false);
 
@@ -189,17 +196,29 @@ SplendorousGames.singleState.prototype = {
 
     update: function () {
         //Movimiento de los fantasmas
-        for(var i = 0; i < phantoms.length; i++){
-            if(phantoms[i].body.blocked.right){
-                phantoms[i].animations.play('patrullarIzq', 6, true);
-                phantoms[i].body.velocity.x = -xvelFantasma1;
-            }
-            if(phantoms[i].body.blocked.left){
-                phantoms[i].animations.play('patrullarDer', 6, true);
-                phantoms[i].body.velocity.x = xvelFantasma1;
-            }
-            if(game.physics.arcade.overlap(player,phantoms[i])){
-                //var muerte = game.add.text(200, 200, "HAS MUERTO");
+        if(reglasNivel.phantoms===true){
+            for(var i = 0; i < phantoms.length; i++){
+                if(phantoms[i].body.blocked.right){
+                    phantoms[i].animations.play('patrullarIzq', 6, true);
+                    phantoms[i].body.velocity.x = -xvelFantasma1;
+                }
+                if(phantoms[i].body.blocked.left){
+                    phantoms[i].animations.play('patrullarDer', 6, true);
+                    phantoms[i].body.velocity.x = xvelFantasma1;
+                }
+                if(game.physics.arcade.overlap(player,phantoms[i])&&player.invulnerabilidad<=0){
+                    player.vida-=1;
+                    vidasRestantes.destroy();
+                    vidasRestantes = game.add.text(50, 30, "Vida: "+player.vida);
+                    player.invulnerabilidad=100;
+                    if(player.vida <= 0){
+                        //Cambiar estado muerte
+                        proyectiles = [];
+                        phantoms = [];
+                        plataformas = [];
+                        game.state.start("gameOver");
+                    }
+                }
             }
         }
 
@@ -211,9 +230,6 @@ SplendorousGames.singleState.prototype = {
             if(plataformas[i].movility && plataformas[i].body.blocked.left){
                 plataformas[i].body.velocity.x = xVelPlatform;
             }
-            /*if(game.physics.arcade.overlap(player,phantoms[i])){
-                //var muerte = game.add.text(200, 200, "HAS MUERTO");
-            }*/
         }
 
 
@@ -255,13 +271,41 @@ SplendorousGames.singleState.prototype = {
         }
         for(var i =0;i<proyectiles.length;i++){
 		    if(proyectiles[i].sprite.body!=null && proyectiles[i].sprite.body.onFloor() && proyectiles[i].tipo=="Vertical"){
+                
+                if(proyectiles[i].imagen==='candelabro'){
+                    player.candelabrosEsquivados++;
+                    player.candelabrosEsquivadosTotal++;
+                    if(player.candelabrosEsquivados-acumulacionCandelabros===10){
+                        acumulacionCandelabros=player.candelabrosEsquivados;
+                        rachaCandelabros.destroy();
+                        rachaCandelabros=game.add.text(1200, 30, "x"+acumulacionCandelabros);
+                    }
+                }
                 i=this.destruirProyectil(i);
             }else if(proyectiles[i].sprite.body!=null && proyectiles[i].sprite.body.blocked.right && proyectiles[i].tipo=="Horizontal"){
+                
+                if(proyectiles[i].imagen==='candelabro'){
+                    player.candelabrosEsquivados++;
+                    player.candelabrosEsquivadosTotal++;
+                    if(player.candelabrosEsquivados-acumulacionCandelabros===10){
+                        acumulacionCandelabros=player.candelabrosEsquivados;
+                        rachaCandelabros.destroy();
+                        rachaCandelabros=game.add.text(1200, 30, "x"+acumulacionCandelabros);
+                    }
+                }
                 i=this.destruirProyectil(i);
-            }else if(proyectiles[i].sprite!=null && game.physics.arcade.overlap(player,proyectiles[i].sprite)){
+            }else if(proyectiles[i].sprite!=null && game.physics.arcade.overlap(player,proyectiles[i].sprite) && player.invulnerabilidad<=0){
                     player.vida -= proyectiles[i].damage;
+                    player.invulnerabilidad=100;
                     vidasRestantes.destroy();
                     vidasRestantes = game.add.text(50, 30, "Vida: "+player.vida);
+                    
+                    if(proyectiles[i].imagen==='candelabro'){
+                        player.candelabrosEsquivados=0;
+                        acumulacionCandelabros=0;
+                        rachaCandelabros.destroy();
+                        rachaCandelabros=game.add.text(1200, 30, "x"+acumulacionCandelabros);
+                    }
                     i=this.destruirProyectil(i);
                     if(player.vida <= 0){
                         //Cambiar estado muerte
@@ -272,7 +316,10 @@ SplendorousGames.singleState.prototype = {
                     }
             }
         }
-
+        if(player.invulnerabilidad>0){
+            player.invulnerabilidad-=1;
+        }
+        player.puntuacion++;
         cursors.up.onDown.add(jump);
     },
     
@@ -288,7 +335,7 @@ SplendorousGames.singleState.prototype = {
         proyectil.posX=posCercaJugador;
         proyectil.posY=0;
         
-		var randTimer = game.rnd.integerInRange(1000,5000);
+		var randTimer = game.rnd.integerInRange(1000,reglasNivel.frecuenciaDeAparicion);
 		timerProyectilCercaJugador.delay=randTimer;
         this.generarProyectil(proyectil);
     },
@@ -304,7 +351,7 @@ SplendorousGames.singleState.prototype = {
         proyectil.posX=randAparicion;
         proyectil.posY=0;
         
-		var randTimer = game.rnd.integerInRange(1000,5000);
+		var randTimer = game.rnd.integerInRange(1000,reglasNivel.frecuenciaDeAparicion);
 		timerProyectilIzquierdo.delay=randTimer;
         this.generarProyectil(proyectil);
     },
@@ -320,7 +367,7 @@ SplendorousGames.singleState.prototype = {
         proyectil.posX=randAparicion;
         proyectil.posY=0;
         
-		var randTimer = game.rnd.integerInRange(1000,5000);
+		var randTimer = game.rnd.integerInRange(1000,reglasNivel.frecuenciaDeAparicion);
 		timerProyectilDerecho.delay=randTimer;
         this.generarProyectil(proyectil);
     },
@@ -334,7 +381,7 @@ SplendorousGames.singleState.prototype = {
         proyectil.posX=0;
         proyectil.posY=600;
 
-		var randTimer = game.rnd.integerInRange(1000,5000);
+		var randTimer = game.rnd.integerInRange(1000,reglasNivel.frecuenciaDeAparicion);
 		timerProyectilHorizontal.delay=randTimer;
         this.generarProyectil(proyectil);
     },

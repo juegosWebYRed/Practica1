@@ -17,6 +17,8 @@ SplendorousGames.gameOverState.prototype = {
         this.background = this.createBackground();
 
         buttonVolverMenu = game.add.button(generalX,initialY, 'btn-volverMenu', this.volverMenu, this, 0);
+        game.add.text(500, 200, "Puntuacion: "+player.puntuacion);
+        game.add.text(500, 300, "Candelabros Esquivados: "+player.candelabrosEsquivadosTotal);
         //Centrado de botones.
         buttonVolverMenu.anchor.x=0.5;
         buttonVolverMenu.anchor.y=0.5;
@@ -52,10 +54,10 @@ SplendorousGames.gameOverState.prototype = {
 
     createBackground: function()
     {
-        var background = game.add.sprite(0, 0, "menuBackground");
+        var background = game.add.sprite(0, 0, "finalBackground");
         
         //Placement
-        background.scale.setTo(0.4, 0.4);
+        background.scale.setTo(0.37, 0.3);
 
         return background;
     },
