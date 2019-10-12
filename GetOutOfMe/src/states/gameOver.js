@@ -55,9 +55,6 @@ SplendorousGames.gameOverState.prototype = {
     createBackground: function()
     {
         var background = game.add.sprite(0, 0, "finalBackground");
-        
-        //Placement
-        background.scale.setTo(0.37, 0.3);
 
         return background;
     },
