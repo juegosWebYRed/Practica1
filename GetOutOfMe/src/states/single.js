@@ -2,8 +2,6 @@ SplendorousGames.singleState = function(game) {
 }
 
 var player;
-var phantom1;
-var phantom2;
 var levelGround;
 var levelGroundInvisible = true; //var booleana para cuando desparezca el suelo
 var jumpTimer = 0;
@@ -57,8 +55,8 @@ SplendorousGames.singleState.prototype = {
         var wall = game.add.sprite(0, 0, reglasNivel.pared);
         wall.scale.setTo(0.5, 0.27);
         //---Muebles---
-        var furniture = game.add.sprite(150, 0, reglasNivel.muebles);
-        furniture.scale.setTo(0.7, 0.68);
+        var furniture = game.add.sprite(0, 0, reglasNivel.muebles);
+        furniture.scale.setTo(reglasNivel.scaleX, reglasNivel.scaleY);
         //---Suelo---
         //Para que el jugador camine "encima" del suelo y no en el extremo inferior
         game.world.setBounds(0, 0, 1280, 665);
@@ -93,9 +91,9 @@ SplendorousGames.singleState.prototype = {
         player.animations.add('idleright', [1], 1, true);
         player.animations.add('right', [0, 1, 2, 3], 10, true);
 
+        //Fantasmas
         if(reglasNivel.phantoms===true){
             for(var i=0;i<reglasNivel.numPhantoms;i++){
-                //Fantasmas
                 phantom = game.add.sprite(reglasNivel.posPhantomsX[i], reglasNivel.posPhantomsY[i], 'fantasma');
                 game.physics.enable(phantom, Phaser.Physics.ARCADE);
                 phantom.body.collideWorldBounds = true;
@@ -110,8 +108,30 @@ SplendorousGames.singleState.prototype = {
             }
         }
 
+        //Plataformas
+        platforms = game.add.group();
+        
+        platforms.enableBody = true;
+        
+        game.physics.enable(platforms, Phaser.Physics.ARCADE);
+
+        if(reglasNivel.plataforms===true){
+            for(var i=0;i<reglasNivel.numPlataforms;i++){
+
+                plataform = platforms.create(reglasNivel.posPlataformsX[i], reglasNivel.posPlataformsY[i], reglasNivel.imagenPlataformas[i]);
+
+                plataform.body.collideWorldBounds = true;
+                plataform.body.velocity.x = reglasNivel.velPlataforms[i];
+                plataform.body.immovable = true;
+                plataform.movility = true;
+
+
+                plataformas.push(plataform);
+            }
+        }
+
 		//Proyectiles
-		var randTimer = game.rnd.integerInRange(1000,reglasNivel.fr);
+		var randTimer = game.rnd.integerInRange(1000,reglasNivel.frecuenciaDeAparicion);
 
 		timerProyectilCercaJugador = game.time.create(false);
 
@@ -142,28 +162,6 @@ SplendorousGames.singleState.prototype = {
         timerProyectilHorizontal.loop(randTimerHorizontal,this.generarProyectilHorizontal,this)
         
         timerProyectilHorizontal.start();
-
-        //Plataformas
-        platforms = game.add.group();
-        
-        platforms.enableBody = true;
-        
-        game.physics.enable(platforms, Phaser.Physics.ARCADE);
-
-        if(reglasNivel.plataforms===true){
-            for(var i=0;i<reglasNivel.numPlataforms;i++){
-
-                plataform = platforms.create(reglasNivel.posPlataformsX[i], reglasNivel.posPlataformsY[i], 'ground');
-
-                plataform.body.collideWorldBounds = true;
-                plataform.body.velocity.x = reglasNivel.velPlataforms[i];
-                plataform.body.immovable = true;
-                plataform.movility = true;
-
-
-                plataformas.push(plataform);
-            }
-        }
 
 
         //Controles
@@ -258,9 +256,11 @@ SplendorousGames.singleState.prototype = {
         if (player.body.onFloor() || player.body.velocity.y === 0) {
             jumpCount = 0;
         }
+        cursors.up.onDown.add(jump);
+
         for(var i =0;i<proyectiles.length;i++){
 		    if(proyectiles[i].sprite.body!=null && proyectiles[i].sprite.body.onFloor() && proyectiles[i].tipo=="Vertical"){
-                
+                //En el caso de que se esquive un candelabro se sumara a candelabros esquivados y la racha que se lleve de candelabros esquivados.
                 if(proyectiles[i].imagen==='candelabro'){
                     player.candelabrosEsquivados++;
                     player.candelabrosEsquivadosTotal++;
@@ -272,7 +272,7 @@ SplendorousGames.singleState.prototype = {
                 }
                 i=this.destruirProyectil(i);
             }else if(proyectiles[i].sprite.body!=null && proyectiles[i].sprite.body.blocked.right && proyectiles[i].tipo=="Horizontal"){
-                
+                //En el caso de que se esquive un candelabro se sumara a candelabros esquivados y la racha que se lleve de candelabros esquivados.
                 if(proyectiles[i].imagen==='candelabro'){
                     player.candelabrosEsquivados++;
                     player.candelabrosEsquivadosTotal++;
@@ -288,7 +288,7 @@ SplendorousGames.singleState.prototype = {
                     player.invulnerabilidad=100;
                     vidasRestantes.destroy();
                     vidasRestantes = game.add.text(50, 30, "Vida: "+player.vida);
-                    
+                    //Se corta la racha de candelabros esquivados.
                     if(proyectiles[i].imagen==='candelabro'){
                         player.candelabrosEsquivados=0;
                         acumulacionCandelabros=0;
@@ -309,7 +309,6 @@ SplendorousGames.singleState.prototype = {
             player.invulnerabilidad-=1;
         }
         player.puntuacion++;
-        cursors.up.onDown.add(jump);
     },
     
     generarProyectilCercaJugador:function(){
@@ -398,7 +397,6 @@ SplendorousGames.singleState.prototype = {
     fullscreen: function() {
         if (game.scale.isFullScreen)
         {
-            //game.world.setBounds(0, 0, 1280, 665);
             game.scale.stopFullScreen();
             
         }

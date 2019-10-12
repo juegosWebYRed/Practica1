@@ -11,9 +11,9 @@ SplendorousGames.preloadState.prototype = {
         this.load.image('sueloNivel', 'https://i.imgur.com/dArAwzD.png');
         this.load.image('candelabro', 'https://i.imgur.com/WKuBQVm.png?1');
         this.load.image('pared', 'https://i.imgur.com/kV7nxIs.png');
-        this.load.image('muebleslv1', 'https://i.imgur.com/eyqq59x.png?1');
-        this.load.image('muebleslv2', 'https://i.imgur.com/eyqq59x.png?1');
-        this.load.image('muebleslv3', 'https://i.imgur.com/eyqq59x.png?1');
+        this.load.image('muebleslv1', 'https://i.imgur.com/zThnsoi.png');
+        this.load.image('muebleslv2', 'https://i.imgur.com/N4ByYuc.png');
+        this.load.image('muebleslv3', 'https://i.imgur.com/mwHLxWZ.png');
         this.load.image('silla', 'https://i.imgur.com/rnANYdK.png?1');
         this.load.image('btn-jugar', 'https://i.imgur.com/738cCwO.png');
         this.load.image('btn-singleplayer', 'https://i.imgur.com/xBuViuJ.png');
@@ -22,7 +22,7 @@ SplendorousGames.preloadState.prototype = {
         this.load.image('btn-level1', 'https://i.imgur.com/60pFRIJ.png');
         this.load.image('btn-level2', 'https://i.imgur.com/bgaTCKN.png');
         this.load.image('btn-level3', 'https://i.imgur.com/znFdAmY.png');
-        this.load.image('btn-volverMenu', 'https://i.imgur.com/kAJVGWH.png');
+        this.load.image('btn-volverMenu', 'https://i.imgur.com/ZRNU4eZ.png');
         this.load.image('menuBackground', 'https://i.imgur.com/eik8IYl.png');
         this.load.image('finalBackground', 'https://i.imgur.com/WMaVuf9.png');
         this.load.image('title', 'https://i.imgur.com/Hz9T4fh.png');

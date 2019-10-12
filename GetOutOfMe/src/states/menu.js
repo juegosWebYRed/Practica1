@@ -4,6 +4,8 @@ SplendorousGames.menuState = function(game) {
 var generalX=640;
 var initialY=400;
 var variacion=110;
+var singlePlayer;
+var multiPlayer;
 var reglasNivel=new Object();
 
 SplendorousGames.menuState.prototype = {
@@ -123,6 +125,15 @@ SplendorousGames.menuState.prototype = {
         buttonSingleplayer.destroy();
         buttonMultiplayer.destroy();
         buttonOnline.destroy();
+        singlePlayer=true;
+        secondMenu=false;
+        this.thirdMenu();
+    },
+    multiPlayer: function(){
+        buttonSingleplayer.destroy();
+        buttonMultiplayer.destroy();
+        buttonOnline.destroy();
+        multiPlayer=true;
         secondMenu=false;
         this.thirdMenu();
     },
@@ -163,12 +174,22 @@ SplendorousGames.menuState.prototype = {
         reglasNivel.posPlataformsY=[450,250];
         //Definimos la velocidad de las plataformas.
         reglasNivel.velPlataforms=[0,200];
+        //Definimos los sprites de las plataformas.
+        reglasNivel.imagenPlataformas=['ground','ground'];
         //Definimos la frecuencia de aparicion de los proyectiles.
         reglasNivel.frecuenciaDeAparicion=8000;
         reglasNivel.pared="pared";
         reglasNivel.muebles="muebleslv1";
+        reglasNivel.scaleX=0.35;
+        reglasNivel.scaleY=0.275;
         reglasNivel.sueloNivel="sueloNivel";
-        game.state.start("single");
+        if(singlePlayer){
+            singlePlayer=false;
+            game.state.start("single");
+        }else if(multiPlayer){
+            multiPlayer=false;
+            game.state.start("multi");
+        }
     },
     level2:function(){
         //Definimos si queremos fanatasmas.
@@ -183,6 +204,8 @@ SplendorousGames.menuState.prototype = {
         reglasNivel.posPlataformsY=[450,250];
         //Definimos la velocidad de las plataformas.
         reglasNivel.velPlataforms=[0,200];
+        //Definimos los sprites de las plataformas.
+        reglasNivel.imagenPlataformas=['ground','ground'];
         //Definimos el numero de fantasmas.
         reglasNivel.numPhantoms=2;
         //Definimos la x de cada una de los fantasmas.
@@ -195,8 +218,16 @@ SplendorousGames.menuState.prototype = {
         reglasNivel.frecuenciaDeAparicion=7000;
         reglasNivel.pared="pared";
         reglasNivel.muebles="muebleslv2";
+        reglasNivel.scaleX=0.35;
+        reglasNivel.scaleY=0.27;
         reglasNivel.sueloNivel="sueloNivel";
-        game.state.start("single");
+        if(singlePlayer){
+            singlePlayer=false;
+            game.state.start("single");
+        }else if(multiPlayer){
+            multiPlayer=false;
+            game.state.start("multi");
+        }
     },
     level3:function(){
         //Definimos si queremos fanatasmas.
@@ -211,6 +242,8 @@ SplendorousGames.menuState.prototype = {
         reglasNivel.posPlataformsY=[450,250];
         //Definimos la velocidad de las plataformas.
         reglasNivel.velPlataforms=[0,200];
+        //Definimos los sprites de las plataformas.
+        reglasNivel.imagenPlataformas=['ground','ground'];
         //Definimos el numero de fantasmas.
         reglasNivel.numPhantoms=2;
         //Definimos la x de cada una de los fantasmas.
@@ -223,11 +256,16 @@ SplendorousGames.menuState.prototype = {
         reglasNivel.frecuenciaDeAparicion=5000;
         reglasNivel.pared="pared";
         reglasNivel.muebles="muebleslv3";
+        reglasNivel.scaleX=0.35;
+        reglasNivel.scaleY=0.26;
         reglasNivel.sueloNivel="sueloNivel";
-        game.state.start("single");
-    },
-    multiPlayer: function(){
-        game.state.start("multi");
+        if(singlePlayer){
+            singlePlayer=false;
+            game.state.start("single");
+        }else if(multiPlayer){
+            multiPlayer=false;
+            game.state.start("multi");
+        }
     },
     online: function(){
         game.state.start("online");
