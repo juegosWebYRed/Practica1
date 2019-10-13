@@ -65,10 +65,6 @@ SplendorousGames.singleState.prototype = {
         levelGround.scale.setTo(0.37, 0.37);
         
 
-        //Botón de pantalla completa
-        var fullscreen_boton = game.add.button(1240, 680, 'fullscreen', this.fullscreen, this, 1, 0, 0);
-        fullscreen_boton.scale.setTo(0.5, 0.5);
-
         //JUGADOR 1
         player = game.add.sprite(100, 450, 'personaje');
         game.physics.enable(player, Phaser.Physics.ARCADE);
@@ -392,18 +388,5 @@ SplendorousGames.singleState.prototype = {
         proyectiles.splice(pos,1);
 
         return pos--;
-    },
-    
-    fullscreen: function() {
-        if (game.scale.isFullScreen)
-        {
-            game.scale.stopFullScreen();
-            
-        }
-        else
-        {
-            game.scale.startFullScreen(false);
-        }
-
     },
 }

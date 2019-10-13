@@ -49,6 +49,13 @@ SplendorousGames.menuState.prototype = {
 
 
     update: function() {
+        for(var i=0;i<nClouds;i++){
+            if(clouds[i].body.x>gameHeight){
+                clouds[i].body.velocity.x=-clouds[i].body.velocity.x;
+            }else if(clouds[i].body.x<-200){
+                clouds[i].body.velocity.x=-clouds[i].body.velocity.x;
+            }
+        }
         if(firstMenu){
             this.changeButtonsColors(buttonJugar);
         }else if(secondMenu){
@@ -82,10 +89,11 @@ SplendorousGames.menuState.prototype = {
         for(var i=0;i<nClouds;i++){
             cloud = game.add.sprite(game.rnd.integerInRange(0, 1100), game.rnd.integerInRange(0, 400), 'nube');
 
+            game.physics.enable(cloud, Phaser.Physics.ARCADE);
             //Animaciones de las nubes
             cloud.animations.add('moverse', [0, 1, 2], true);
             cloud.animations.play('moverse', game.rnd.integerInRange(2, 3), true);
-
+            cloud.body.velocity.x=game.rnd.integerInRange(-100,100);
             clouds.push(cloud);
         }
         var background = game.add.sprite(0, 0, "menuBackgroundBase");
@@ -212,9 +220,11 @@ SplendorousGames.menuState.prototype = {
         reglasNivel.sueloNivel="sueloNivel";
         if(singlePlayer){
             singlePlayer=false;
+            clouds=[];
             game.state.start("single");
         }else if(multiPlayer){
             multiPlayer=false;
+            clouds=[];
             game.state.start("multi");
         }
     },
@@ -250,9 +260,11 @@ SplendorousGames.menuState.prototype = {
         reglasNivel.sueloNivel="sueloNivel";
         if(singlePlayer){
             singlePlayer=false;
+            clouds=[];
             game.state.start("single");
         }else if(multiPlayer){
             multiPlayer=false;
+            clouds=[];
             game.state.start("multi");
         }
     },
@@ -288,9 +300,11 @@ SplendorousGames.menuState.prototype = {
         reglasNivel.sueloNivel="sueloNivel";
         if(singlePlayer){
             singlePlayer=false;
+            clouds=[];
             game.state.start("single");
         }else if(multiPlayer){
             multiPlayer=false;
+            clouds=[];
             game.state.start("multi");
         }
     },
