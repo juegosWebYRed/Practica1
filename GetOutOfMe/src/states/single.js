@@ -3,6 +3,8 @@ SplendorousGames.singleState = function(game) {
 
 var player;
 var levelGround;
+var heart;
+var nFrameHeart = 0;
 var levelGroundInvisible = true; //var booleana para cuando desparezca el suelo
 var jumpTimer = 0;
 var cursors;
@@ -16,7 +18,6 @@ var timerProyectilIzquierdo;
 var timerProyectilDerecho;
 var timerProyectilHorizontal;
 var gravedad=1000;
-var vidasRestantes;
 var acumulacionCandelabros=0;
 
 // Funciones necesarias para implementar el doble salto
@@ -78,7 +79,7 @@ SplendorousGames.singleState.prototype = {
         player.candelabrosEsquivadosTotal=0;
 
         //Vidas restantes
-        vidasRestantes = game.add.text(50, 30, "Vida: " + player.vida);
+        heart = game.add.sprite(20, 10, 'vidas');
         //Candelabros esquivados
         rachaCandelabros=game.add.text(1200, 30, "x"+player.candelabrosEsquivados);
 		//Animaciones del jugador
@@ -191,8 +192,7 @@ SplendorousGames.singleState.prototype = {
                 }
                 if(game.physics.arcade.overlap(player,phantoms[i])&&player.invulnerabilidad<=0){
                     player.vida-=1;
-                    vidasRestantes.destroy();
-                    vidasRestantes = game.add.text(50, 30, "Vida: "+player.vida);
+                    this.actualizarSpriteVida();
                     player.invulnerabilidad=100;
                     if(player.vida <= 0){
                         //Cambiar estado muerte
@@ -282,8 +282,7 @@ SplendorousGames.singleState.prototype = {
             }else if(proyectiles[i].sprite!=null && game.physics.arcade.overlap(player,proyectiles[i].sprite) && player.invulnerabilidad<=0){
                     player.vida -= proyectiles[i].damage;
                     player.invulnerabilidad=100;
-                    vidasRestantes.destroy();
-                    vidasRestantes = game.add.text(50, 30, "Vida: "+player.vida);
+                    this.actualizarSpriteVida();
                     //Se corta la racha de candelabros esquivados.
                     if(proyectiles[i].imagen==='candelabro'){
                         player.candelabrosEsquivados=0;
@@ -389,4 +388,9 @@ SplendorousGames.singleState.prototype = {
 
         return pos--;
     },
+
+    actualizarSpriteVida: function(){
+        nFrameHeart++;
+        heart.frame = nFrameHeart;
+    }
 }

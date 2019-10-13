@@ -17,7 +17,8 @@ var jumpTimer = 0;
 var cursors;
 var jumpCount;
 var jumpCount2;
-var vidasRestantesPlayer1;
+var heartPlayer1;
+var nFrameHeartPlayer1 = 0;
 var acumulacionCandelabrosPlayer1=0;
 
 
@@ -26,7 +27,8 @@ var player2;
 var jumpTimer2 = 0;
 var p2jumpCount;
 var p2jumpCount2;
-var vidasRestantesPlayer2;
+var heartPlayer2;
+var nFrameHeartPlayer2 = 0;
 var acumulacionCandelabrosPlayer2=0;
 
 // Funciones necesarias para implementar el doble salto
@@ -108,7 +110,7 @@ SplendorousGames.multiState.prototype = {
         player.candelabrosEsquivadosTotal=0;
 
         //Vidas restantes
-        vidasRestantesPlayer1 = game.add.text(50, 30, "Vida: " + player.vida);
+        heartPlayer1 = game.add.sprite(20, 10, 'vidas');
         //Candelabros esquivados
         rachaCandelabrosPlayer1=game.add.text(50, 60, "x"+player.candelabrosEsquivados);
 		//Animaciones del jugador
@@ -132,7 +134,7 @@ SplendorousGames.multiState.prototype = {
         player2.candelabrosEsquivadosTotal=0;
 
         //Vidas restantes
-        vidasRestantesPlayer2 = game.add.text(1150, 30, "Vida: " + player2.vida);
+        heartPlayer2 = game.add.sprite(1150, 10, 'vidas');
         //Candelabros esquivados
         rachaCandelabrosPlayer2=game.add.text(1150, 60, "x"+player2.candelabrosEsquivados);
 
@@ -259,8 +261,7 @@ SplendorousGames.multiState.prototype = {
                 }
                 if(game.physics.arcade.overlap(player,phantoms[i])&&player.invulnerabilidad<=0){
                     player.vida-=1;
-                    vidasRestantesPlayer1.destroy();
-                    vidasRestantesPlayer1 = game.add.text(50, 30, "Vida: "+player.vida);
+                    this.actualizarSpriteVida(1);
                     player.invulnerabilidad=100;
                     if(player.vida <= 0){
                         //Cambiar estado muerte
@@ -273,8 +274,7 @@ SplendorousGames.multiState.prototype = {
                 }
                 if(game.physics.arcade.overlap(player2,phantoms[i])&&player2.invulnerabilidad<=0){
                     player2.vida-=1;
-                    vidasRestantesPlayer2.destroy();
-                    vidasRestantesPlayer2 = game.add.text(50, 30, "Vida: "+player2.vida);
+                    this.actualizarSpriteVida(2);
                     player2.invulnerabilidad=100;
                     if(player2.vida <= 0){
                         //Cambiar estado muerte
@@ -397,8 +397,7 @@ SplendorousGames.multiState.prototype = {
             }else if(proyectiles[i].sprite!=null && game.physics.arcade.overlap(player,proyectiles[i].sprite) && player.invulnerabilidad<=0){
                     player.vida -= proyectiles[i].damage;
                     player.invulnerabilidad=100;
-                    vidasRestantesPlayer1.destroy();
-                    vidasRestantesPlayer1 = game.add.text(50, 30, "Vida: "+player.vida);
+                    this.actualizarSpriteVida(1);
                     //Se corta la racha de candelabros esquivados.
                     if(proyectiles[i].imagen==='candelabro'){
                         player.candelabrosEsquivados=0;
@@ -420,8 +419,7 @@ SplendorousGames.multiState.prototype = {
             }else if(proyectiles[i].sprite!=null && game.physics.arcade.overlap(player2,proyectiles[i].sprite) && player2.invulnerabilidad<=0){
                 player2.vida -= proyectiles[i].damage;
                 player2.invulnerabilidad=100;
-                vidasRestantesPlayer2.destroy();
-                vidasRestantesPlayer2 = game.add.text(1150, 30, "Vida: "+player2.vida);
+                this.actualizarSpriteVida(2);
                 //Se corta la racha de candelabros esquivados.
                 if(proyectiles[i].imagen==='candelabro'){
                     player2.candelabrosEsquivados=0;
@@ -552,4 +550,15 @@ SplendorousGames.multiState.prototype = {
 
         return pos--;
     },
+
+    actualizarSpriteVida: function(nPlayer){
+        if(nPlayer == 1){
+            nFrameHeartPlayer1++;
+            heartPlayer1.frame = nFrameHeartPlayer1;
+        }
+        if(nPlayer == 2){
+            nFrameHeartPlayer2++;
+            heartPlayer2.frame = nFrameHeartPlayer2;
+        }
+    }
 }
