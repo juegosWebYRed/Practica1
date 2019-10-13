@@ -7,6 +7,10 @@ var variacion=110;
 var singlePlayer;
 var multiPlayer;
 var reglasNivel=new Object();
+var clouds = [];
+var nClouds = 10;
+var totalGrass = [];
+var nGrass = 40;
 
 SplendorousGames.menuState.prototype = {
 
@@ -73,10 +77,33 @@ SplendorousGames.menuState.prototype = {
 
     createBackground: function()
     {
-        var background = game.add.sprite(0, 0, "menuBackground");
+        var sky = game.add.sprite(0, 0, 'menuBackgroundSky');
+        //Creación de nubes animadas en posiciones aleatorias
+        for(var i=0;i<nClouds;i++){
+            cloud = game.add.sprite(game.rnd.integerInRange(0, 1100), game.rnd.integerInRange(0, 400), 'nube');
+
+            //Animaciones de las nubes
+            cloud.animations.add('moverse', [0, 1, 2], true);
+            cloud.animations.play('moverse', game.rnd.integerInRange(2, 3), true);
+
+            clouds.push(cloud);
+        }
+        var background = game.add.sprite(0, 0, "menuBackgroundBase");
+        //Creación de las briznas de cesped
+        for(var i=0;i<nGrass;i++){
+            grass = game.add.sprite(game.rnd.integerInRange(0, 1250), game.rnd.integerInRange(500, 650), 'cesped');
+
+            //Animaciones de las nubes
+            grass.animations.add('moverse', [0, 1, 2, 3], true);
+            grass.animations.play('moverse', game.rnd.integerInRange(3, 4), true);
+
+            totalGrass.push(grass);
+        }
         
+
         //Placement
         background.scale.setTo(1.1, 1.1);
+        sky.scale.setTo(1.1, 1.1);
 
         return background;
     },

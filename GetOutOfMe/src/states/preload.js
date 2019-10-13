@@ -23,12 +23,16 @@ SplendorousGames.preloadState.prototype = {
         this.load.image('btn-level2', 'https://i.imgur.com/bgaTCKN.png');
         this.load.image('btn-level3', 'https://i.imgur.com/znFdAmY.png');
         this.load.image('btn-volverMenu', 'https://i.imgur.com/ZRNU4eZ.png');
-        this.load.image('menuBackground', 'https://i.imgur.com/eik8IYl.png');
+        this.load.image('menuBackground', 'https://i.imgur.com/eik8IYl.png');//antiguo fondo
+        this.load.image('menuBackgroundBase', 'https://i.imgur.com/7n0uYrR.png');
+        this.load.image('menuBackgroundSky', 'https://i.imgur.com/amZvEM2.png');
         this.load.image('finalBackground', 'https://i.imgur.com/WMaVuf9.png');
         this.load.image('title', 'https://i.imgur.com/Hz9T4fh.png');
         this.load.spritesheet('personaje', 'https://i.imgur.com/Oh6jnOC.png', 50, 100);
         this.load.spritesheet('fullscreen', 'https://i.imgur.com/upDM70Y.png', 71, 71);
         this.load.spritesheet('fantasma', 'https://i.imgur.com/LV8OUcv.png?1', 152, 100);
+        this.load.spritesheet('nube', 'https://i.imgur.com/6kRr9Mz.png?1', 158, 100);
+        this.load.spritesheet('cesped', 'https://i.imgur.com/szm1mEq.png?1', 50.5, 50);
 
     },
 
