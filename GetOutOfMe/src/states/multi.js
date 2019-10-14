@@ -171,7 +171,7 @@ SplendorousGames.multiState.prototype = {
         if(reglasNivel.plataforms===true){
             for(var i=0;i<reglasNivel.numPlataforms;i++){
 
-                plataform = platforms.create(reglasNivel.posPlataformsX[i], reglasNivel.posPlataformsY[i], reglasNivel.imagenPlataformas[i]);
+                plataform = platforms.create(reglasNivel.posPlataformsX[i], reglasNivel.posPlataformsY[i], 'plataforma');
 
                 plataform.body.collideWorldBounds = true;
                 plataform.body.velocity.x = reglasNivel.velPlataforms[i];

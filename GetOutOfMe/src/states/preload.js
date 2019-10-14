@@ -28,7 +28,8 @@ SplendorousGames.preloadState.prototype = {
         this.load.image('menuBackgroundSky', 'https://i.imgur.com/amZvEM2.png');
         this.load.image('finalBackground', 'https://i.imgur.com/WMaVuf9.png');
         this.load.image('title', 'https://i.imgur.com/Hz9T4fh.png');
-        this.load.spritesheet('personaje', 'https://i.imgur.com/Oh6jnOC.png', 50, 100);
+        this.load.image('plataforma', 'https://i.imgur.com/LeGiYvs.png?1');
+        this.load.spritesheet('personaje', 'https://i.imgur.com/KUj2rb6.png?1', 50, 97);
         this.load.spritesheet('fullscreen', 'https://i.imgur.com/upDM70Y.png', 71, 71);
         this.load.spritesheet('fantasma', 'https://i.imgur.com/LV8OUcv.png?1', 152, 100);
         this.load.spritesheet('nube', 'https://i.imgur.com/6kRr9Mz.png?1', 158, 100);
