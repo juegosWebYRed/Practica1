@@ -19,6 +19,9 @@ var timerProyectilDerecho;
 var timerProyectilHorizontal;
 var gravedad=1000;
 var acumulacionCandelabros=0;
+var tpuntuacion;
+var timerRacha;
+var racha;
 
 // Funciones necesarias para implementar el doble salto
 function jump1() {
@@ -151,6 +154,14 @@ SplendorousGames.singleState.prototype = {
         timerProyectilDerecho.loop(randTimerDerecho,this.generarProyectilDerecho,this)
         
         timerProyectilDerecho.start();
+
+		timerRacha = game.time.create(false);
+
+		timerRacha.loop(2000, this.desparecerTexto, this);
+
+		timerRacha.start();
+
+		timerRacha.pause();
         
         var randTimerHorizontal= game.rnd.integerInRange(1000,reglasNivel.frecuenciaDeAparicion);
 
@@ -175,6 +186,13 @@ SplendorousGames.singleState.prototype = {
         player.facing = 'left';
         player.slow = false;
         player.sprint = false;
+
+		//Texto puntuacion
+		tpuntuacion = game.add.text(0, 0, "Puntuacion: "+player.puntuacion);
+		tpuntuacion.setTextBounds(500, 0, 300, 100);
+
+		racha = game.add.text(200, 100, "RACHA DE 10 CANDELABROS ESQUIVADOS! + 500 PUNTOS");
+		racha.visible = false;
 
 },
 
@@ -260,6 +278,7 @@ SplendorousGames.singleState.prototype = {
                 if(proyectiles[i].imagen==='candelabro'){
                     player.candelabrosEsquivados++;
                     player.candelabrosEsquivadosTotal++;
+					acumulacionCandelabros++;
                     if(player.candelabrosEsquivados-acumulacionCandelabros===10){
                         acumulacionCandelabros=player.candelabrosEsquivados;
                         rachaCandelabros.destroy();
@@ -267,11 +286,12 @@ SplendorousGames.singleState.prototype = {
                     }
                 }
                 i=this.destruirProyectil(i);
-            }else if(proyectiles[i].sprite.body!=null && proyectiles[i].sprite.body.blocked.right && proyectiles[i].tipo=="Horizontal"){
+            }else if(proyectiles[i].sprite.body!=null && (proyectiles[i].sprite.body.blocked.right || proyectiles[i].sprite.body.blocked.left) && proyectiles[i].tipo=="Horizontal"){
                 //En el caso de que se esquive un candelabro se sumara a candelabros esquivados y la racha que se lleve de candelabros esquivados.
                 if(proyectiles[i].imagen==='candelabro'){
                     player.candelabrosEsquivados++;
                     player.candelabrosEsquivadosTotal++;
+					acumulacionCandelabros++;
                     if(player.candelabrosEsquivados-acumulacionCandelabros===10){
                         acumulacionCandelabros=player.candelabrosEsquivados;
                         rachaCandelabros.destroy();
@@ -301,9 +321,36 @@ SplendorousGames.singleState.prototype = {
             }
         }
         if(player.invulnerabilidad>0){
+			player.tint = 0xff0000;
             player.invulnerabilidad-=1;
-        }
+        }else{
+			player.tint = 0xFFFFFF;
+		}
+
+		if(acumulacionCandelabros == 10){
+			racha.text = "RACHA DE 10 CANDELABROS ESQUIVADOS! + 500 PUNTOS";
+			racha.visible = true;
+			player.puntuacion += 500;
+		}
+
+		if(acumulacionCandelabros == 20){
+			racha.text = "RACHA DE 10 CANDELABROS ESQUIVADOS! + 1000 PUNTOS";
+			racha.visible = true;
+			player.puntuacion += 1000;
+		}
+
+		if(acumulacionCandelabros == 50){
+			racha.text = "RACHA DE 10 CANDELABROS ESQUIVADOS! + 10000 PUNTOS";
+			racha.visible = true;
+			player.puntuacion += 10000;
+		}
+
+		if(acumulacionCandelabros == 15 || acumulacionCandelabros == 0 || acumulacionCandelabros == 25 || acumulacionCandelabros == 55){
+			racha.visible = false;
+		}
         player.puntuacion++;
+		tpuntuacion.text = "Puntuacion: " + player.puntuacion;
+		rachaCandelabros.text = "x" +acumulacionCandelabros;
     },
     
     generarProyectilCercaJugador:function(){
@@ -358,10 +405,16 @@ SplendorousGames.singleState.prototype = {
         var proyectil = new Object();
         proyectil.tipo="Horizontal";
         proyectil.imagen='silla';
-        proyectil.gravedadX=gravedad;
+
+		if(game.rnd.integerInRange(0,100)<50){
+		proyectil.gravedadX=gravedad;
+		proyectil.posX=0;
+		}else{
+		proyectil.gravedadX=-gravedad;
+		proyectil.posX=1200;
+		}       
         proyectil.gravedadY=0;
-        proyectil.damage = 1;
-        proyectil.posX=0;
+        proyectil.damage = 1;    
         proyectil.posY=600;
 
 		var randTimer = game.rnd.integerInRange(1000,reglasNivel.frecuenciaDeAparicion);
@@ -392,5 +445,5 @@ SplendorousGames.singleState.prototype = {
     actualizarSpriteVida: function(){
         nFrameHeart++;
         heart.frame = nFrameHeart;
-    }
+    },
 }
