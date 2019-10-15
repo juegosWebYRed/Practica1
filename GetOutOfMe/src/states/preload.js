@@ -35,6 +35,7 @@ SplendorousGames.preloadState.prototype = {
         this.load.spritesheet('nube', 'https://i.imgur.com/6kRr9Mz.png?1', 158, 100);
         this.load.spritesheet('cesped', 'https://i.imgur.com/szm1mEq.png?1', 50.5, 50);
         this.load.spritesheet('vidas', 'https://i.imgur.com/PJKxffd.png?1', 123, 100);
+		this.load.image('boton-invisible','https://i.imgur.com/sr8C5dm.png');
     },
 
     create: function () {

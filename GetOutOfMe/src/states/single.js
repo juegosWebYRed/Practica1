@@ -22,8 +22,15 @@ var acumulacionCandelabros=0;
 var tpuntuacion;
 var timerRacha;
 var racha;
+var boton_izq;
+var boton_dcha;
+var touchRight;
+var touchLeft;
+var saltar;
 
 // Funciones necesarias para implementar el doble salto
+
+
 function jump1() {
     player.body.velocity.y = -700;
     jumpCount++;
@@ -43,6 +50,16 @@ function jump() {
         jump2();
     }
 }
+
+	function onTap(pointer, doubleTap) {
+
+    if (doubleTap)
+		{
+			jump();
+			touchRight = false;
+			touchLeft = false;
+		}
+	}
 
 SplendorousGames.singleState.prototype = {
 
@@ -194,9 +211,44 @@ SplendorousGames.singleState.prototype = {
 		racha = game.add.text(200, 100, "RACHA DE 10 CANDELABROS ESQUIVADOS! + 500 PUNTOS");
 		racha.visible = false;
 
+		 /*game.vjoy = game.plugins.add(Phaser.Plugin.VJoy);
+
+		game.vjoy.inputEnable(0, 0, 400, 600);
+		game.vjoy.speed = {
+			x:500,
+			y:500
+            };
+			*/
+
+		touchRight = false;
+		touchLeft = false;
+		saltar = false;
+
+		boton_izq = game.add.sprite(0,0, 'boton-invisible');
+		boton_dcha = game.add.sprite(640,0, 'boton-invisible');
+
+		boton_izq.inputEnabled = true;
+		boton_dcha.inputEnabled = true;
+
+		boton_izq.events.onInputDown.add(this.tLeft, this);
+		boton_dcha.events.onInputDown.add(this.tRight, this);
+
+		boton_izq.events.onInputUp.add(this.releaseLeft, this);
+		boton_dcha.events.onInputUp.add(this.releaseRight, this);
+
+		game.input.justPressedRate = 50;
+		game.input.justReleasedRate = 50;
+
+
+		game.input.onTap.add(onTap, this);
+		game.input.onTap.add(onTap, this);
+
+		cursors.up.onDown.add(jump);
 },
 
     update: function () {
+
+	//var joy = game.vjoy.cursors;
         //Movimiento de los fantasmas
         if(reglasNivel.phantoms===true){
             for(var i = 0; i < phantoms.length; i++){
@@ -245,14 +297,16 @@ SplendorousGames.singleState.prototype = {
 
         player.body.velocity.x = 0;
 		
-        if (cursors.left.isDown) {           
+        if (cursors.left.isDown || touchLeft) {  
+				touchRight = false;
                 player.body.velocity.x = -400;
             if (player.facing != 'left') {
                 player.animations.play('left');
                 player.facing = 'left';
             }
         }
-        else if (cursors.right.isDown) {
+        else if (cursors.right.isDown || touchRight) {
+				touchLeft = false;
                 player.body.velocity.x = 400;
             if (player.facing != 'right') {
                 player.animations.play('right');
@@ -270,8 +324,7 @@ SplendorousGames.singleState.prototype = {
         if (player.body.onFloor() || player.body.velocity.y === 0) {
             jumpCount = 0;
         }
-        cursors.up.onDown.add(jump);
-
+ 
         for(var i =0;i<proyectiles.length;i++){
 		    if(proyectiles[i].sprite.body!=null && proyectiles[i].sprite.body.onFloor() && proyectiles[i].tipo=="Vertical"){
                 //En el caso de que se esquive un candelabro se sumara a candelabros esquivados y la racha que se lleve de candelabros esquivados.
@@ -446,4 +499,22 @@ SplendorousGames.singleState.prototype = {
         nFrameHeart++;
         heart.frame = nFrameHeart;
     },
+
+	tRight: function(){
+		touchRight = true;
+	},
+
+	tLeft: function(){
+		touchLeft = true;
+	},
+
+	releaseRight: function(){
+		touchRight = false;
+		saltar = false;
+	},
+
+	releaseLeft: function(){
+		touchLeft = false;
+		saltar = false;
+	}
 }
