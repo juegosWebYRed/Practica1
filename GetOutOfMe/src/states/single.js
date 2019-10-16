@@ -204,21 +204,17 @@ SplendorousGames.singleState.prototype = {
         player.slow = false;
         player.sprint = false;
 
-		//Texto puntuacion
-		tpuntuacion = game.add.text(0, 0, "Puntuacion: "+player.puntuacion);
+        if(idioma==="Ingles"){
+            //Texto puntuacion
+            tpuntuacion = game.add.text(0, 0, "Puntuation: "+player.puntuacion);
+		    racha = game.add.text(200, 100, "10 CANDLESTICKS STREACK! + 500 POINTS");
+        }else{
+            //Texto puntuacion
+            tpuntuacion = game.add.text(0, 0, "Puntuacion: "+player.puntuacion);
+		    racha = game.add.text(200, 100, "RACHA DE 10 CANDELABROS ESQUIVADOS! + 500 PUNTOS");
+        }
 		tpuntuacion.setTextBounds(500, 0, 300, 100);
-
-		racha = game.add.text(200, 100, "RACHA DE 10 CANDELABROS ESQUIVADOS! + 500 PUNTOS");
 		racha.visible = false;
-
-		 /*game.vjoy = game.plugins.add(Phaser.Plugin.VJoy);
-
-		game.vjoy.inputEnable(0, 0, 400, 600);
-		game.vjoy.speed = {
-			x:500,
-			y:500
-            };
-			*/
 
 		touchRight = false;
 		touchLeft = false;
@@ -381,19 +377,34 @@ SplendorousGames.singleState.prototype = {
 		}
 
 		if(acumulacionCandelabros == 10){
-			racha.text = "RACHA DE 10 CANDELABROS ESQUIVADOS! + 500 PUNTOS";
+            if(idioma==="Ingles"){
+                racha.text = "10 CANDLESTICKS STREACK! + 500 POINTS";
+            }else{
+                racha.text = "RACHA DE 10 CANDELABROS ESQUIVADOS! + 500 PUNTOS";
+
+            }
 			racha.visible = true;
 			player.puntuacion += 500;
 		}
 
 		if(acumulacionCandelabros == 20){
-			racha.text = "RACHA DE 10 CANDELABROS ESQUIVADOS! + 1000 PUNTOS";
+            if(idioma==="Ingles"){
+                racha.text = "10 CANDLESTICKS STREACK! + 1000 POINTS";
+            }else{
+                racha.text = "RACHA DE 10 CANDELABROS ESQUIVADOS! + 1000 PUNTOS";
+
+            }
 			racha.visible = true;
 			player.puntuacion += 1000;
 		}
 
 		if(acumulacionCandelabros == 50){
-			racha.text = "RACHA DE 10 CANDELABROS ESQUIVADOS! + 10000 PUNTOS";
+            if(idioma==="Ingles"){
+                racha.text = "10 CANDLESTICKS STREACK! + 10000 POINTS";
+            }else{
+                racha.text = "RACHA DE 10 CANDELABROS ESQUIVADOS! + 10000 PUNTOS";
+
+            }
 			racha.visible = true;
 			player.puntuacion += 10000;
 		}
@@ -402,7 +413,11 @@ SplendorousGames.singleState.prototype = {
 			racha.visible = false;
 		}
         player.puntuacion++;
-		tpuntuacion.text = "Puntuacion: " + player.puntuacion;
+        if(idioma==="Ingles"){
+            tpuntuacion.text = "Puntuation: " + player.puntuacion;
+        }else{
+            tpuntuacion.text = "Puntuacion: " + player.puntuacion;
+        }
 		rachaCandelabros.text = "x" +acumulacionCandelabros;
     },
     

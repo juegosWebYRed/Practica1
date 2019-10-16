@@ -11,6 +11,11 @@ var clouds = [];
 var nClouds = 10;
 var totalGrass = [];
 var nGrass = 40;
+var idioma="Espanol";
+var firstMenu=false;
+var secondMenu=false;
+var thirdMenu=false;
+var languageMenu=false;
 
 SplendorousGames.menuState.prototype = {
 
@@ -34,16 +39,27 @@ SplendorousGames.menuState.prototype = {
         //Tintado de botones
         title.tint=buttonsColorOut;
 
-        buttonJugar = game.add.button(generalX,initialY+variacion*2, 'btn-jugar', this.menuState, this, 0);
+        if(idioma==="Ingles"){
+            buttonJugar = game.add.button(generalX,initialY+variacion, 'btn-play', this.menuState, this, 0);
+            buttonIdioma = game.add.button(generalX,initialY+(2*variacion), 'btn-language', this.online, this, 0);
+        }else{
+            buttonJugar = game.add.button(generalX,initialY+variacion, 'btn-jugar', this.menuState, this, 0);
+            buttonIdioma = game.add.button(generalX,initialY+(2*variacion), 'btn-idioma', this.online, this, 0);
+        }
+        
         //Centrado de botones.
         buttonJugar.anchor.x=0.5;
         buttonJugar.anchor.y=0.5;
+        buttonIdioma.anchor.x=0.5;
+        buttonIdioma.anchor.y=0.5;
         //Escalado de botones.
         buttonJugar.scale.x = 0.6;
         buttonJugar.scale.y = 0.6;
+        buttonIdioma.scale.x = 0.6;
+        buttonIdioma.scale.y = 0.6;
         //Tintado de botones
         buttonJugar.tint=buttonsColorOut;
-
+        buttonIdioma.tint=buttonsColorOut;
 
     },
 
@@ -58,14 +74,20 @@ SplendorousGames.menuState.prototype = {
         }
         if(firstMenu){
             this.changeButtonsColors(buttonJugar);
+            this.changeButtonsColors(buttonIdioma);
         }else if(secondMenu){
             this.changeButtonsColors(buttonSingleplayer);
             this.changeButtonsColors(buttonMultiplayer);
-            this.changeButtonsColors(buttonOnline);
+            this.changeButtonsColors(buttonVolver);
         }else if(thirdMenu){
             this.changeButtonsColors(buttonLevel1);
             this.changeButtonsColors(buttonLevel2);
             this.changeButtonsColors(buttonLevel3);
+            this.changeButtonsColors(buttonVolver);
+        }else if(languageMenu){
+            this.changeButtonsColors(buttonEspanol);
+            this.changeButtonsColors(buttonIngles);
+            this.changeButtonsColors(buttonVolver);
         }
     },
 
@@ -129,37 +151,40 @@ SplendorousGames.menuState.prototype = {
     },
     menuState: function(){
         buttonJugar.destroy();
+        buttonIdioma.destroy();
         firstMenu=false;
         this.secondMenu();
     },
-    secondMenu:function(){
-        secondMenu=true;
-        buttonSingleplayer = game.add.button(generalX+25,initialY, 'btn-singleplayer', this.singlePlayer, this, 0);
-        buttonMultiplayer = game.add.button(generalX+35,initialY+variacion, 'btn-multiplayer', this.multiPlayer, this, 0);
-        buttonOnline = game.add.button(generalX,initialY+(2*variacion), 'btn-online', this.online, this, 0);
+    firstMenu:function(){
+        //Primer menu
+        firstMenu=true;
+
+        if(idioma==="Ingles"){
+            buttonJugar = game.add.button(generalX,initialY+variacion, 'btn-play', this.menuState, this, 0);
+            buttonIdioma = game.add.button(generalX,initialY+(2*variacion), 'btn-language', this.online, this, 0);
+        }else{
+            buttonJugar = game.add.button(generalX,initialY+variacion, 'btn-jugar', this.menuState, this, 0);
+            buttonIdioma = game.add.button(generalX,initialY+(2*variacion), 'btn-idioma', this.online, this, 0);
+        }
+
         //Centrado de botones.
-        buttonSingleplayer.anchor.x=0.5;
-        buttonSingleplayer.anchor.y=0.5;
-        buttonMultiplayer.anchor.x=0.5;
-        buttonMultiplayer.anchor.y=0.5;
-        buttonOnline.anchor.x=0.5;
-        buttonOnline.anchor.y=0.5;
+        buttonJugar.anchor.x=0.5;
+        buttonJugar.anchor.y=0.5;
+        buttonIdioma.anchor.x=0.5;
+        buttonIdioma.anchor.y=0.5;
         //Escalado de botones.
-        buttonSingleplayer.scale.x = 0.6;
-        buttonSingleplayer.scale.y = 0.6;
-        buttonMultiplayer.scale.x = 0.6;
-        buttonMultiplayer.scale.y = 0.6;
-        buttonOnline.scale.x = 0.6;
-        buttonOnline.scale.y = 0.6;
+        buttonJugar.scale.x = 0.6;
+        buttonJugar.scale.y = 0.6;
+        buttonIdioma.scale.x = 0.6;
+        buttonIdioma.scale.y = 0.6;
         //Tintado de botones
-        buttonSingleplayer.tint=buttonsColorOut;
-        buttonMultiplayer.tint=buttonsColorOut;
-        buttonOnline.tint=buttonsColorOut;
+        buttonJugar.tint=buttonsColorOut;
+        buttonIdioma.tint=buttonsColorOut;
     },
     singlePlayer: function(){
         buttonSingleplayer.destroy();
         buttonMultiplayer.destroy();
-        buttonOnline.destroy();
+        buttonIdioma.destroy();
         singlePlayer=true;
         secondMenu=false;
         this.thirdMenu();
@@ -167,16 +192,55 @@ SplendorousGames.menuState.prototype = {
     multiPlayer: function(){
         buttonSingleplayer.destroy();
         buttonMultiplayer.destroy();
-        buttonOnline.destroy();
+        buttonIdioma.destroy();
         multiPlayer=true;
         secondMenu=false;
         this.thirdMenu();
     },
+    secondMenu:function(){
+        secondMenu=true;
+        if(idioma==="Ingles"){
+            buttonSingleplayer = game.add.button(generalX+25,initialY, 'btn-singleplayer', this.singlePlayer, this, 0);
+            buttonMultiplayer = game.add.button(generalX+35,initialY+variacion, 'btn-multiplayer', this.multiPlayer, this, 0);
+            buttonVolver = game.add.button(100,initialY+variacion*2.5, 'btn-back', this.volverFirstMenu, this, 0);
+        }else{
+            buttonSingleplayer = game.add.button(generalX+25,initialY, 'btn-unjugador', this.singlePlayer, this, 0);
+            buttonMultiplayer = game.add.button(generalX+35,initialY+variacion, 'btn-multijugador', this.multiPlayer, this, 0);
+            buttonVolver = game.add.button(110,initialY+variacion*2.5, 'btn-volver', this.volverFirstMenu, this, 0);
+        }
+
+        //Centrado de botones.
+        buttonSingleplayer.anchor.x=0.5;
+        buttonSingleplayer.anchor.y=0.5;
+        buttonMultiplayer.anchor.x=0.5;
+        buttonMultiplayer.anchor.y=0.5;
+        buttonVolver.anchor.x=0.5;
+        buttonVolver.anchor.y=0.5;
+        //Escalado de botones.
+        buttonSingleplayer.scale.x = 0.6;
+        buttonSingleplayer.scale.y = 0.6;
+        buttonMultiplayer.scale.x = 0.6;
+        buttonMultiplayer.scale.y = 0.6;
+        buttonVolver.scale.x = 0.6;
+        buttonVolver.scale.y = 0.6;
+        //Tintado de botones
+        buttonSingleplayer.tint=buttonsColorOut;
+        buttonMultiplayer.tint=buttonsColorOut;
+        buttonVolver.tint=buttonsColorOut;
+    },
     thirdMenu:function(){
         thirdMenu=true;
-        buttonLevel1 = game.add.button(generalX,initialY, 'btn-level1', this.level1, this, 0);
-        buttonLevel2 = game.add.button(generalX,initialY+variacion, 'btn-level2', this.level2, this, 0);
-        buttonLevel3 = game.add.button(generalX,initialY+(2*variacion), 'btn-level3', this.level3, this, 0);
+        if(idioma==="Ingles"){
+            buttonLevel1 = game.add.button(generalX,initialY, 'btn-level1', this.level1, this, 0);
+            buttonLevel2 = game.add.button(generalX,initialY+variacion, 'btn-level2', this.level2, this, 0);
+            buttonLevel3 = game.add.button(generalX,initialY+(2*variacion), 'btn-level3', this.level3, this, 0);
+            buttonVolver = game.add.button(100,initialY+variacion*2.5, 'btn-back', this.volverSecondMenu, this, 0);
+        }else{
+            buttonLevel1 = game.add.button(generalX,initialY, 'btn-nivel1', this.level1, this, 0);
+            buttonLevel2 = game.add.button(generalX,initialY+variacion, 'btn-nivel2', this.level2, this, 0);
+            buttonLevel3 = game.add.button(generalX,initialY+(2*variacion), 'btn-nivel3', this.level3, this, 0);
+            buttonVolver = game.add.button(110,initialY+variacion*2.5, 'btn-volver', this.volverSecondMenu, this, 0);
+        }
         //Centrado de botones.
         buttonLevel1.anchor.x=0.5;
         buttonLevel1.anchor.y=0.5;
@@ -184,6 +248,8 @@ SplendorousGames.menuState.prototype = {
         buttonLevel2.anchor.y=0.5;
         buttonLevel3.anchor.x=0.5;
         buttonLevel3.anchor.y=0.5;
+        buttonVolver.anchor.x=0.5;
+        buttonVolver.anchor.y=0.5;
         //Escalado de botones.
         buttonLevel1.scale.x = 0.6;
         buttonLevel1.scale.y = 0.6;
@@ -191,10 +257,13 @@ SplendorousGames.menuState.prototype = {
         buttonLevel2.scale.y = 0.6;
         buttonLevel3.scale.x = 0.6;
         buttonLevel3.scale.y = 0.6;
+        buttonVolver.scale.x = 0.6;
+        buttonVolver.scale.y = 0.6;
         //Tintado de botones
         buttonLevel1.tint=buttonsColorOut;
         buttonLevel2.tint=buttonsColorOut;
         buttonLevel3.tint=buttonsColorOut;
+        buttonVolver.tint=buttonsColorOut;
     },
     level1:function(){
         //Definimos si queremos fanatasmas.
@@ -309,6 +378,78 @@ SplendorousGames.menuState.prototype = {
         }
     },
     online: function(){
-        game.state.start("online");
+        buttonJugar.destroy();
+        buttonIdioma.destroy();
+        firstMenu=false;
+
+        this.languageMenu();
+    },
+    languageMenu:function(){
+        languageMenu=true;
+        if(idioma==="Ingles"){
+            buttonEspanol = game.add.button(generalX,initialY, 'btn-spanish', this.idiomaEspanol, this, 0);
+            buttonIngles = game.add.button(generalX,initialY+variacion, 'btn-english', this.idiomaIngles, this, 0);
+            buttonVolver = game.add.button(100,initialY+variacion*2.5, 'btn-back', this.volverFirstMenu, this, 0);
+        }else{
+            buttonEspanol = game.add.button(generalX,initialY, 'btn-espanol', this.idiomaEspanol, this, 0);
+            buttonIngles = game.add.button(generalX,initialY+variacion, 'btn-ingles', this.idiomaIngles, this, 0);
+            buttonVolver = game.add.button(110,initialY+variacion*2.5, 'btn-volver', this.volverFirstMenu, this, 0);
+        }
+        //Centrado de botones.
+        buttonEspanol.anchor.x=0.5;
+        buttonEspanol.anchor.y=0.5;
+        buttonIngles.anchor.x=0.5;
+        buttonIngles.anchor.y=0.5;
+        buttonVolver.anchor.x=0.5;
+        buttonVolver.anchor.y=0.5;
+        //Escalado de botones.
+        buttonEspanol.scale.x = 0.6;
+        buttonEspanol.scale.y = 0.6;
+        buttonIngles.scale.x = 0.6;
+        buttonIngles.scale.y = 0.6;
+        buttonVolver.scale.x = 0.6;
+        buttonVolver.scale.y = 0.6;
+        //Tintado de botones
+        buttonEspanol.tint=buttonsColorOut;
+        buttonIngles.tint=buttonsColorOut;
+        buttonVolver.tint=buttonsColorOut;
+    },
+    idiomaEspanol:function(){
+        buttonEspanol.destroy();
+        buttonIngles.destroy();
+        buttonVolver.destroy();
+        idioma="Espanol";
+        languageMenu=false;
+        this.languageMenu();
+    },
+    idiomaIngles:function(){
+        buttonEspanol.destroy();
+        buttonIngles.destroy();
+        buttonVolver.destroy();
+        idioma="Ingles";
+        languageMenu=false;
+        this.languageMenu();
+    },
+    volverFirstMenu:function(){
+        if(languageMenu===true){
+            buttonEspanol.destroy();
+            buttonIngles.destroy();
+            buttonVolver.destroy();
+            languageMenu=false;
+        }else if(secondMenu===true){
+            buttonSingleplayer.destroy();
+            buttonMultiplayer.destroy();
+            buttonVolver.destroy();
+            secondMenu=false;
+        }
+        this.firstMenu();
+    },
+    volverSecondMenu:function(){
+        buttonLevel1.destroy();
+        buttonLevel2.destroy();
+        buttonLevel3.destroy();
+        buttonVolver.destroy();
+        thirdMenu=false;
+        this.secondMenu();
     }
 }
