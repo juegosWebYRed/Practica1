@@ -52,6 +52,24 @@ SplendorousGames.preloadState.prototype = {
         this.load.spritesheet('cesped', 'https://i.imgur.com/szm1mEq.png?1', 50.5, 50);
         this.load.spritesheet('vidas', 'https://i.imgur.com/PJKxffd.png?1', 123, 100);
         this.load.image('boton-invisible','https://i.imgur.com/sr8C5dm.png');
+        this.load.image('puntuacion','https://i.imgur.com/Bd0bvbl.png');
+        this.load.image('puntuacionJugador1','https://i.imgur.com/8ESL7Me.png');
+        this.load.image('puntuacionJugador2','https://i.imgur.com/ipZRAul.png');
+        this.load.image('puntuation','https://i.imgur.com/wpsQagS.png');
+        this.load.image('puntuationPlayer1','https://i.imgur.com/tupvigN.png');
+        this.load.image('puntuationPlayer2','https://i.imgur.com/1yhQV1s.png');
+        this.load.image('dodgedChandeliersStreak','https://i.imgur.com/dIq5bgL.png');
+        this.load.image('rachaCandelabrosEsquivados','https://i.imgur.com/qXM5tT8.png');
+        this.load.image('winnerPlayer1','https://i.imgur.com/03yvYwF.png');
+        this.load.image('winnerPlayer2','https://i.imgur.com/H1tE1SI.png');
+        this.load.image('ganadorJugador1','https://i.imgur.com/Xpfr1Js.png');
+        this.load.image('ganadorJugador2','https://i.imgur.com/MAz9lx9.png');
+        this.load.image('candelabrosEsquivados','https://i.imgur.com/gIoSiwL.png');
+        this.load.image('candelabrosEsquivadosJugador1','https://i.imgur.com/ilcb9N8.png');
+        this.load.image('candelabrosEsquivadosJugador2','https://i.imgur.com/EcFi5iD.png');
+        this.load.image('dodgedChandeliers','https://i.imgur.com/ik2ZVb2.png');
+        this.load.image('dodgedChandeliersPlayer1','https://i.imgur.com/JnRQBwI.png');
+        this.load.image('dodgedChandeliersPlayer2','https://i.imgur.com/jIjzBYU.png');
     },
 
     create: function () {

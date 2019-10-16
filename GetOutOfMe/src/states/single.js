@@ -27,6 +27,7 @@ var boton_dcha;
 var touchRight;
 var touchLeft;
 var saltar;
+var velSilla=400;
 
 // Funciones necesarias para implementar el doble salto
 
@@ -135,7 +136,7 @@ SplendorousGames.singleState.prototype = {
         if(reglasNivel.plataforms===true){
             for(var i=0;i<reglasNivel.numPlataforms;i++){
 
-                plataform = platforms.create(reglasNivel.posPlataformsX[i], reglasNivel.posPlataformsY[i], 'plataforma');
+                plataform = platforms.create(reglasNivel.posPlataformsX[i], reglasNivel.posPlataformsY[i], reglasNivel.imagenPlataformas[i]);
 
                 plataform.body.collideWorldBounds = true;
                 plataform.body.velocity.x = reglasNivel.velPlataforms[i];
@@ -206,15 +207,30 @@ SplendorousGames.singleState.prototype = {
 
         if(idioma==="Ingles"){
             //Texto puntuacion
-            tpuntuacion = game.add.text(0, 0, "Puntuation: "+player.puntuacion);
-		    racha = game.add.text(200, 100, "10 CANDLESTICKS STREACK! + 500 POINTS");
+            puntuacionImagen=game.add.sprite(generalX, 35, "puntuation");
+            tpuntuacion = game.add.text(235, 25,player.puntuacion);
+            racha = game.add.sprite(generalX, 100, "dodgedChandeliersStreak");
         }else{
             //Texto puntuacion
-            tpuntuacion = game.add.text(0, 0, "Puntuacion: "+player.puntuacion);
-		    racha = game.add.text(200, 100, "RACHA DE 10 CANDELABROS ESQUIVADOS! + 500 PUNTOS");
+            puntuacionImagen=game.add.sprite(generalX, 35, "puntuacion");
+            tpuntuacion = game.add.text(235, 25, player.puntuacion);
+            racha = game.add.sprite(generalX, 100, "rachaCandelabrosEsquivados");
         }
+
+        puntuacionImagen.anchor.x=0.5;
+        puntuacionImagen.anchor.y=0.5;
+        racha.anchor.x=0.5;
+        racha.anchor.y=0.5;
+        //Escalado de botones.
+        puntuacionImagen.scale.x=0.4;
+        puntuacionImagen.scale.y=0.4;
+        racha.scale.x = 0.3;
+        racha.scale.y = 0.3;
+
+        puntuacionImagen.tint=buttonsColorOut;
+        racha.tint=buttonsColorOut;
+
 		tpuntuacion.setTextBounds(500, 0, 300, 100);
-		racha.visible = false;
 
 		touchRight = false;
 		touchLeft = false;
@@ -295,7 +311,7 @@ SplendorousGames.singleState.prototype = {
 		
         if (cursors.left.isDown || touchLeft) {  
 				touchRight = false;
-                player.body.velocity.x = -400;
+                player.body.velocity.x = -500;
             if (player.facing != 'left') {
                 player.animations.play('left');
                 player.facing = 'left';
@@ -303,7 +319,7 @@ SplendorousGames.singleState.prototype = {
         }
         else if (cursors.right.isDown || touchRight) {
 				touchLeft = false;
-                player.body.velocity.x = 400;
+                player.body.velocity.x = 500;
             if (player.facing != 'right') {
                 player.animations.play('right');
                 player.facing = 'right';
@@ -358,6 +374,7 @@ SplendorousGames.singleState.prototype = {
                         acumulacionCandelabros=0;
                         rachaCandelabros.destroy();
                         rachaCandelabros=game.add.text(1200, 30, "x"+acumulacionCandelabros);
+                        racha.destroy();
                     }
                     i=this.destruirProyectil(i);
                     if(player.vida <= 0){
@@ -377,46 +394,61 @@ SplendorousGames.singleState.prototype = {
 		}
 
 		if(acumulacionCandelabros == 10){
+            racha.destroy();
             if(idioma==="Ingles"){
-                racha.text = "10 CANDLESTICKS STREACK! + 500 POINTS";
+                racha = game.add.sprite(generalX, 100, "dodgedChandeliersStreak");
             }else{
-                racha.text = "RACHA DE 10 CANDELABROS ESQUIVADOS! + 500 PUNTOS";
-
+                racha = game.add.sprite(generalX, 100, "rachaCandelabrosEsquivados");
             }
-			racha.visible = true;
+            racha.anchor.x=0.5;
+            racha.anchor.y=0.5;
+            //Escalado de botones.
+            racha.scale.x = 0.3;
+            racha.scale.y = 0.3;
+            racha.tint=buttonsColorOut;
 			player.puntuacion += 500;
 		}
 
 		if(acumulacionCandelabros == 20){
+            racha.destroy();
             if(idioma==="Ingles"){
-                racha.text = "10 CANDLESTICKS STREACK! + 1000 POINTS";
+                racha = game.add.sprite(generalX, 100, "dodgedChandeliersStreak");
             }else{
-                racha.text = "RACHA DE 10 CANDELABROS ESQUIVADOS! + 1000 PUNTOS";
-
+                racha = game.add.sprite(generalX, 100, "rachaCandelabrosEsquivados");
             }
-			racha.visible = true;
+            racha.anchor.x=0.5;
+            racha.anchor.y=0.5;
+            //Escalado de botones.
+            racha.scale.x = 0.3;
+            racha.scale.y = 0.3;
+            racha.tint=buttonsColorOut;
 			player.puntuacion += 1000;
 		}
 
 		if(acumulacionCandelabros == 50){
+            racha.destroy();
             if(idioma==="Ingles"){
-                racha.text = "10 CANDLESTICKS STREACK! + 10000 POINTS";
+                racha = game.add.sprite(generalX, 100, "dodgedChandeliersStreak");
             }else{
-                racha.text = "RACHA DE 10 CANDELABROS ESQUIVADOS! + 10000 PUNTOS";
-
+                racha = game.add.sprite(generalX, 100, "rachaCandelabrosEsquivados");
             }
-			racha.visible = true;
+            racha.anchor.x=0.5;
+            racha.anchor.y=0.5;
+            //Escalado de botones.
+            racha.scale.x = 0.3;
+            racha.scale.y = 0.3;
+            racha.tint=buttonsColorOut;
 			player.puntuacion += 10000;
 		}
 
 		if(acumulacionCandelabros == 15 || acumulacionCandelabros == 0 || acumulacionCandelabros == 25 || acumulacionCandelabros == 55){
-			racha.visible = false;
+			racha.destroy();
 		}
         player.puntuacion++;
         if(idioma==="Ingles"){
-            tpuntuacion.text = "Puntuation: " + player.puntuacion;
+            tpuntuacion.text = player.puntuacion;
         }else{
-            tpuntuacion.text = "Puntuacion: " + player.puntuacion;
+            tpuntuacion.text = player.puntuacion;
         }
 		rachaCandelabros.text = "x" +acumulacionCandelabros;
     },
@@ -475,10 +507,10 @@ SplendorousGames.singleState.prototype = {
         proyectil.imagen='silla';
 
 		if(game.rnd.integerInRange(0,100)<50){
-		proyectil.gravedadX=gravedad;
+		proyectil.gravedadX=velSilla;
 		proyectil.posX=0;
 		}else{
-		proyectil.gravedadX=-gravedad;
+		proyectil.gravedadX=-velSilla;
 		proyectil.posX=1200;
 		}       
         proyectil.gravedadY=0;

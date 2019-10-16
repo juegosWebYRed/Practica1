@@ -161,10 +161,10 @@ SplendorousGames.menuState.prototype = {
 
         if(idioma==="Ingles"){
             buttonJugar = game.add.button(generalX,initialY+variacion, 'btn-play', this.menuState, this, 0);
-            buttonIdioma = game.add.button(generalX,initialY+(2*variacion), 'btn-language', this.online, this, 0);
+            buttonIdioma = game.add.button(generalX,initialY+(2*variacion), 'btn-language', this.languageState, this, 0);
         }else{
             buttonJugar = game.add.button(generalX,initialY+variacion, 'btn-jugar', this.menuState, this, 0);
-            buttonIdioma = game.add.button(generalX,initialY+(2*variacion), 'btn-idioma', this.online, this, 0);
+            buttonIdioma = game.add.button(generalX,initialY+(2*variacion), 'btn-idioma', this.languageState, this, 0);
         }
 
         //Centrado de botones.
@@ -184,6 +184,7 @@ SplendorousGames.menuState.prototype = {
     singlePlayer: function(){
         buttonSingleplayer.destroy();
         buttonMultiplayer.destroy();
+        buttonVolver.destroy();
         buttonIdioma.destroy();
         singlePlayer=true;
         secondMenu=false;
@@ -192,6 +193,7 @@ SplendorousGames.menuState.prototype = {
     multiPlayer: function(){
         buttonSingleplayer.destroy();
         buttonMultiplayer.destroy();
+        buttonVolver.destroy();
         buttonIdioma.destroy();
         multiPlayer=true;
         secondMenu=false;
@@ -279,7 +281,7 @@ SplendorousGames.menuState.prototype = {
         //Definimos la velocidad de las plataformas.
         reglasNivel.velPlataforms=[0,0];
         //Definimos los sprites de las plataformas.
-        reglasNivel.imagenPlataformas=['ground','ground'];
+        reglasNivel.imagenPlataformas=['plataforma','plataforma'];
         //Definimos la frecuencia de aparicion de los proyectiles.
         reglasNivel.frecuenciaDeAparicion=8000;
         reglasNivel.pared="pared";
@@ -311,7 +313,7 @@ SplendorousGames.menuState.prototype = {
         //Definimos la velocidad de las plataformas.
         reglasNivel.velPlataforms=[0,200];
         //Definimos los sprites de las plataformas.
-        reglasNivel.imagenPlataformas=['ground','ground'];
+        reglasNivel.imagenPlataformas=['plataforma','plataforma'];
         //Definimos el numero de fantasmas.
         reglasNivel.numPhantoms=2;
         //Definimos la x de cada una de los fantasmas.
@@ -351,7 +353,7 @@ SplendorousGames.menuState.prototype = {
         //Definimos la velocidad de las plataformas.
         reglasNivel.velPlataforms=[0,200];
         //Definimos los sprites de las plataformas.
-        reglasNivel.imagenPlataformas=['ground','ground'];
+        reglasNivel.imagenPlataformas=['plataforma','plataforma'];
         //Definimos el numero de fantasmas.
         reglasNivel.numPhantoms=2;
         //Definimos la x de cada una de los fantasmas.
@@ -377,7 +379,7 @@ SplendorousGames.menuState.prototype = {
             game.state.start("multi");
         }
     },
-    online: function(){
+    languageState: function(){
         buttonJugar.destroy();
         buttonIdioma.destroy();
         firstMenu=false;
