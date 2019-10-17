@@ -71,8 +71,13 @@ SplendorousGames.singleState.prototype = {
 
     create: function () {
         game.physics.startSystem(Phaser.Physics.ARCADE);
+        
+        //Inicializar memoria (localStorage)
+        this.inicializarMemoria();
+        
         //Reinicio vidas
         nFrameHeart = 0;
+        
         //ESCENARIO
         //---Pared---
         var wall = game.add.sprite(0, 0, reglasNivel.pared);
@@ -280,6 +285,8 @@ SplendorousGames.singleState.prototype = {
                     this.actualizarSpriteVida();
                     player.invulnerabilidad=100;
                     if(player.vida <= 0){
+                        //Guardar puntuación
+                        localStorage.setItem("puntuacionSP" + localStorage.getItem("playerID").toString(), JSON.stringify(player.puntuacion + 1));
                         //Cambiar estado muerte
                         proyectiles = [];
                         phantoms = [];
@@ -381,6 +388,8 @@ SplendorousGames.singleState.prototype = {
                     }
                     i=this.destruirProyectil(i);
                     if(player.vida <= 0){
+                        //Guardar puntuación
+                        localStorage.setItem("puntuacionSP" + localStorage.getItem("playerID").toString(), JSON.stringify(player.puntuacion + 1));
                         //Cambiar estado muerte
                         proyectiles = [];
                         phantoms = [];
@@ -570,5 +579,14 @@ SplendorousGames.singleState.prototype = {
 	releaseLeft: function(){
 		touchLeft = false;
 		saltar = false;
-	}
+    },
+    
+    inicializarMemoria: function(){
+        if(localStorage.getItem("playerID") == null){
+            localStorage.setItem("playerID", JSON.stringify(0));
+        }
+        else{
+            localStorage.setItem("playerID", JSON.stringify(parseInt(localStorage.getItem("playerID")) + 1));
+        }
+    }
 }

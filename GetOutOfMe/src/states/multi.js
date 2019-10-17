@@ -89,6 +89,9 @@ SplendorousGames.multiState.prototype = {
 
         game.physics.startSystem(Phaser.Physics.ARCADE);
 
+        //Inicializar memoria (localStorage)
+        this.inicializarMemoria();        
+
         //ESCENARIO
         //---Pared---
         var wall = game.add.sprite(0, 0, reglasNivel.pared);
@@ -272,6 +275,8 @@ SplendorousGames.multiState.prototype = {
                     this.actualizarSpriteVida(1);
                     player.invulnerabilidad=100;
                     if(player.vida <= 0){
+                        //Guardar puntuación
+                        localStorage.setItem("puntuacionMP" + localStorage.getItem("playerID_MP").toString(), JSON.stringify(player.puntuacion + 1));
                         //Cambiar estado muerte
                         proyectiles = [];
                         phantoms = [];
@@ -285,6 +290,8 @@ SplendorousGames.multiState.prototype = {
                     this.actualizarSpriteVida(2);
                     player2.invulnerabilidad=100;
                     if(player2.vida <= 0){
+                        //Guardar puntuación
+                        localStorage.setItem("puntuacionMP" + localStorage.getItem("playerID_MP").toString(), JSON.stringify(player.puntuacion + 1));
                         //Cambiar estado muerte
                         proyectiles = [];
                         phantoms = [];
@@ -417,6 +424,8 @@ SplendorousGames.multiState.prototype = {
                     player2.candelabrosEsquivadosTotal++;
                     i=this.destruirProyectil(i);
                     if(player.vida <= 0){
+                        //Guardar puntuación
+                        localStorage.setItem("puntuacionMP" + localStorage.getItem("playerID_MP").toString(), JSON.stringify(player.puntuacion + 1));
                         //Cambiar estado muerte
                         proyectiles = [];
                         phantoms = [];
@@ -439,6 +448,8 @@ SplendorousGames.multiState.prototype = {
                 player.candelabrosEsquivadosTotal++;
                 i=this.destruirProyectil(i);
                 if(player2.vida <= 0){
+                    //Guardar puntuación
+                    localStorage.setItem("puntuacionMP" + localStorage.getItem("playerID_MP").toString(), JSON.stringify(player.puntuacion + 1));
                     //Cambiar estado muerte
                     proyectiles = [];
                     phantoms = [];
@@ -577,6 +588,15 @@ SplendorousGames.multiState.prototype = {
         if(nPlayer == 2){
             nFrameHeartPlayer2++;
             heartPlayer2.frame = nFrameHeartPlayer2;
+        }
+    },
+
+    inicializarMemoria: function(){
+        if(localStorage.getItem("playerID_MP") == null){
+            localStorage.setItem("playerID_MP", JSON.stringify(0));
+        }
+        else{
+            localStorage.setItem("playerID_MP", JSON.stringify(parseInt(localStorage.getItem("playerID_MP")) + 1));
         }
     }
 }

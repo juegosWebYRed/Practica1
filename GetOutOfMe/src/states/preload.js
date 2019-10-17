@@ -21,6 +21,7 @@ SplendorousGames.preloadState.prototype = {
         this.load.image('btn-singleplayer', 'https://i.imgur.com/xBuViuJ.png');
         this.load.image('btn-unjugador', 'https://i.imgur.com/eHG1tQa.png');
         this.load.image('btn-multiplayer', 'https://i.imgur.com/luNHStE.png');
+        this.load.image('btn-online', 'https://i.imgur.com/YGzc3W5.png');
         this.load.image('btn-multijugador', 'https://i.imgur.com/iKcvyy2.png');
         this.load.image('btn-idioma', 'https://i.imgur.com/vvDBuwf.png');
         this.load.image('btn-language', 'https://i.imgur.com/XEeDFJR.png');

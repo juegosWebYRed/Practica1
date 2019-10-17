@@ -1,77 +1,81 @@
 SplendorousGames.titleState = function(game) {
 }
-
-
-//Buttons
-var buttonsColorOut=0xf0e800;
-var buttonsColorOver=0xb01000;
-
+var title;
+var variablesExtra = 2; //variables extras en memoria (para restar al recorrer los datos en memoria) (var extras -> modo, playerID)
+var nPuntuacionesSP;
 SplendorousGames.titleState.prototype = {
 
     preload: function () {
-
+        
     },
-
 
     create: function() {
-        var generalX=640;
-        var initialY=500;
-        //Use for sorting
-        this.background = this.createBackground();
+        //localStorage.clear(); PARA BORRAR TODAS LAS PUNTUACIONES
+        nPuntuacionesSP = this.numeroPuntuacionesSimple();
+        var textStyle = {font: "40px Arial", fill: "#ffffff", boundsAlignH: "center"};
+        var textStyle2 = {font: "20px Arial", fill: "#ffffff"};
+        var wall = game.add.sprite(0, 0, "pared");
+        wall.scale.setTo(0.5, 0.3);
 
-        buttonJugar = game.add.button(generalX,initialY, 'btn-jugar', this.menuState, this, 0);
-        //Centrado de botones.
-        buttonJugar.anchor.x=0.5;
-        buttonJugar.anchor.y=0.5;
-        //Escalado de botones.
-        buttonJugar.scale.x = 0.2;
-        buttonJugar.scale.y = 0.2;
-        //Tintado de botones
-        buttonJugar.tint=buttonsColorOut;
+        if(localStorage.length == 0){
+            game.add.text(430, 300, "SIN PUNTUACIONES", textStyle);
+        }
+        else{
+            game.add.text(335, 60, "MEJORES PUNTUACIONES (1P)", textStyle);
+            this.comprobarTablaScores();
+            for(var i = 0; i < nPuntuacionesSP; i++){
+                if(localStorage.getItem("puntuacionSP" + i.toString()) != null){
+                    game.add.text(535, 150 + i * 50, "Puntuacion nº " + (i+1) + ": " + localStorage.getItem("puntuacionSP" + i.toString()), textStyle2);
+                } 
+            }
+        }
     },
 
-    createBackground: function()
-    {
-        var background = game.add.sprite(0, 0, "menuBackground");
-        
-        //Placement
-        background.scale.setTo(0.4, 0.4);
-
-        return background;
-    },
-
-    menuState: function(){
-        game.state.start("menu");
-    },
 
     update: function() {
-        this.changeButtonsColors(buttonJugar);
+        
     },
 
-    changeButtonsColors: function(button){
-        button.onInputOver.add(this.ColorOver,this);
-        button.onInputOut.add(this.ColorOut,this);
-    },
-
-    ColorOver: function (button){
-        button.tint=buttonsColorOver;
-    },
-
-    ColorOut:function (button){
-        button.tint=buttonsColorOut;
-    },
-
-    fullscreen: function() {
-        if (game.scale.isFullScreen)
-        {
-            game.scale.stopFullScreen();
+    comprobarTablaScores: function(){
+        if(nPuntuacionesSP <= 10){
+            this.ordenarTabla();
         }
-        else
-        {
-            game.scale.startFullScreen(false);
+        else{
+            if(this.comprobarInsercion()){
+                this.ordenarTabla();
+            }
         }
-
     },
-
-
+    ordenarTabla: function(){
+        var aux;
+        for(var j = 0; j < localStorage.length - variablesExtra; j++){
+            for(var i = 0; i < localStorage.length - variablesExtra; i++){
+                aux = parseInt(localStorage.getItem("puntuacionSP" + i.toString())); //puntuacion jugador anterior
+                if(aux < parseInt(localStorage.getItem("puntuacionSP" + (i+1).toString()))){
+                    localStorage.setItem("puntuacionSP" + i.toString(), localStorage.getItem("puntuacionSP" + (i+1).toString()));
+                    localStorage.setItem("puntuacionSP" + (i+1).toString(), JSON.stringify(aux));
+                }
+            }
+        }
+    },
+    comprobarInsercion: function(){
+        //Si el elemento que queremos comprobar es mayor que el ultimo elemento de la tabla de puntuaciones se inserta el elemento nuevo y se borra el ultimo
+        if(parseInt(localStorage.getItem("puntuacionSP" + localStorage.getItem("playerID"))) > parseInt(localStorage.getItem("puntuacionSP" + JSON.stringify(9)))){
+            localStorage.setItem("puntuacionSP" + JSON.stringify(9), localStorage.getItem("puntuacionSP" + localStorage.getItem("playerID")));//Nuevo elemento añadido
+            localStorage.removeItem("puntuacionSP" + localStorage.getItem("playerID"));//Eliminacion del elemento sobrante
+            return true;
+        }else{
+            localStorage.removeItem("puntuacionSP" + localStorage.getItem("playerID"));//es menor que el último, así que se borra
+            return false;
+        }
+    },
+    numeroPuntuacionesSimple: function(){
+        var cont = 0;
+        for(var i = 0; i < localStorage.length; i++){
+            if(localStorage.getItem("puntuacionSP" + i.toString()) != null){
+                cont++;
+            } 
+        }
+        return cont;
+    },
 }
