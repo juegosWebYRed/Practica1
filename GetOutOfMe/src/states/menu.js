@@ -351,9 +351,9 @@ SplendorousGames.menuState.prototype = {
         //Definimos la y de cada una de las plataformas.
         reglasNivel.posPlataformsY=[550,150, 350];
         //Definimos la velocidad de las plataformas.
-        reglasNivel.velPlataforms=[200,200,100];
+        reglasNivel.velPlataforms=[200,200,50];
         //Definimos los sprites de las plataformas.
-        reglasNivel.imagenPlataformas=['plataforma','plataforma','miniPlataforma'];
+        reglasNivel.imagenPlataformas=['plataforma','miniPlataforma','miniPlataforma'];
         //Definimos el numero de fantasmas.
         reglasNivel.numPhantoms=2;
         //Definimos la x de cada una de los fantasmas.
