@@ -4,7 +4,7 @@ SplendorousGames.singleState = function(game) {
 var player;
 var levelGround;
 var heart;
-var nFrameHeart = 0;
+var nFrameHeart;
 var levelGroundInvisible = true; //var booleana para cuando desparezca el suelo
 var jumpTimer = 0;
 var cursors;
@@ -71,7 +71,8 @@ SplendorousGames.singleState.prototype = {
 
     create: function () {
         game.physics.startSystem(Phaser.Physics.ARCADE);
-
+        //Reinicio vidas
+        nFrameHeart = 0;
         //ESCENARIO
         //---Pared---
         var wall = game.add.sprite(0, 0, reglasNivel.pared);

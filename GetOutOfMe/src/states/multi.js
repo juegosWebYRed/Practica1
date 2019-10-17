@@ -18,7 +18,7 @@ var cursors;
 var jumpCount;
 var jumpCount2;
 var heartPlayer1;
-var nFrameHeartPlayer1 = 0;
+var nFrameHeartPlayer1;
 var acumulacionCandelabrosPlayer1=0;
 
 
@@ -28,7 +28,7 @@ var jumpTimer2 = 0;
 var p2jumpCount;
 var p2jumpCount2;
 var heartPlayer2;
-var nFrameHeartPlayer2 = 0;
+var nFrameHeartPlayer2;
 var acumulacionCandelabrosPlayer2=0;
 var velSilla = 550;
 
@@ -81,6 +81,11 @@ SplendorousGames.multiState.prototype = {
     },
 
     create: function () {
+
+        //Reinicio vidas
+       
+        nFrameHeartPlayer1 = 0;
+        nFrameHeartPlayer2 = 0;
 
         game.physics.startSystem(Phaser.Physics.ARCADE);
 
