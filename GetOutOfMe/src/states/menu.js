@@ -390,13 +390,14 @@ SplendorousGames.menuState.prototype = {
         reglasNivel.velPhantoms=[100,120];
         //Definimos la frecuencia de aparicion de los proyectiles.
         reglasNivel.frecuenciaDeAparicion=4000;
-	//Definimos las posibles posiciones de las dos sillas:
-	reglasNivel.sillaPosY=[600,350];
+	    //Definimos las posibles posiciones de las dos sillas:
+        reglasNivel.sillaPosY=[600,350];
+        reglasNivel.damageLava=1;
         reglasNivel.pared="pared";
         reglasNivel.muebles="muebleslv3";
         reglasNivel.scaleX=0.35;
         reglasNivel.scaleY=0.26;
-        reglasNivel.sueloNivel="sueloNivel";
+        reglasNivel.sueloNivel="lava";
         if(singlePlayer){
             singlePlayer=false;
             clouds=[];

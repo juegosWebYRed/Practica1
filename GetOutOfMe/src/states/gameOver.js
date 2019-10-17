@@ -21,7 +21,6 @@ SplendorousGames.gameOverState.prototype = {
         //Use for sorting
         this.background = this.createBackground();
         
-	var style = { fill: "#f0e800", align: "center" };
         if(idioma==="Ingles"){
             buttonVolverMenu = game.add.button(190,670, 'btn-backMenu', this.volverMenu, this, 0);
             if(ganador==="player1"){

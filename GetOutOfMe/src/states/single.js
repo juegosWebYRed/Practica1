@@ -88,9 +88,17 @@ SplendorousGames.singleState.prototype = {
         //---Suelo---
         //Para que el jugador camine "encima" del suelo y no en el extremo inferior
         game.world.setBounds(0, 0, 1280, 665);
-        levelGround = game.add.sprite(640, 265, reglasNivel.sueloNivel);
-        levelGround.anchor.setTo(0.5);
-        levelGround.scale.setTo(0.37, 0.37);
+        if(reglasNivel.sueloNivel==="lava"){
+                levelGround = game.add.sprite(640, 655, reglasNivel.sueloNivel);
+            levelGround.anchor.setTo(0.5);
+                levelGround.scale.setTo(0.4, 0.4);
+                levelGround.animations.add('animacionLava', [0, 1, 2], true);
+            levelGround.animations.play('animacionLava',4,true);
+        }else{
+                levelGround = game.add.sprite(640, 265, reglasNivel.sueloNivel);
+                levelGround.anchor.setTo(0.5);
+                levelGround.scale.setTo(0.37, 0.37);
+        }
         
 
         //JUGADOR 1
@@ -104,12 +112,12 @@ SplendorousGames.singleState.prototype = {
         player.puntuacion=0;
         player.candelabrosEsquivados=0;
         player.candelabrosEsquivadosTotal=0;
-	acumulacionCandelabros=0;
+	    acumulacionCandelabros=0;
 
         //Vidas restantes
         heart = game.add.sprite(20, 10, 'vidas');
         //Candelabros esquivados
-        rachaCandelabros=game.add.text(1200, 30, "x"+player.candelabrosEsquivados);
+        rachaCandelabros=game.add.text(1200, 30, "x"+player.candelabrosEsquivados,style);
 		//Animaciones del jugador
         player.animations.add('left', [7, 6, 5, 4], 10, true);
 		player.animations.add('idleleft', [4], 1, true);
@@ -212,7 +220,6 @@ SplendorousGames.singleState.prototype = {
         player.slow = false;
         player.sprint = false;
 
-	var style = { fill: "#f0e800", align: "center" };
         if(idioma==="Ingles"){
             //Texto puntuacion
             puntuacionImagen=game.add.sprite(generalX, 35, "puntuation");
@@ -347,6 +354,21 @@ SplendorousGames.singleState.prototype = {
             jumpCount = 0;
         }
  
+        if(reglasNivel.sueloNivel==="lava" && player.body.onFloor()&& player.invulnerabilidad<=0){
+            player.vida -= reglasNivel.damageLava;
+            player.invulnerabilidad=100;
+            this.actualizarSpriteVida();
+            if(player.vida <= 0){
+                //Guardar puntuación
+                localStorage.setItem("puntuacionSP" + localStorage.getItem("playerID").toString(), JSON.stringify(player.puntuacion + 1));
+                //Cambiar estado muerte
+                proyectiles = [];
+                phantoms = [];
+                plataformas = [];
+                game.state.start("gameOver");
+            }
+        }
+        
         for(var i =0;i<proyectiles.length;i++){
 		    if(proyectiles[i].sprite.body!=null && proyectiles[i].sprite.body.onFloor() && proyectiles[i].tipo=="Vertical"){
                 //En el caso de que se esquive un candelabro se sumara a candelabros esquivados y la racha que se lleve de candelabros esquivados.
@@ -357,7 +379,7 @@ SplendorousGames.singleState.prototype = {
                     if(player.candelabrosEsquivados-acumulacionCandelabros===10){
                         acumulacionCandelabros=player.candelabrosEsquivados;
                         rachaCandelabros.destroy();
-                        rachaCandelabros=game.add.text(1200, 30, "x"+acumulacionCandelabros);
+                        rachaCandelabros=game.add.text(1200, 30, "x"+acumulacionCandelabros,style);
                     }
                 }
                 i=this.destruirProyectil(i);
@@ -370,7 +392,7 @@ SplendorousGames.singleState.prototype = {
                     if(player.candelabrosEsquivados-acumulacionCandelabros===10){
                         acumulacionCandelabros=player.candelabrosEsquivados;
                         rachaCandelabros.destroy();
-                        rachaCandelabros=game.add.text(1200, 30, "x"+acumulacionCandelabros);
+                        rachaCandelabros=game.add.text(1200, 30, "x"+acumulacionCandelabros,style);
                     }
                 }
                 i=this.destruirProyectil(i);
@@ -383,7 +405,7 @@ SplendorousGames.singleState.prototype = {
                         player.candelabrosEsquivados=0;
                         acumulacionCandelabros=0;
                         rachaCandelabros.destroy();
-                        rachaCandelabros=game.add.text(1200, 30, "x"+acumulacionCandelabros);
+                        rachaCandelabros=game.add.text(1200, 30, "x"+acumulacionCandelabros,style);
                         racha.destroy();
                     }
                     i=this.destruirProyectil(i);
