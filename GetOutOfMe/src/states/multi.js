@@ -30,6 +30,7 @@ var p2jumpCount2;
 var heartPlayer2;
 var nFrameHeartPlayer2 = 0;
 var acumulacionCandelabrosPlayer2=0;
+var velSilla = 550;
 
 // Funciones necesarias para implementar el doble salto
 function jump1() {
@@ -108,6 +109,7 @@ SplendorousGames.multiState.prototype = {
         player.puntuacion=0;
         player.candelabrosEsquivados=0;
         player.candelabrosEsquivadosTotal=0;
+	acumulacionCandelabrosPlayer1=0;
 
         //Vidas restantes
         heartPlayer1 = game.add.sprite(20, 10, 'vidas');
@@ -132,6 +134,7 @@ SplendorousGames.multiState.prototype = {
         player2.puntuacion=0;
         player2.candelabrosEsquivados=0;
         player2.candelabrosEsquivadosTotal=0;
+	acumulacionCandelabrosPlayer2=0;
 
         //Vidas restantes
         heartPlayer2 = game.add.sprite(1150, 10, 'vidas');
@@ -300,14 +303,14 @@ SplendorousGames.multiState.prototype = {
         
       
         if (cursors.left.isDown) {           
-                player.body.velocity.x = -400;
+                player.body.velocity.x = -500;
             if (player.facing != 'left') {
                 player.animations.play('left');
                 player.facing = 'left';
             }
         }
         else if (cursors.right.isDown) {
-                player.body.velocity.x = 400;
+                player.body.velocity.x = 500;
             if (player.facing != 'right') {
                 player.animations.play('right');
                 player.facing = 'right';
@@ -328,14 +331,14 @@ SplendorousGames.multiState.prototype = {
         cursors.up.onDown.add(jump);
 
 		if (a.isDown) {           
-                player2.body.velocity.x = -400;
+                player2.body.velocity.x = -500;
             if (player2.facing != 'left') {
                 player2.animations.play('left');
                 player2.facing = 'left';
             }
         }
         else if (d.isDown) {
-                player2.body.velocity.x = 400;
+                player2.body.velocity.x = 500;
             if (player2.facing != 'right') {
                 player2.animations.play('right');
                 player2.facing = 'right';
@@ -480,8 +483,8 @@ SplendorousGames.multiState.prototype = {
         proyectil.posX=posCercaJugador;
         proyectil.posY=0;
         
-		var randTimer = game.rnd.integerInRange(1000,reglasNivel.frecuenciaDeAparicion);
-		timerProyectilCercaJugador2.delay=randTimer;
+		var Timer = reglasNivel.frecuenciaDeAparicion;
+		timerProyectilCercaJugador2.delay=Timer;
         this.generarProyectil(proyectil);
     },
 
@@ -496,8 +499,8 @@ SplendorousGames.multiState.prototype = {
         proyectil.posX=randAparicion;
         proyectil.posY=0;
         
-		var randTimer = game.rnd.integerInRange(1000,reglasNivel.frecuenciaDeAparicion);
-		timerProyectilIzquierdo.delay=randTimer;
+		var Timer = reglasNivel.frecuenciaDeAparicion;
+		timerProyectilIzquierdo.delay=Timer;
         this.generarProyectil(proyectil);
     },
     generarProyectilDerecho:function(){
@@ -512,22 +515,32 @@ SplendorousGames.multiState.prototype = {
         proyectil.posX=randAparicion;
         proyectil.posY=0;
         
-		var randTimer = game.rnd.integerInRange(1000,reglasNivel.frecuenciaDeAparicion);
-		timerProyectilDerecho.delay=randTimer;
+		var Timer = reglasNivel.frecuenciaDeAparicion;
+		timerProyectilDerecho.delay=Timer;
         this.generarProyectil(proyectil);
     },
     generarProyectilHorizontal:function(){
         var proyectil = new Object();
         proyectil.tipo="Horizontal";
         proyectil.imagen='silla';
-        proyectil.gravedadX=gravedad;
+	if(game.rnd.integerInRange(0,100)<50){
+		proyectil.gravedadX=velSilla;
+		proyectil.posX=0;
+		}else{
+		proyectil.gravedadX=-velSilla;
+		proyectil.posX=1200;
+		}   
         proyectil.gravedadY=0;
         proyectil.damage = 1;
         proyectil.posX=0;
-        proyectil.posY=600;
+	if(game.rnd.integerInRange(0,100)<50){    
+        proyectil.posY=reglasNivel.sillaPosY[0];
+        }else{
+        proyectil.posY=reglasNivel.sillaPosY[1];
+        }
 
-		var randTimer = game.rnd.integerInRange(1000,reglasNivel.frecuenciaDeAparicion);
-		timerProyectilHorizontal.delay=randTimer;
+		var Timer = reglasNivel.frecuenciaDeAparicion;
+		timerProyectilHorizontal.delay=Timer;
         this.generarProyectil(proyectil);
     },
 

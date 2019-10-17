@@ -21,16 +21,17 @@ SplendorousGames.gameOverState.prototype = {
         //Use for sorting
         this.background = this.createBackground();
         
+	var style = { fill: "#f0e800", align: "center" };
         if(idioma==="Ingles"){
             buttonVolverMenu = game.add.button(190,670, 'btn-backMenu', this.volverMenu, this, 0);
             if(ganador==="player1"){
-                game.add.text(generalX+55, initialY-12, player.puntuacion);
+                game.add.text(generalX+55, initialY-12, player.puntuacion,style );
                 puntuacionJugador1=game.add.sprite(generalX-70, initialY, "puntuationPlayer1");
-                game.add.text(generalX+195, initialY+variacionY-12, player.candelabrosEsquivadosTotal);
+                game.add.text(generalX+195, initialY+variacionY-12, player.candelabrosEsquivadosTotal,style);
                 candelabrosEsquivadosJugador1=game.add.sprite(generalX, initialY+variacionY, "dodgedChandeliersPlayer1");
-                game.add.text(generalX+65, (initialY+variacionY*2)-12, player2.puntuacion);
+                game.add.text(generalX+65, (initialY+variacionY*2)-12, player2.puntuacion,style);
                 puntuacionJugador2=game.add.sprite(generalX-70, initialY+variacionY*2, "puntuationPlayer2");
-                game.add.text(generalX+205, (initialY+variacionY*3)-12,player2.candelabrosEsquivadosTotal);
+                game.add.text(generalX+205, (initialY+variacionY*3)-12,player2.candelabrosEsquivadosTotal,style);
                 candelabrosEsquivadosJugador2=game.add.sprite(generalX, initialY+variacionY*3, "dodgedChandeliersPlayer2");
                 ganador1=game.add.sprite(generalX, initialY+variacionY*4.7, "winnerPlayer1");
                 puntuacionJugador2.anchor.x=generalAnchor;
@@ -53,13 +54,13 @@ SplendorousGames.gameOverState.prototype = {
                 ganador1.tint=buttonsColorOut;
 
             }else if(ganador==="player2"){
-                game.add.text(generalX+55, initialY-12, player.puntuacion);
+                game.add.text(generalX+55, initialY-12, player.puntuacion,style);
                 puntuacionJugador1=game.add.sprite(generalX-70, initialY, "puntuationPlayer1");
-                game.add.text(generalX+195, initialY+variacionY-12, player.candelabrosEsquivadosTotal);
+                game.add.text(generalX+195, initialY+variacionY-12, player.candelabrosEsquivadosTotal,style);
                 candelabrosEsquivadosJugador1=game.add.sprite(generalX, initialY+variacionY, "dodgedChandeliersPlayer1");
-                game.add.text(generalX+65, (initialY+variacionY*2)-12, player2.puntuacion);
+                game.add.text(generalX+65, (initialY+variacionY*2)-12, player2.puntuacion,style);
                 puntuacionJugador2=game.add.sprite(generalX-70, initialY+variacionY*2, "puntuationPlayer2");
-                game.add.text(generalX+205, (initialY+variacionY*3)-12,player2.candelabrosEsquivadosTotal);
+                game.add.text(generalX+205, (initialY+variacionY*3)-12,player2.candelabrosEsquivadosTotal,style);
                 candelabrosEsquivadosJugador2=game.add.sprite(generalX, initialY+variacionY*3, "dodgedChandeliersPlayer2");
                 ganador2=game.add.sprite(generalX, initialY+variacionY*4.7, "winnerPlayer2");
                 puntuacionJugador2.anchor.x=generalAnchor;
@@ -82,22 +83,22 @@ SplendorousGames.gameOverState.prototype = {
                 ganador2.tint=buttonsColorOut;
 
             }else{
-                game.add.text(generalX-25, initialY-12,player.puntuacion);
+                game.add.text(generalX-25, initialY-12,player.puntuacion,style);
                 puntuacionJugador1=game.add.sprite(generalX-100, initialY, "puntuation");
-                game.add.text(generalX+120, initialY+variacionY-12, player.candelabrosEsquivadosTotal);
+                game.add.text(generalX+120, initialY+variacionY-12, player.candelabrosEsquivadosTotal,style);
                 candelabrosEsquivadosJugador1=game.add.sprite(generalX-30, initialY+variacionY, "dodgedChandeliers");
 
             }
         }else{
             buttonVolverMenu = game.add.button(150,680, 'btn-volverMenu', this.volverMenu, this, 0);
             if(ganador==="player1"){
-                game.add.text(generalX+40, initialY-12, player.puntuacion);
+                game.add.text(generalX+40, initialY-12, player.puntuacion,style);
                 puntuacionJugador1=game.add.sprite(generalX-90, initialY, "puntuacionJugador1");
-                game.add.text(generalX+230, initialY+variacionY-12, player.candelabrosEsquivadosTotal);
+                game.add.text(generalX+230, initialY+variacionY-12, player.candelabrosEsquivadosTotal,style);
                 candelabrosEsquivadosJugador1=game.add.sprite(generalX, initialY+variacionY, "candelabrosEsquivadosJugador1");
-                game.add.text(generalX+50, (initialY+variacionY*2)-12, player2.puntuacion);
+                game.add.text(generalX+50, (initialY+variacionY*2)-12, player2.puntuacion,style);
                 puntuacionJugador2=game.add.sprite(generalX-90, initialY+variacionY*2, "puntuacionJugador2");
-                game.add.text(generalX+235, (initialY+variacionY*3)-12, player2.candelabrosEsquivadosTotal);
+                game.add.text(generalX+235, (initialY+variacionY*3)-12, player2.candelabrosEsquivadosTotal,style);
                 candelabrosEsquivadosJugador2=game.add.sprite(generalX, initialY+variacionY*3, "candelabrosEsquivadosJugador2");
                 ganador1=game.add.sprite(generalX, initialY+variacionY*4.7, "ganadorJugador1");
                 puntuacionJugador2.anchor.x=generalAnchor;
@@ -120,13 +121,13 @@ SplendorousGames.gameOverState.prototype = {
                 ganador1.tint=buttonsColorOut;
 
             }else if(ganador==="player2"){
-                game.add.text(generalX+40, initialY-12, player.puntuacion);
+                game.add.text(generalX+40, initialY-12, player.puntuacion,style);
                 puntuacionJugador1=game.add.sprite(generalX-90, initialY, "puntuacionJugador1");
-                game.add.text(generalX+230, initialY+variacionY-12, player.candelabrosEsquivadosTotal);
+                game.add.text(generalX+230, initialY+variacionY-12, player.candelabrosEsquivadosTotal,style);
                 candelabrosEsquivadosJugador1=game.add.sprite(generalX, initialY+variacionY, "candelabrosEsquivadosJugador1");
-                game.add.text(generalX+50, (initialY+variacionY*2)-12, player2.puntuacion);
+                game.add.text(generalX+50, (initialY+variacionY*2)-12, player2.puntuacion,style);
                 puntuacionJugador2=game.add.sprite(generalX-90, initialY+variacionY*2, "puntuacionJugador2");
-                game.add.text(generalX+235, (initialY+variacionY*3)-12, player2.candelabrosEsquivadosTotal);
+                game.add.text(generalX+235, (initialY+variacionY*3)-12, player2.candelabrosEsquivadosTotal,style);
                 candelabrosEsquivadosJugador2=game.add.sprite(generalX, initialY+variacionY*3, "candelabrosEsquivadosJugador2");
                 ganador2=game.add.sprite(generalX, initialY+variacionY*4.7, "ganadorJugador2");
                 puntuacionJugador2.anchor.x=generalAnchor;
@@ -149,9 +150,9 @@ SplendorousGames.gameOverState.prototype = {
                 ganador2.tint=buttonsColorOut;
 
             }else{
-                game.add.text(generalX-25, initialY-12, player.puntuacion);
+                game.add.text(generalX-25, initialY-12, player.puntuacion,style);
                 puntuacionJugador1=game.add.sprite(generalX-100, initialY, "puntuacion");
-                game.add.text(generalX+170, initialY+variacionY-12,  player.candelabrosEsquivadosTotal);
+                game.add.text(generalX+170, initialY+variacionY-12,  player.candelabrosEsquivadosTotal,style);
                 candelabrosEsquivadosJugador1=game.add.sprite(generalX, initialY+variacionY, "candelabrosEsquivados");
             }
         }

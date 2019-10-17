@@ -1,4 +1,4 @@
-SplendorousGames.menuState = function(game) {
+﻿SplendorousGames.menuState = function(game) {
 }
 
 var generalX=640;
@@ -41,10 +41,10 @@ SplendorousGames.menuState.prototype = {
 
         if(idioma==="Ingles"){
             buttonJugar = game.add.button(generalX,initialY+variacion, 'btn-play', this.menuState, this, 0);
-            buttonIdioma = game.add.button(generalX,initialY+(2*variacion), 'btn-language', this.online, this, 0);
+            buttonIdioma = game.add.button(generalX,initialY+(2*variacion), 'btn-language', this.languageState, this, 0);
         }else{
             buttonJugar = game.add.button(generalX,initialY+variacion, 'btn-jugar', this.menuState, this, 0);
-            buttonIdioma = game.add.button(generalX,initialY+(2*variacion), 'btn-idioma', this.online, this, 0);
+            buttonIdioma = game.add.button(generalX,initialY+(2*variacion), 'btn-idioma', this.languageState, this, 0);
         }
         
         //Centrado de botones.
@@ -273,17 +273,19 @@ SplendorousGames.menuState.prototype = {
         //Definimos si queremos plataformas.
         reglasNivel.plataforms=true;
         //Definimos el numero de plataformas.
-        reglasNivel.numPlataforms=3;
+        reglasNivel.numPlataforms=2;
         //Definimos la x de cada una de las plataformas.
-        reglasNivel.posPlataformsX=[800, 50, 250];
+        reglasNivel.posPlataformsX=[600, 50];
         //Definimos la y de cada una de las plataformas.
-        reglasNivel.posPlataformsY=[450,250,450];
+        reglasNivel.posPlataformsY=[450,250];
         //Definimos la velocidad de las plataformas.
-        reglasNivel.velPlataforms=[0,150,0];
+        reglasNivel.velPlataforms=[0,0];
         //Definimos los sprites de las plataformas.
-        reglasNivel.imagenPlataformas=['miniPlataforma','plataforma','miniPlataforma'];
+        reglasNivel.imagenPlataformas=['plataforma','plataforma'];
         //Definimos la frecuencia de aparicion de los proyectiles.
-        reglasNivel.frecuenciaDeAparicion=8000;
+        reglasNivel.frecuenciaDeAparicion=10000;
+	//Definimos las posibles posiciones de las dos sillas:
+	reglasNivel.sillaPosY=[600,350];
         reglasNivel.pared="pared";
         reglasNivel.muebles="muebleslv1";
         reglasNivel.scaleX=0.35;
@@ -311,9 +313,9 @@ SplendorousGames.menuState.prototype = {
         //Definimos la y de cada una de las plataformas.
         reglasNivel.posPlataformsY=[450,250];
         //Definimos la velocidad de las plataformas.
-        reglasNivel.velPlataforms=[200,200];
+        reglasNivel.velPlataforms=[0,200];
         //Definimos los sprites de las plataformas.
-        reglasNivel.imagenPlataformas=['miniPlataforma','miniPlataforma'];
+        reglasNivel.imagenPlataformas=['plataforma','plataforma'];
         //Definimos el numero de fantasmas.
         reglasNivel.numPhantoms=2;
         //Definimos la x de cada una de los fantasmas.
@@ -324,6 +326,8 @@ SplendorousGames.menuState.prototype = {
         reglasNivel.velPhantoms=[100,120];
         //Definimos la frecuencia de aparicion de los proyectiles.
         reglasNivel.frecuenciaDeAparicion=7000;
+	//Definimos las posibles posiciones de las dos sillas:
+	reglasNivel.sillaPosY=[600,350];
         reglasNivel.pared="pared";
         reglasNivel.muebles="muebleslv2";
         reglasNivel.scaleX=0.35;
@@ -345,25 +349,27 @@ SplendorousGames.menuState.prototype = {
         //Definimos si queremos plataformas.
         reglasNivel.plataforms=true;
         //Definimos el numero de plataformas.
-        reglasNivel.numPlataforms=3;
+        reglasNivel.numPlataforms=2;
         //Definimos la x de cada una de las plataformas.
-        reglasNivel.posPlataformsX=[600, 50, 300];
+        reglasNivel.posPlataformsX=[600, 50];
         //Definimos la y de cada una de las plataformas.
-        reglasNivel.posPlataformsY=[550,150, 350];
+        reglasNivel.posPlataformsY=[450,250];
         //Definimos la velocidad de las plataformas.
-        reglasNivel.velPlataforms=[200,200,50];
+        reglasNivel.velPlataforms=[0,200];
         //Definimos los sprites de las plataformas.
-        reglasNivel.imagenPlataformas=['plataforma','miniPlataforma','miniPlataforma'];
+        reglasNivel.imagenPlataformas=['plataforma','plataforma'];
         //Definimos el numero de fantasmas.
         reglasNivel.numPhantoms=2;
         //Definimos la x de cada una de los fantasmas.
         reglasNivel.posPhantomsX=[50,650];
         //Definimos la y de cada una de los fantasmas.
-        reglasNivel.posPhantomsY=[30,450];
+        reglasNivel.posPhantomsY=[130,350];
         //Definimos la velocidad de los fantasmas.
         reglasNivel.velPhantoms=[100,120];
         //Definimos la frecuencia de aparicion de los proyectiles.
-        reglasNivel.frecuenciaDeAparicion=5000;
+        reglasNivel.frecuenciaDeAparicion=4000;
+	//Definimos las posibles posiciones de las dos sillas:
+	reglasNivel.sillaPosY=[600,350];
         reglasNivel.pared="pared";
         reglasNivel.muebles="muebleslv3";
         reglasNivel.scaleX=0.35;
@@ -383,6 +389,8 @@ SplendorousGames.menuState.prototype = {
         buttonJugar.destroy();
         buttonIdioma.destroy();
         firstMenu=false;
+        secondMenu=false;
+        thirdMenu=false;
 
         this.languageMenu();
     },
