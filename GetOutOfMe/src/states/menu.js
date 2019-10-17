@@ -273,15 +273,15 @@ SplendorousGames.menuState.prototype = {
         //Definimos si queremos plataformas.
         reglasNivel.plataforms=true;
         //Definimos el numero de plataformas.
-        reglasNivel.numPlataforms=2;
+        reglasNivel.numPlataforms=3;
         //Definimos la x de cada una de las plataformas.
-        reglasNivel.posPlataformsX=[600, 50];
+        reglasNivel.posPlataformsX=[800, 50, 250];
         //Definimos la y de cada una de las plataformas.
-        reglasNivel.posPlataformsY=[450,250];
+        reglasNivel.posPlataformsY=[450,250,450];
         //Definimos la velocidad de las plataformas.
-        reglasNivel.velPlataforms=[0,0];
+        reglasNivel.velPlataforms=[0,150,0];
         //Definimos los sprites de las plataformas.
-        reglasNivel.imagenPlataformas=['plataforma','plataforma'];
+        reglasNivel.imagenPlataformas=['miniPlataforma','plataforma','miniPlataforma'];
         //Definimos la frecuencia de aparicion de los proyectiles.
         reglasNivel.frecuenciaDeAparicion=8000;
         reglasNivel.pared="pared";
