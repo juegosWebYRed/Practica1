@@ -29,6 +29,11 @@ var touchLeft;
 var saltar;
 var velSilla=550;
 
+//Número de variables extras en memoria (para restar al recorrer los datos en memoria)
+var variablesExtra = 2;
+//Número de puntuaciones del modo de juego sigleplayer 
+var nPuntuacionesSP;
+
 // Funciones necesarias para implementar el doble salto
 function jump1() {
     player.body.velocity.y = -700;
@@ -73,6 +78,8 @@ SplendorousGames.singleState.prototype = {
         //Inicializar memoria (localStorage)
         this.inicializarMemoria();
         
+        nPuntuacionesSP = this.numeroPuntuacionesSimple();
+
         //Reinicio vidas
         nFrameHeart = 0;
         
@@ -257,8 +264,10 @@ SplendorousGames.singleState.prototype = {
                     this.actualizarSpriteVida();
                     player.invulnerabilidad=100;
                     if(player.vida <= 0){
-                        //Guardar puntuación
+                        //Guardar puntuación y suma a uno al índice del id del jugador
                         localStorage.setItem("puntuacionSP" + localStorage.getItem("playerID").toString(), JSON.stringify(player.puntuacion + 1));
+                        localStorage.setItem("playerID", JSON.stringify(parseInt(localStorage.getItem("playerID")) + 1));
+                        this.comprobarTablaScores();
                         //Cambiar estado muerte
                         proyectiles = [];
                         phantoms = [];
@@ -323,8 +332,10 @@ SplendorousGames.singleState.prototype = {
             player.invulnerabilidad=100;
             this.actualizarSpriteVida();
             if(player.vida <= 0){
-                //Guardar puntuación
+                //Guardar puntuación y suma a uno al índice del id del jugador
                 localStorage.setItem("puntuacionSP" + localStorage.getItem("playerID").toString(), JSON.stringify(player.puntuacion + 1));
+                localStorage.setItem("playerID", JSON.stringify(parseInt(localStorage.getItem("playerID")) + 1));
+                this.comprobarTablaScores();
                 //Cambiar estado muerte
                 proyectiles = [];
                 phantoms = [];
@@ -365,8 +376,10 @@ SplendorousGames.singleState.prototype = {
                     }
                     i=this.destruirProyectil(i);
                     if(player.vida <= 0){
-                        //Guardar puntuación
+                        //Guardar puntuación y suma a uno al índice del id del jugador
                         localStorage.setItem("puntuacionSP" + localStorage.getItem("playerID").toString(), JSON.stringify(player.puntuacion + 1));
+                        localStorage.setItem("playerID", JSON.stringify(parseInt(localStorage.getItem("playerID")) + 1));
+                        this.comprobarTablaScores();
                         //Cambiar estado muerte
                         proyectiles = [];
                         phantoms = [];
@@ -613,8 +626,51 @@ SplendorousGames.singleState.prototype = {
         if(localStorage.getItem("playerID") == null){
             localStorage.setItem("playerID", JSON.stringify(0));
         }
-        else{
-            localStorage.setItem("playerID", JSON.stringify(parseInt(localStorage.getItem("playerID")) + 1));
+    },
+    //Mira si la tabla está llena en cuyo caso se comprueba su inserción o si no lo está (solo haría falta ordenarla con el nuevo elemento)
+    comprobarTablaScores: function(){
+        if(nPuntuacionesSP < 10){
+            this.ordenarTabla();
         }
-    }
+        else{
+            if(this.comprobarInsercion()){
+                this.ordenarTabla();
+            }
+        }
+    },
+    //Para ordenar la tabla con las puntuaciones de mayor a menor
+    ordenarTabla: function(){
+        var aux;
+        for(var j = 0; j < localStorage.length - variablesExtra; j++){
+            for(var i = 0; i < localStorage.length - variablesExtra; i++){
+                aux = parseInt(localStorage.getItem("puntuacionSP" + i.toString())); //puntuacion jugador anterior
+                if(aux < parseInt(localStorage.getItem("puntuacionSP" + (i+1).toString()))){
+                    localStorage.setItem("puntuacionSP" + i.toString(), localStorage.getItem("puntuacionSP" + (i+1).toString()));
+                    localStorage.setItem("puntuacionSP" + (i+1).toString(), JSON.stringify(aux));
+                }
+            }
+        }
+    },
+    //Si hay 10 puntuaciones en la tabla comprueba si la nueva se va a insertar o no
+    comprobarInsercion: function(){
+        //Si el elemento que queremos comprobar es mayor que el ultimo elemento de la tabla de puntuaciones se inserta el elemento nuevo y se borra el ultimo
+        if(parseInt(localStorage.getItem("puntuacionSP" + JSON.stringify(parseInt(localStorage.getItem("playerID")) - 1))) > parseInt(localStorage.getItem("puntuacionSP" + JSON.stringify(9)))){
+            localStorage.setItem("puntuacionSP" + JSON.stringify(9), localStorage.getItem("puntuacionSP" + JSON.stringify(parseInt(localStorage.getItem("playerID")) - 1)));//Nuevo elemento añadido
+            localStorage.removeItem("puntuacionSP" + JSON.stringify(parseInt(localStorage.getItem("playerID")) - 1));//Eliminacion del elemento sobrante
+            return true;
+        }else{
+            localStorage.removeItem("puntuacionSP" + JSON.stringify(parseInt(localStorage.getItem("playerID")) - 1));//es menor que el último, así que se borra
+            return false;
+        }
+    },
+    //Cálculo del número de puntuaciones de las almacenadas en memoria que pertenecen al modo "singleplayer"
+    numeroPuntuacionesSimple: function(){
+        var cont = 0;
+        for(var i = 0; i < localStorage.length; i++){
+            if(localStorage.getItem("puntuacionSP" + i.toString()) != null){
+                cont++;
+            } 
+        }
+        return cont;
+    },
 }
