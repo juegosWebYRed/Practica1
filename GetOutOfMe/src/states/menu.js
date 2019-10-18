@@ -229,6 +229,10 @@ SplendorousGames.menuState.prototype = {
     //Crea los botones del segundo menú.
     secondMenu:function(){
         secondMenu=true;
+        //Boton de borrar puntos
+        botonEliminarPuntos = game.add.button(1130, 610, 'btn-deletePoints', this.delete, this, 0);
+        botonEliminarPuntos.scale.setTo(0.5, 0.5);
+
         if(idioma==="Ingles"){
             buttonSingleplayer = game.add.button(generalX+25,initialY, 'btn-singleplayer', this.singlePlayer, this, 0);
             buttonMultiplayer = game.add.button(generalX+35,initialY+variacion, 'btn-multiplayer', this.multiPlayer, this, 0);
@@ -541,5 +545,9 @@ SplendorousGames.menuState.prototype = {
     },
     multiPlayerPuntuacion: function(){
         game.state.start("multiPuntuacion");
-    }
+    },
+    //Borra todas las puntuaciones
+    delete: function(){
+        localStorage.clear();
+    },
 }

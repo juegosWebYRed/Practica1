@@ -10,7 +10,6 @@ SplendorousGames.multiPuntuacion.prototype = {
     },
 
     create: function() {
-        //localStorage.clear(); //PARA BORRAR TODAS LAS PUNTUACIONES
         nPuntuacionesMP = this.numeroPuntuacionesMulti();
         //Creación del escenario
         var textStyle = {font: "40px Arial", fill: "#ffffff", boundsAlignH: "center"};

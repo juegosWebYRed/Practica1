@@ -11,7 +11,6 @@ SplendorousGames.singlePuntuacion.prototype = {
     },
 
     create: function() {
-        //localStorage.clear(); //PARA BORRAR TODAS LAS PUNTUACIONES
         nPuntuacionesSP = this.numeroPuntuacionesSimple();
         //Creación del escenario
         var textStyle = {font: "40px Arial", fill: "#ffffff", boundsAlignH: "center"};
