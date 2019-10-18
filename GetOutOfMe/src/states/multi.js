@@ -113,7 +113,7 @@ SplendorousGames.multiState.prototype = {
         }
 
         //JUGADOR 1
-        player = game.add.sprite(500, 450, 'personaje');
+        player = game.add.sprite(reglasNivel.jugadoresPosX[0], reglasNivel.jugadoresPosY[0], 'personaje');
         game.physics.enable(player, Phaser.Physics.ARCADE);
         player.body.collideWorldBounds = true;
         player.body.gravity.y = 1000;
@@ -136,7 +136,7 @@ SplendorousGames.multiState.prototype = {
 	
 		//JUGADOR 2
 
-		player2 = game.add.sprite(100, 450, 'personaje');
+		player2 = game.add.sprite(reglasNivel.jugadoresPosX[1], reglasNivel.jugadoresPosX[1], 'personaje');
         game.physics.enable(player2, Phaser.Physics.ARCADE);
         player2.body.collideWorldBounds = true;
         player2.body.gravity.y = 1000;

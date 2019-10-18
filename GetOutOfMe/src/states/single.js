@@ -102,7 +102,7 @@ SplendorousGames.singleState.prototype = {
         
 
         //JUGADOR 1
-        player = game.add.sprite(100, 450, 'personaje');
+        player = game.add.sprite(reglasNivel.jugadoresPosX[0], reglasNivel.jugadoresPosY[0], 'personaje');
         game.physics.enable(player, Phaser.Physics.ARCADE);
         player.body.collideWorldBounds = true;
         player.body.gravity.y = gravedad;
@@ -222,7 +222,7 @@ SplendorousGames.singleState.prototype = {
 
         if(idioma==="Ingles"){
             //Texto puntuacion
-            puntuacionImagen=game.add.sprite(generalX, 35, "puntuation");
+            puntuacionImagen=game.add.sprite(generalX, 42, "puntuation");
             tpuntuacion = game.add.text(235, 25,player.puntuacion,style);
             racha = game.add.sprite(generalX, 100, "dodgedChandeliersStreak");
         }else{

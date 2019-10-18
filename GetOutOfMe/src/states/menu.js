@@ -211,15 +211,17 @@ SplendorousGames.menuState.prototype = {
     },
     secondMenu:function(){
         secondMenu=true;
-        buttonPuntuacionSP = game.add.button(440,initialY+(2*variacion), 'btn-online', this.singlePlayerPuntuacion, this, 0);
-        buttonPuntuacionMP = game.add.button(840,initialY+(2*variacion), 'btn-online', this.multiPlayerPuntuacion, this, 0);
         if(idioma==="Ingles"){
             buttonSingleplayer = game.add.button(generalX+25,initialY, 'btn-singleplayer', this.singlePlayer, this, 0);
             buttonMultiplayer = game.add.button(generalX+35,initialY+variacion, 'btn-multiplayer', this.multiPlayer, this, 0);
+            buttonPuntuacionSP = game.add.button(460,initialY+(2*variacion), 'spScoreTable', this.singlePlayerPuntuacion, this, 0);
+            buttonPuntuacionMP = game.add.button(860,initialY+(2*variacion), 'mpScoreTable', this.multiPlayerPuntuacion, this, 0);
             buttonVolver = game.add.button(100,initialY+variacion*2.5, 'btn-back', this.volverFirstMenu, this, 0);
         }else{
             buttonSingleplayer = game.add.button(generalX+25,initialY, 'btn-unjugador', this.singlePlayer, this, 0);
             buttonMultiplayer = game.add.button(generalX+35,initialY+variacion, 'btn-multijugador', this.multiPlayer, this, 0);
+            buttonPuntuacionSP = game.add.button(460,initialY+(2*variacion), 'tablaPuntuacionesUnJugador', this.singlePlayerPuntuacion, this, 0);
+            buttonPuntuacionMP = game.add.button(860,initialY+(2*variacion), 'tablaPuntuacionesMultijugador', this.multiPlayerPuntuacion, this, 0);
             buttonVolver = game.add.button(110,initialY+variacion*2.5, 'btn-volver', this.volverFirstMenu, this, 0);
         }
 
@@ -241,10 +243,10 @@ SplendorousGames.menuState.prototype = {
         buttonMultiplayer.scale.y = 0.6;
         buttonVolver.scale.x = 0.6;
         buttonVolver.scale.y = 0.6;
-        buttonPuntuacionSP.scale.x = 0.6;
-        buttonPuntuacionSP.scale.y = 0.6;
-        buttonPuntuacionMP.scale.x = 0.6;
-        buttonPuntuacionMP.scale.y = 0.6;
+        buttonPuntuacionSP.scale.x = 0.3;
+        buttonPuntuacionSP.scale.y = 0.3;
+        buttonPuntuacionMP.scale.x = 0.3;
+        buttonPuntuacionMP.scale.y = 0.3;
         //Tintado de botones
         buttonSingleplayer.tint=buttonsColorOut;
         buttonMultiplayer.tint=buttonsColorOut;
@@ -292,6 +294,10 @@ SplendorousGames.menuState.prototype = {
     level1:function(){
         //Definimos si queremos fanatasmas.
         reglasNivel.phantoms=false;
+        //Definimos la posición x de los jugadores.
+        reglasNivel.jugadoresPosX=[100,500];
+        //Definimos la posición y de los jugadores.
+        reglasNivel.jugadoresPosY=[450,450];
         //Definimos si queremos plataformas.
         reglasNivel.plataforms=true;
         //Definimos el numero de plataformas.
@@ -326,6 +332,10 @@ SplendorousGames.menuState.prototype = {
     level2:function(){
         //Definimos si queremos fanatasmas.
         reglasNivel.phantoms=true;
+        //Definimos la posición x de los jugadores.
+        reglasNivel.jugadoresPosX=[100,500];
+        //Definimos la posición y de los jugadores.
+        reglasNivel.jugadoresPosY=[450,450];
         //Definimos si queremos plataformas.
         reglasNivel.plataforms=true;
         //Definimos el numero de plataformas.
@@ -370,6 +380,10 @@ SplendorousGames.menuState.prototype = {
         reglasNivel.phantoms=true;
         //Definimos si queremos plataformas.
         reglasNivel.plataforms=true;
+        //Definimos la posición x de los jugadores.
+        reglasNivel.jugadoresPosX=[100,500];
+        //Definimos la posición y de los jugadores.
+        reglasNivel.jugadoresPosY=[450,450];
         //Definimos el numero de plataformas.
         reglasNivel.numPlataforms=2;
         //Definimos la x de cada una de las plataformas.
@@ -451,8 +465,6 @@ SplendorousGames.menuState.prototype = {
         buttonEspanol.destroy();
         buttonIngles.destroy();
         buttonVolver.destroy();
-        buttonPuntuacionSP.destroy();
-        buttonPuntuacionMP.destroy();
         idioma="Espanol";
         languageMenu=false;
         this.languageMenu();
@@ -461,8 +473,6 @@ SplendorousGames.menuState.prototype = {
         buttonEspanol.destroy();
         buttonIngles.destroy();
         buttonVolver.destroy();
-        buttonPuntuacionSP.destroy();
-        buttonPuntuacionMP.destroy();
         idioma="Ingles";
         languageMenu=false;
         this.languageMenu();
@@ -472,8 +482,6 @@ SplendorousGames.menuState.prototype = {
             buttonEspanol.destroy();
             buttonIngles.destroy();
             buttonVolver.destroy();
-            buttonPuntuacionSP.destroy();
-            buttonPuntuacionMP.destroy();
             languageMenu=false;
         }else if(secondMenu===true){
             buttonSingleplayer.destroy();

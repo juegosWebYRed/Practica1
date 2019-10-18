@@ -27,7 +27,7 @@ SplendorousGames.preloadState.prototype = {
         this.load.image('btn-language', 'https://i.imgur.com/XEeDFJR.png');
         this.load.image('btn-english', 'https://i.imgur.com/wQDAvBE.png');
         this.load.image('btn-espanol', 'https://i.imgur.com/ydicQU7.png');
-        this.load.image('btn-ingles', 'https://i.imgur.com/SfeiQfl.png');
+        this.load.image('btn-ingles', 'https://i.imgur.com/u7qZpsR.png');
         this.load.image('btn-spanish', 'https://i.imgur.com/jC03h6X.png');
         this.load.image('btn-volver', 'https://i.imgur.com/oZoLPM7.png');
         this.load.image('btn-back', 'https://i.imgur.com/1nnc81z.png');
@@ -58,9 +58,9 @@ SplendorousGames.preloadState.prototype = {
         this.load.image('puntuacion','https://i.imgur.com/Bd0bvbl.png');
         this.load.image('puntuacionJugador1','https://i.imgur.com/8ESL7Me.png');
         this.load.image('puntuacionJugador2','https://i.imgur.com/ipZRAul.png');
-        this.load.image('puntuation','https://i.imgur.com/wpsQagS.png');
-        this.load.image('puntuationPlayer1','https://i.imgur.com/tupvigN.png');
-        this.load.image('puntuationPlayer2','https://i.imgur.com/1yhQV1s.png');
+        this.load.image('puntuation','https://i.imgur.com/rUheZ3C.png');
+        this.load.image('puntuationPlayer1','https://i.imgur.com/NLQ4dT7.png');
+        this.load.image('puntuationPlayer2','https://i.imgur.com/pGMRQk7.png');
         this.load.image('dodgedChandeliersStreak','https://i.imgur.com/dIq5bgL.png');
         this.load.image('rachaCandelabrosEsquivados','https://i.imgur.com/qXM5tT8.png');
         this.load.image('winnerPlayer1','https://i.imgur.com/03yvYwF.png');
@@ -73,6 +73,10 @@ SplendorousGames.preloadState.prototype = {
         this.load.image('dodgedChandeliers','https://i.imgur.com/ik2ZVb2.png');
         this.load.image('dodgedChandeliersPlayer1','https://i.imgur.com/JnRQBwI.png');
         this.load.image('dodgedChandeliersPlayer2','https://i.imgur.com/jIjzBYU.png');
+        this.load.image('tablaPuntuacionesUnJugador','https://i.imgur.com/XHc8tpN.png');
+        this.load.image('tablaPuntuacionesMultijugador','https://i.imgur.com/bSuFV7t.png');
+        this.load.image('spScoreTable','https://i.imgur.com/yW86edp.png');
+        this.load.image('mpScoreTable','https://i.imgur.com/xbW18K8.png');
     },
 
     create: function () {
