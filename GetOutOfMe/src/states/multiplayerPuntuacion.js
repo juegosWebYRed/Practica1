@@ -16,6 +16,15 @@ SplendorousGames.multiPuntuacion.prototype = {
         var wall = game.add.sprite(0, 0, "pared");
         wall.scale.setTo(0.5, 0.3);
 
+        //Botón de volver
+        botonVolver = game.add.button(200, 650, 'btn-volver', this.volver, this, 0);
+        botonVolver.anchor.x=0.5;
+        botonVolver.anchor.y=0.5;
+        botonVolver.scale.x = 0.6;
+        botonVolver.scale.y = 0.6;
+        botonVolver.tint=buttonsColorOut;
+        this.changeButtonsColors(botonVolver);
+
         if(localStorage.length == 0){
             game.add.text(430, 300, "SIN PUNTUACIONES", textStyle);
         }
@@ -76,5 +85,21 @@ SplendorousGames.multiPuntuacion.prototype = {
             } 
         }
         return cont;
+    },
+    volver: function(){
+        game.state.start('menu');
+    },
+
+    changeButtonsColors: function(button){
+        button.onInputOver.add(this.ColorOver,this);
+        button.onInputOut.add(this.ColorOut,this);
+    },
+
+    ColorOver: function (button){
+        button.tint=buttonsColorOver;
+    },
+
+    ColorOut:function (button){
+        button.tint=buttonsColorOut;
     },
 }

@@ -69,10 +69,12 @@ SplendorousGames.menuState.prototype = {
     update: function() {
         //Movimiento de las nubes
         for(var i=0;i<nClouds;i++){
-            if(clouds[i].body.x>gameHeight){
-                clouds[i].body.velocity.x=-clouds[i].body.velocity.x;
-            }else if(clouds[i].body.x<-200){
-                clouds[i].body.velocity.x=-clouds[i].body.velocity.x;
+            if(clouds[i].body != null){
+                if(clouds[i].body.x>gameHeight){
+                    clouds[i].body.velocity.x=-clouds[i].body.velocity.x;
+                }else if(clouds[i].body.x<-200){
+                    clouds[i].body.velocity.x=-clouds[i].body.velocity.x;
+                }
             }
         }
         if(firstMenu){
