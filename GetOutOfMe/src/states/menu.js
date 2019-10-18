@@ -16,6 +16,14 @@ var firstMenu=false;
 var secondMenu=false;
 var thirdMenu=false;
 var languageMenu=false;
+var musicIntro;
+var musicLevel;
+var damageSound;
+var lvl1Sound;
+var lvl2Sound;
+var lvl3Sound;
+var jumpSound;
+var candleSound;
 
 //Buttons
 var buttonsColorOut=0xf0e800;
@@ -42,6 +50,13 @@ SplendorousGames.menuState.prototype = {
         //Tintado de botones
         title.tint=buttonsColorOut;
 
+        //Música
+        musicIntro = game.add.audio('introSong');
+        lvl1Sound = game.add.audio('lvl1Sound');
+        lvl2Sound = game.add.audio('lvl2Sound');
+        lvl3Sound = game.add.audio('lvl3Sound');
+        game.sound.setDecodedCallback(musicIntro, this.start, this);
+
         if(idioma==="Ingles"){
             buttonJugar = game.add.button(generalX,initialY+variacion, 'btn-play', this.menuState, this, 0);
             buttonIdioma = game.add.button(generalX,initialY+(2*variacion), 'btn-language', this.languageState, this, 0);
@@ -64,6 +79,10 @@ SplendorousGames.menuState.prototype = {
         buttonJugar.tint=buttonsColorOut;
         buttonIdioma.tint=buttonsColorOut;
 
+    },
+
+    start: function(){
+        musicIntro.play();
     },
 
     update: function() {
@@ -320,6 +339,7 @@ SplendorousGames.menuState.prototype = {
         reglasNivel.scaleX=0.35;
         reglasNivel.scaleY=0.275;
         reglasNivel.sueloNivel="sueloNivel";
+        lvl1Sound.play();
         if(singlePlayer){
             singlePlayer=false;
             clouds=[];
@@ -367,6 +387,7 @@ SplendorousGames.menuState.prototype = {
         reglasNivel.scaleX=0.35;
         reglasNivel.scaleY=0.27;
         reglasNivel.sueloNivel="sueloNivel";
+        lvl2Sound.play();
         if(singlePlayer){
             singlePlayer=false;
             clouds=[];
@@ -415,6 +436,7 @@ SplendorousGames.menuState.prototype = {
         reglasNivel.scaleX=0.35;
         reglasNivel.scaleY=0.26;
         reglasNivel.sueloNivel="lava";
+        lvl3Sound.play();
         if(singlePlayer){
             singlePlayer=false;
             clouds=[];

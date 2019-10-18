@@ -56,6 +56,7 @@ SplendorousGames.singlePuntuacion.prototype = {
         return cont;
     },
     volver: function(){
+        musicIntro.stop();
         game.state.start('menu');
     },
     changeButtonsColors: function(button){

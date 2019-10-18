@@ -49,7 +49,7 @@ SplendorousGames.preloadState.prototype = {
         this.load.image('title', 'https://i.imgur.com/Hz9T4fh.png');
         this.load.image('plataforma', 'https://i.imgur.com/LeGiYvs.png?1');
         this.load.spritesheet('personaje', 'https://i.imgur.com/KUj2rb6.png?1', 50, 97);
-        this.load.spritesheet('personaje2', 'https://i.imgur.com/PX99K5P.png', 50, 97);
+        this.load.spritesheet('personaje2', 'https://i.imgur.com/PX99K5P.png?1', 50, 97);
         this.load.spritesheet('lava', 'https://i.imgur.com/SaQWkgs.png', 3630, 435);
         this.load.spritesheet('fullscreen', 'https://i.imgur.com/upDM70Y.png', 71, 71);
         this.load.spritesheet('fantasma', 'https://i.imgur.com/LV8OUcv.png?1', 152, 100);
@@ -79,6 +79,14 @@ SplendorousGames.preloadState.prototype = {
         this.load.image('tablaPuntuacionesMultijugador','https://i.imgur.com/bSuFV7t.png');
         this.load.image('spScoreTable','https://i.imgur.com/yW86edp.png');
         this.load.image('mpScoreTable','https://i.imgur.com/xbW18K8.png');
+        this.load.audio('introSong', 'assets/audio/cancionIntro.mp3');
+        this.load.audio('levelSong', 'assets/audio/cancionNiveles.mp3');
+        this.load.audio('damage', 'assets/audio/damage.mp3');
+        this.load.audio('lvl1Sound', 'assets/audio/CasaEnfadada1.mp3');
+        this.load.audio('lvl2Sound', 'assets/audio/CasaEnfadada2.mp3');
+        this.load.audio('lvl3Sound', 'assets/audio/CasaEnfadada3.mp3');
+        this.load.audio('jumpSound', 'assets/audio/salto1.mp3');
+        this.load.audio('candleSound', 'assets/audio/CaidaCandelabro2.mp3');
     },
 
     create: function () {

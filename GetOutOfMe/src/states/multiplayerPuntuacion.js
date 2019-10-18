@@ -55,6 +55,7 @@ SplendorousGames.multiPuntuacion.prototype = {
         return cont;
     },
     volver: function(){
+        musicIntro.stop();
         game.state.start('menu');
     },
 

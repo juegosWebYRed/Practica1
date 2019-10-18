@@ -82,6 +82,14 @@ SplendorousGames.singleState.prototype = {
 
         //Reinicio vidas
         nFrameHeart = 0;
+
+        //MÚSICA
+        musicIntro.stop();
+        musicLevel = game.add.audio('levelSong');
+        damageSound = game.add.audio('damage');
+        jumpSound = game.add.audio('jumpSound');
+        candleSound = game.add.audio('candleSound');
+        game.sound.setDecodedCallback(musicLevel, this.start, this);
         
         //ESCENARIO
         //---Pared---
@@ -244,6 +252,10 @@ SplendorousGames.singleState.prototype = {
 		cursors.up.onDown.add(jump);
     },
 
+    start: function(){
+        musicLevel.play();
+    },
+
     update: function () {
 
 	//var joy = game.vjoy.cursors;
@@ -251,15 +263,18 @@ SplendorousGames.singleState.prototype = {
         if(reglasNivel.phantoms===true){
             for(var i = 0; i < phantoms.length; i++){
                 if(phantoms[i].body.blocked.right){
+                    jumpSound.play();
                     phantoms[i].animations.play('patrullarIzq', 6, true);
                     phantoms[i].body.velocity.x = -reglasNivel.velPhantoms[i];
                 }
                 if(phantoms[i].body.blocked.left){
+                    jumpSound.play();
                     phantoms[i].animations.play('patrullarDer', 6, true);
                     phantoms[i].body.velocity.x = reglasNivel.velPhantoms[i];
                 }
                 //El fantasma inflinge daño al contactar con el jugador y le proporciona unos segundos de invulnerabilidad.
                 if(game.physics.arcade.overlap(player,phantoms[i])&&player.invulnerabilidad<=0){
+                    damageSound.play();
                     player.vida-=1;
                     this.actualizarSpriteVida();
                     player.invulnerabilidad=100;
@@ -328,6 +343,7 @@ SplendorousGames.singleState.prototype = {
         }
         //La lava daña al juagdor y le proporciona invulnerabilidad durante unos segundos.
         if(reglasNivel.sueloNivel==="lava" && player.body.onFloor()&& player.invulnerabilidad<=0){
+            damageSound.play();
             player.vida -= reglasNivel.damageLava;
             player.invulnerabilidad=100;
             this.actualizarSpriteVida();
@@ -363,6 +379,7 @@ SplendorousGames.singleState.prototype = {
                 i=this.destruirProyectil(i);
             }else if(proyectiles[i].sprite!=null && game.physics.arcade.overlap(player,proyectiles[i].sprite) && player.invulnerabilidad<=0){
                     //El proyectil le inflinge daño al jugador y le proporciona unos segundos de invulnerabilidad.
+                    damageSound.play();
                     player.vida -= proyectiles[i].damage;
                     player.invulnerabilidad=100;
                     this.actualizarSpriteVida();
@@ -580,6 +597,9 @@ SplendorousGames.singleState.prototype = {
     },
 
 	generarProyectil:function(proyectil){
+        if(proyectil.imagen == 'candelabro'){
+            candleSound.play();
+        }
         proyectil.sprite = game.add.sprite(proyectil.posX, proyectil.posY, proyectil.imagen);
         proyectil.sprite.scale.setTo(0.7,0.7);
         game.physics.enable(proyectil.sprite, Phaser.Physics.ARCADE);

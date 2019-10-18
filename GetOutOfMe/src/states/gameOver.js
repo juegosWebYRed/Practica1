@@ -183,6 +183,7 @@ SplendorousGames.gameOverState.prototype = {
     },
 
     volverMenu:function(){
+        musicLevel.stop();
         game.state.start("menu");
     },
 
