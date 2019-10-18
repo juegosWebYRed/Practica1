@@ -478,11 +478,17 @@ SplendorousGames.multiState.prototype = {
             }
         }
         if(player.invulnerabilidad>0){
+            player.tint = 0xff0000;
             player.invulnerabilidad-=1;
-        }
+        }else{
+			player.tint = 0xFFFFFF;
+		}
         if(player2.invulnerabilidad>0){
+            player2.tint = 0xff0000;
             player2.invulnerabilidad-=1;
-        }
+        }else{
+			player2.tint = 0xFFFFFF;
+		}
         player.puntuacion++;
         player2.puntuacion++;
 

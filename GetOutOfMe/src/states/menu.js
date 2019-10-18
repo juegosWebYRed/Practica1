@@ -501,6 +501,8 @@ SplendorousGames.menuState.prototype = {
         buttonPuntuacionSP.destroy();
         buttonPuntuacionMP.destroy();
         thirdMenu=false;
+        singlePlayer=false;
+        multiPlayer=false;
         this.secondMenu();
     },
     singlePlayerPuntuacion: function(){
