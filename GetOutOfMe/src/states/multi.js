@@ -31,6 +31,7 @@ var heartPlayer2;
 var nFrameHeartPlayer2;
 var acumulacionCandelabrosPlayer2=0;
 var velSilla = 550;
+var platforms = [];
 
 //número de variables extras en memoria (para restar al recorrer los datos en memoria)
 var variablesExtra = 2;
@@ -237,6 +238,19 @@ SplendorousGames.multiState.prototype = {
 
 		player2.jumpCount = 0;
         player2.facing = 'left';
+
+         //Exclamaciones
+         exclamations[0] = game.add.sprite(0,0,'exclamation');
+         exclamations[0].visible = false;
+ 
+         exclamations[1] = game.add.sprite(0,0,'exclamation');
+         exclamations[1].visible = false;
+ 
+         exclamations[2] = game.add.sprite(0,0,'exclamation');
+         exclamations[2].visible = false;
+
+         exclamations[3] = game.add.sprite(0,0,'exclamation');
+         exclamations[3].visible = false;
 
     },
 
@@ -547,10 +561,17 @@ SplendorousGames.multiState.prototype = {
         var posCercaJugador=player.body.x+randAparicion;
         proyectil.posX=posCercaJugador;
         proyectil.posY=0;
+        exclamations[0].x = posCercaJugador;
+        exclamations[0].visible = true;
         
 		var randTimer = game.rnd.integerInRange(1000,reglasNivel.frecuenciaDeAparicion);
-		timerProyectilCercaJugador1.delay=randTimer;
-        this.generarProyectil(proyectil);
+        timerProyectilCercaJugador1.delay=randTimer;
+        
+        var t = game.time.create(true);
+
+        t.add(1000,this.generarProyectil,this, proyectil, exclamations[0]);
+        
+        t.start();
     },
 
     generarProyectilCercaJugador2:function(){
@@ -564,10 +585,17 @@ SplendorousGames.multiState.prototype = {
         var posCercaJugador=player2.body.x+randAparicion;
         proyectil.posX=posCercaJugador;
         proyectil.posY=0;
+
+        exclamations[1].x = randAparicion;
+        exclamations[1].visible = true; 
         
 		var Timer = reglasNivel.frecuenciaDeAparicion;
 		timerProyectilCercaJugador2.delay=Timer;
-        this.generarProyectil(proyectil);
+        var t = game.time.create(true);
+
+        t.add(1000,this.generarProyectil,this, proyectil, exclamations[1]);
+        
+        t.start();
     },
 
     generarProyectilIzquierdo:function(){
@@ -580,10 +608,16 @@ SplendorousGames.multiState.prototype = {
         var randAparicion = game.rnd.integerInRange(0,640);
         proyectil.posX=randAparicion;
         proyectil.posY=0;
+        exclamations[2].x = randAparicion;
+        exclamations[2].visible = true;
         
 		var Timer = reglasNivel.frecuenciaDeAparicion;
 		timerProyectilIzquierdo.delay=Timer;
-        this.generarProyectil(proyectil);
+        var t = game.time.create(true);
+
+        t.add(1000,this.generarProyectil,this, proyectil, exclamations[2]);
+        
+        t.start();
     },
 
     generarProyectilDerecho:function(){
@@ -597,10 +631,17 @@ SplendorousGames.multiState.prototype = {
         var randAparicion = game.rnd.integerInRange(640,1080);
         proyectil.posX=randAparicion;
         proyectil.posY=0;
+
+        exclamations[3].x = randAparicion;
+        exclamations[3].visible = true;
         
 		var Timer = reglasNivel.frecuenciaDeAparicion;
 		timerProyectilDerecho.delay=Timer;
-        this.generarProyectil(proyectil);
+        var t = game.time.create(true);
+
+        t.add(1000,this.generarProyectil,this, proyectil, exclamations[3]);
+        
+        t.start();
     },
 
     generarProyectilHorizontal:function(){
@@ -627,7 +668,8 @@ SplendorousGames.multiState.prototype = {
         this.generarProyectil(proyectil);
     },
 
-	generarProyectil:function(proyectil){
+	generarProyectil:function(proyectil, exclamation = 0){
+        exclamation.visible = false;
         if(proyectil.imagen == 'candelabro'){
             candleSound.play();
         }

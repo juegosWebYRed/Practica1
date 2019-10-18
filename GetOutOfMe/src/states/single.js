@@ -28,6 +28,7 @@ var touchRight;
 var touchLeft;
 var saltar;
 var velSilla=550;
+var exclamations = [];
 
 //Número de variables extras en memoria (para restar al recorrer los datos en memoria)
 var variablesExtra = 2;
@@ -249,7 +250,17 @@ SplendorousGames.singleState.prototype = {
 		game.input.onTap.add(onTap, this);
 		game.input.onTap.add(onTap, this);
 
-		cursors.up.onDown.add(jump);
+        cursors.up.onDown.add(jump);
+        
+        //Exclamaciones
+        exclamations[0] = game.add.sprite(0,0,'exclamation');
+        exclamations[0].visible = false;
+
+        exclamations[1] = game.add.sprite(0,0,'exclamation');
+        exclamations[1].visible = false;
+
+        exclamations[2] = game.add.sprite(0,0,'exclamation');
+        exclamations[2].visible = false;
     },
 
     start: function(){
@@ -532,10 +543,16 @@ SplendorousGames.singleState.prototype = {
         var posCercaJugador=player.body.x+randAparicion;
         proyectil.posX=posCercaJugador;
         proyectil.posY=0;
+        exclamations[0].x = posCercaJugador;
+        exclamations[0].visible = true;
         
 		var Timer = reglasNivel.frecuenciaDeAparicion;
 		timerProyectilCercaJugador.delay=Timer;
-        this.generarProyectil(proyectil);
+        var t = game.time.create(true);
+
+        t.add(1000,this.generarProyectil,this, proyectil, exclamations[0]);
+        
+        t.start()
     },
 
     generarProyectilIzquierdo:function(){
@@ -548,10 +565,16 @@ SplendorousGames.singleState.prototype = {
         var randAparicion = game.rnd.integerInRange(0,640);
         proyectil.posX=randAparicion;
         proyectil.posY=0;
+        exclamations[1].x = randAparicion;
+        exclamations[1].visible = true;  
         
 		var Timer = reglasNivel.frecuenciaDeAparicion;
 		timerProyectilIzquierdo.delay=Timer;
-        this.generarProyectil(proyectil);
+        var t = game.time.create(true);
+
+        t.add(1000,this.generarProyectil,this, proyectil, exclamations[1]);
+        
+        t.start();
     },
 
     generarProyectilDerecho:function(){
@@ -565,10 +588,16 @@ SplendorousGames.singleState.prototype = {
         var randAparicion = game.rnd.integerInRange(640,1080);
         proyectil.posX=randAparicion;
         proyectil.posY=0;
+        exclamations[2].x = randAparicion;
+        exclamations[2].visible = true;
         
 		var Timer = reglasNivel.frecuenciaDeAparicion;
 		timerProyectilDerecho.delay=Timer;
-        this.generarProyectil(proyectil);
+        var t = game.time.create(true);
+
+        t.add(1000,this.generarProyectil,this, proyectil, exclamations[2]);
+        
+        t.start();
     },
 
     generarProyectilHorizontal:function(){
@@ -596,7 +625,8 @@ SplendorousGames.singleState.prototype = {
         this.generarProyectil(proyectil);
     },
 
-	generarProyectil:function(proyectil){
+	generarProyectil:function(proyectil, exclamation = 0){
+        exclamation.visible = false;
         if(proyectil.imagen == 'candelabro'){
             candleSound.play();
         }
