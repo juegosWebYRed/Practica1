@@ -79,6 +79,7 @@ SplendorousGames.preloadState.prototype = {
         this.load.image('tablaPuntuacionesMultijugador','https://i.imgur.com/bSuFV7t.png');
         this.load.image('spScoreTable','https://i.imgur.com/yW86edp.png');
         this.load.image('mpScoreTable','https://i.imgur.com/xbW18K8.png');
+        this.load.image('btn-deletePoints','https://i.imgur.com/LEb5mgx.png?1');
         this.load.audio('introSong', 'assets/audio/cancionIntro.mp3');
         this.load.audio('levelSong', 'assets/audio/cancionNiveles.mp3');
         this.load.audio('damage', 'assets/audio/damage.mp3');
