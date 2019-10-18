@@ -144,7 +144,7 @@ SplendorousGames.multiState.prototype = {
 	
 		//JUGADOR 2
         //Asignación de variables al jugador 2.
-		player2 = game.add.sprite(reglasNivel.jugadoresPosX[1], reglasNivel.jugadoresPosY[1], 'personaje');
+		player2 = game.add.sprite(reglasNivel.jugadoresPosX[1], reglasNivel.jugadoresPosY[1], 'personaje2');
         game.physics.enable(player2, Phaser.Physics.ARCADE);
         player2.body.collideWorldBounds = true;
         player2.body.gravity.y = 1000;
