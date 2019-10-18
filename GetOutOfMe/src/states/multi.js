@@ -617,7 +617,7 @@ SplendorousGames.multiState.prototype = {
             heartPlayer2.frame = nFrameHeartPlayer2;
         }
     },
-
+    //Inicialización de variables necesarias en memoria para el guardado de puntuaciones en la misma
     inicializarMemoria: function(){
         if(localStorage.getItem("playerID_MP") == null){
             localStorage.setItem("playerID_MP", JSON.stringify(0));

@@ -28,7 +28,7 @@ SplendorousGames.bootState.prototype = {
 
 
 	/*
-	Funci�n para reescalar encontrada en el foro html5gamedevs en el post del usuario Smrdis en el siguiente hilo: https://www.html5gamedevs.com/topic/11636-scaling-my-game/
+	Función para reescalar encontrada en el foro html5gamedevs en el post del usuario Smrdis en el siguiente hilo: https://www.html5gamedevs.com/topic/11636-scaling-my-game/
 	*/
 	gameResized: function(){
 		var scale = Math.min(window.innerWidth / this.game.width, window.innerHeight / this.game.height);

@@ -42,7 +42,7 @@ SplendorousGames.preloadState.prototype = {
         this.load.image('btn-backMenu', 'https://i.imgur.com/1KKPRKr.png');
         this.load.image('btn-volverJugar', 'https://i.imgur.com/bFqhlb4.png');
         this.load.image('btn-playAgain', 'https://i.imgur.com/mbla69k.png');
-        this.load.image('menuBackground', 'https://i.imgur.com/eik8IYl.png');//antiguo fondo
+        this.load.image('menuBackground', 'https://i.imgur.com/eik8IYl.png');
         this.load.image('menuBackgroundBase', 'https://i.imgur.com/7n0uYrR.png');
         this.load.image('menuBackgroundSky', 'https://i.imgur.com/amZvEM2.png');
         this.load.image('finalBackground', 'https://i.imgur.com/UKUZnLQ.png');

@@ -608,7 +608,7 @@ SplendorousGames.singleState.prototype = {
 		touchLeft = false;
 		saltar = false;
     },
-    
+    //Inicialización de variables necesarias en memoria para el guardado de puntuaciones en la misma
     inicializarMemoria: function(){
         if(localStorage.getItem("playerID") == null){
             localStorage.setItem("playerID", JSON.stringify(0));

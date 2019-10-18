@@ -1,9 +1,12 @@
-SplendorousGames.titleState = function(game) {
+SplendorousGames.singlePuntuacion = function(game) {
 }
-var title;
-var variablesExtra = 2; //variables extras en memoria (para restar al recorrer los datos en memoria) (var extras -> modo, playerID)
+
+//variables extras en memoria (para restar al recorrer los datos en memoria)
+var variablesExtra = 2; 
+//Número de puntuaciones pertenecientes al modo de juego "singleplayer"
 var nPuntuacionesSP;
-SplendorousGames.titleState.prototype = {
+
+SplendorousGames.singlePuntuacion.prototype = {
 
     preload: function () {
         
@@ -12,6 +15,7 @@ SplendorousGames.titleState.prototype = {
     create: function() {
         //localStorage.clear(); PARA BORRAR TODAS LAS PUNTUACIONES
         nPuntuacionesSP = this.numeroPuntuacionesSimple();
+        //Creación del escenario
         var textStyle = {font: "40px Arial", fill: "#ffffff", boundsAlignH: "center"};
         var textStyle2 = {font: "20px Arial", fill: "#ffffff"};
         var wall = game.add.sprite(0, 0, "pared");
@@ -26,10 +30,12 @@ SplendorousGames.titleState.prototype = {
         botonVolver.tint=buttonsColorOut;
         this.changeButtonsColors(botonVolver);
 
+        //Tabla sin puntuaciones
         if(localStorage.length == 0){
             game.add.text(430, 300, "SIN PUNTUACIONES", textStyle);
         }
         else{
+            //Tabla con puntuaciones
             game.add.text(335, 60, "MEJORES PUNTUACIONES (1P)", textStyle);
             this.comprobarTablaScores();
             for(var i = 0; i < nPuntuacionesSP; i++){
@@ -39,12 +45,10 @@ SplendorousGames.titleState.prototype = {
             }
         }
     },
-
-
     update: function() {
         
     },
-
+    //Mira si la tabla está llena en cuyo caso se comprueba su inserción o si no lo está (solo haría falta ordenarla con el nuevo elemento)
     comprobarTablaScores: function(){
         if(nPuntuacionesSP <= 10){
             this.ordenarTabla();
@@ -55,6 +59,7 @@ SplendorousGames.titleState.prototype = {
             }
         }
     },
+    //Para ordenar la tabla con las puntuaciones de mayor a menor
     ordenarTabla: function(){
         var aux;
         for(var j = 0; j < localStorage.length - variablesExtra; j++){
@@ -67,6 +72,7 @@ SplendorousGames.titleState.prototype = {
             }
         }
     },
+    //Si hay 10 puntuaciones en la tabla comprueba si la nueva se va a insertar o no
     comprobarInsercion: function(){
         //Si el elemento que queremos comprobar es mayor que el ultimo elemento de la tabla de puntuaciones se inserta el elemento nuevo y se borra el ultimo
         if(parseInt(localStorage.getItem("puntuacionSP" + localStorage.getItem("playerID"))) > parseInt(localStorage.getItem("puntuacionSP" + JSON.stringify(9)))){
@@ -78,6 +84,7 @@ SplendorousGames.titleState.prototype = {
             return false;
         }
     },
+    //Cálculo del número de puntuaciones de las almacenadas en memoria que pertenecen al modo "singleplayer"
     numeroPuntuacionesSimple: function(){
         var cont = 0;
         for(var i = 0; i < localStorage.length; i++){
@@ -90,16 +97,13 @@ SplendorousGames.titleState.prototype = {
     volver: function(){
         game.state.start('menu');
     },
-
     changeButtonsColors: function(button){
         button.onInputOver.add(this.ColorOver,this);
         button.onInputOut.add(this.ColorOut,this);
     },
-
     ColorOver: function (button){
         button.tint=buttonsColorOver;
     },
-
     ColorOut:function (button){
         button.tint=buttonsColorOut;
     },

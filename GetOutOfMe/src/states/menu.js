@@ -127,11 +127,11 @@ SplendorousGames.menuState.prototype = {
             clouds.push(cloud);
         }
         var background = game.add.sprite(0, 0, "menuBackgroundBase");
-        //Creación de las briznas de cesped
+        //Creación de las briznas de césped
         for(var i=0;i<nGrass;i++){
             grass = game.add.sprite(game.rnd.integerInRange(0, 1250), game.rnd.integerInRange(500, 650), 'cesped');
 
-            //Animaciones de las nubes
+            //Animaciones de las briznas
             grass.animations.add('moverse', [0, 1, 2, 3], true);
             grass.animations.play('moverse', game.rnd.integerInRange(3, 4), true);
 
@@ -515,7 +515,7 @@ SplendorousGames.menuState.prototype = {
         this.secondMenu();
     },
     singlePlayerPuntuacion: function(){
-        game.state.start("title");
+        game.state.start("singlePuntuacion");
     },
     multiPlayerPuntuacion: function(){
         game.state.start("multiPuntuacion");

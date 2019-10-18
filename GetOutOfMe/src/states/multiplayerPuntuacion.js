@@ -1,7 +1,10 @@
 SplendorousGames.multiPuntuacion = function(game) {
 }
-var variablesExtra = 2; //variables extras en memoria (para restar al recorrer los datos en memoria) (var extras -> modo, playerID)
+//variables extras en memoria (para restar al recorrer los datos en memoria)
+var variablesExtra = 2;
+//Número de puntuaciones pertenecientes al modo de juego "multiplayer"
 var nPuntuacionesMP;
+
 SplendorousGames.multiPuntuacion.prototype = {
 
     preload: function () {
@@ -11,6 +14,7 @@ SplendorousGames.multiPuntuacion.prototype = {
     create: function() {
         //localStorage.clear(); PARA BORRAR TODAS LAS PUNTUACIONES
         nPuntuacionesMP = this.numeroPuntuacionesMulti();
+        //Creación del escenario
         var textStyle = {font: "40px Arial", fill: "#ffffff", boundsAlignH: "center"};
         var textStyle2 = {font: "20px Arial", fill: "#ffffff"};
         var wall = game.add.sprite(0, 0, "pared");
@@ -25,10 +29,12 @@ SplendorousGames.multiPuntuacion.prototype = {
         botonVolver.tint=buttonsColorOut;
         this.changeButtonsColors(botonVolver);
 
+        //Tabla sin puntuaciones
         if(localStorage.length == 0){
             game.add.text(430, 300, "SIN PUNTUACIONES", textStyle);
         }
         else{
+            //Tabla con puntuaciones
             game.add.text(335, 60, "MEJORES PUNTUACIONES (2P)", textStyle);
             this.comprobarTablaScores();
             for(var i = 0; i < nPuntuacionesMP; i++){
@@ -38,12 +44,10 @@ SplendorousGames.multiPuntuacion.prototype = {
             }
         }
     },
-
-
     update: function() {
         
     },
-
+    //Mira si la tabla está llena en cuyo caso se comprueba su inserción o si no lo está (solo haría falta ordenarla con el nuevo elemento)
     comprobarTablaScores: function(){
         if(nPuntuacionesMP <= 10){
             this.ordenarTabla();
@@ -54,6 +58,7 @@ SplendorousGames.multiPuntuacion.prototype = {
             }
         }
     },
+    //Para ordenar la tabla con las puntuaciones de mayor a menor
     ordenarTabla: function(){
         var aux;
         for(var j = 0; j < localStorage.length - variablesExtra; j++){
@@ -66,6 +71,7 @@ SplendorousGames.multiPuntuacion.prototype = {
             }
         }
     },
+    //Si hay 10 puntuaciones en la tabla comprueba si la nueva se va a insertar o no
     comprobarInsercion: function(){
         //Si el elemento que queremos comprobar es mayor que el ultimo elemento de la tabla de puntuaciones se inserta el elemento nuevo y se borra el ultimo
         if(parseInt(localStorage.getItem("puntuacionMP" + localStorage.getItem("playerID_MP"))) > parseInt(localStorage.getItem("puntuacionMP" + JSON.stringify(9)))){
@@ -77,6 +83,7 @@ SplendorousGames.multiPuntuacion.prototype = {
             return false;
         }
     },
+    //Cálculo del número de puntuaciones de las almacenadas en memoria que pertenecen al modo "multiplayer"
     numeroPuntuacionesMulti: function(){
         var cont = 0;
         for(var i = 0; i < localStorage.length; i++){
