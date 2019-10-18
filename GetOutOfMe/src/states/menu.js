@@ -301,15 +301,15 @@ SplendorousGames.menuState.prototype = {
         //Definimos si queremos plataformas.
         reglasNivel.plataforms=true;
         //Definimos el numero de plataformas.
-        reglasNivel.numPlataforms=2;
+        reglasNivel.numPlataforms=3;
         //Definimos la x de cada una de las plataformas.
-        reglasNivel.posPlataformsX=[600, 50];
+        reglasNivel.posPlataformsX=[800, 50,250];
         //Definimos la y de cada una de las plataformas.
-        reglasNivel.posPlataformsY=[450,250];
+        reglasNivel.posPlataformsY=[450,250,450];
         //Definimos la velocidad de las plataformas.
-        reglasNivel.velPlataforms=[0,0];
+        reglasNivel.velPlataforms=[0,200,0];
         //Definimos los sprites de las plataformas.
-        reglasNivel.imagenPlataformas=['plataforma','plataforma'];
+        reglasNivel.imagenPlataformas=['miniPlataforma','plataforma','miniPlataforma'];
         //Definimos la frecuencia de aparicion de los proyectiles.
         reglasNivel.frecuenciaDeAparicion=10000;
 	//Definimos las posibles posiciones de las dos sillas:
@@ -345,9 +345,9 @@ SplendorousGames.menuState.prototype = {
         //Definimos la y de cada una de las plataformas.
         reglasNivel.posPlataformsY=[450,250];
         //Definimos la velocidad de las plataformas.
-        reglasNivel.velPlataforms=[0,200];
+        reglasNivel.velPlataforms=[-200,200];
         //Definimos los sprites de las plataformas.
-        reglasNivel.imagenPlataformas=['plataforma','plataforma'];
+        reglasNivel.imagenPlataformas=['miniPlataforma','miniPlataforma'];
         //Definimos el numero de fantasmas.
         reglasNivel.numPhantoms=2;
         //Definimos la x de cada una de los fantasmas.
@@ -381,31 +381,31 @@ SplendorousGames.menuState.prototype = {
         //Definimos si queremos plataformas.
         reglasNivel.plataforms=true;
         //Definimos la posición x de los jugadores.
-        reglasNivel.jugadoresPosX=[100,500];
+        reglasNivel.jugadoresPosX=[570,650];
         //Definimos la posición y de los jugadores.
-        reglasNivel.jugadoresPosY=[450,450];
+        reglasNivel.jugadoresPosY=[420,420];
         //Definimos el numero de plataformas.
-        reglasNivel.numPlataforms=2;
+        reglasNivel.numPlataforms=3;
         //Definimos la x de cada una de las plataformas.
-        reglasNivel.posPlataformsX=[600, 50];
+        reglasNivel.posPlataformsX=[600, 50,300];
         //Definimos la y de cada una de las plataformas.
-        reglasNivel.posPlataformsY=[450,250];
+        reglasNivel.posPlataformsY=[550,150,350];
         //Definimos la velocidad de las plataformas.
-        reglasNivel.velPlataforms=[0,200];
+        reglasNivel.velPlataforms=[-50,50,250];
         //Definimos los sprites de las plataformas.
-        reglasNivel.imagenPlataformas=['plataforma','plataforma'];
+        reglasNivel.imagenPlataformas=['plataforma','plataforma','miniPlataforma'];
         //Definimos el numero de fantasmas.
         reglasNivel.numPhantoms=2;
         //Definimos la x de cada una de los fantasmas.
-        reglasNivel.posPhantomsX=[50,650];
+        reglasNivel.posPhantomsX=[50,750];
         //Definimos la y de cada una de los fantasmas.
-        reglasNivel.posPhantomsY=[130,350];
+        reglasNivel.posPhantomsY=[30,450];
         //Definimos la velocidad de los fantasmas.
         reglasNivel.velPhantoms=[100,120];
         //Definimos la frecuencia de aparicion de los proyectiles.
-        reglasNivel.frecuenciaDeAparicion=4000;
+        reglasNivel.frecuenciaDeAparicion=15000;
 	    //Definimos las posibles posiciones de las dos sillas:
-        reglasNivel.sillaPosY=[600,350];
+        reglasNivel.sillaPosY=[450,250];
         reglasNivel.damageLava=1;
         reglasNivel.pared="pared";
         reglasNivel.muebles="muebleslv3";

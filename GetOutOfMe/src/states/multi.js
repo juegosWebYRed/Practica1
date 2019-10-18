@@ -136,7 +136,7 @@ SplendorousGames.multiState.prototype = {
 	
 		//JUGADOR 2
 
-		player2 = game.add.sprite(reglasNivel.jugadoresPosX[1], reglasNivel.jugadoresPosX[1], 'personaje');
+		player2 = game.add.sprite(reglasNivel.jugadoresPosX[1], reglasNivel.jugadoresPosY[1], 'personaje');
         game.physics.enable(player2, Phaser.Physics.ARCADE);
         player2.body.collideWorldBounds = true;
         player2.body.gravity.y = 1000;
@@ -184,7 +184,7 @@ SplendorousGames.multiState.prototype = {
         if(reglasNivel.plataforms===true){
             for(var i=0;i<reglasNivel.numPlataforms;i++){
 
-                plataform = platforms.create(reglasNivel.posPlataformsX[i], reglasNivel.posPlataformsY[i], 'plataforma');
+                plataform = platforms.create(reglasNivel.posPlataformsX[i], reglasNivel.posPlataformsY[i], reglasNivel.imagenPlataformas[i]);
 
                 plataform.body.collideWorldBounds = true;
                 plataform.body.velocity.x = reglasNivel.velPlataforms[i];
@@ -307,10 +307,8 @@ SplendorousGames.multiState.prototype = {
 
         //Movimiento de las plataformas
         for(var i = 0; i < plataformas.length; i++){
-            if(plataformas[i].movility && plataformas[i].body.blocked.right){
-                plataformas[i].body.velocity.x = -reglasNivel.velPlataforms[i];
-            }
-            if(plataformas[i].movility && plataformas[i].body.blocked.left){
+            if(plataformas[i].movility && plataformas[i].body.blocked.right || plataformas[i].movility && plataformas[i].body.blocked.left){
+                reglasNivel.velPlataforms[i]=-reglasNivel.velPlataforms[i];
                 plataformas[i].body.velocity.x = reglasNivel.velPlataforms[i];
             }
         }

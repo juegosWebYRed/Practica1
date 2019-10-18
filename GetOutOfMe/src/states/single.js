@@ -306,10 +306,8 @@ SplendorousGames.singleState.prototype = {
 
         //Movimiento de las plataformas
         for(var i = 0; i < plataformas.length; i++){
-            if(plataformas[i].movility && plataformas[i].body.blocked.right){
-                plataformas[i].body.velocity.x = -reglasNivel.velPlataforms[i];
-            }
-            if(plataformas[i].movility && plataformas[i].body.blocked.left){
+            if(plataformas[i].movility && plataformas[i].body.blocked.right || plataformas[i].movility && plataformas[i].body.blocked.left){
+                reglasNivel.velPlataforms[i]=-reglasNivel.velPlataforms[i];
                 plataformas[i].body.velocity.x = reglasNivel.velPlataforms[i];
             }
         }
