@@ -27,7 +27,6 @@ SplendorousGames.menuState.prototype = {
 
     },
 
-
     create: function() {
         //Primer menu
         firstMenu=true;
@@ -67,8 +66,8 @@ SplendorousGames.menuState.prototype = {
 
     },
 
-
     update: function() {
+        //Movimiento de las nubes
         for(var i=0;i<nClouds;i++){
             if(clouds[i].body.x>gameHeight){
                 clouds[i].body.velocity.x=-clouds[i].body.velocity.x;
@@ -97,6 +96,7 @@ SplendorousGames.menuState.prototype = {
         }
     },
 
+    //Cambia los colores de los botones si el cursor esta encima de ellos y los vuelve a dejar en su color original si no lo está.
     changeButtonsColors: function(button){
         button.onInputOver.add(this.ColorOver,this);
         button.onInputOut.add(this.ColorOut,this);
@@ -144,23 +144,14 @@ SplendorousGames.menuState.prototype = {
         return background;
     },
 
-    fullscreen: function() {
-        if (game.scale.isFullScreen)
-        {
-            game.scale.stopFullScreen();
-        }
-        else
-        {
-            game.scale.startFullScreen(false);
-        }
-
-    },
+    //Destruye los botones del primer menú y llama a que se cree el segundo.
     menuState: function(){
         buttonJugar.destroy();
         buttonIdioma.destroy();
         firstMenu=false;
         this.secondMenu();
     },
+    //Crea los botones del primer menú
     firstMenu:function(){
         //Primer menu
         firstMenu=true;
@@ -187,6 +178,8 @@ SplendorousGames.menuState.prototype = {
         buttonJugar.tint=buttonsColorOut;
         buttonIdioma.tint=buttonsColorOut;
     },
+    //Destruye los botones del segundo menú y llama al tercer menú para crearse,
+    //con la distinción del modo de juego que vamos a jugar.
     singlePlayer: function(){
         buttonSingleplayer.destroy();
         buttonMultiplayer.destroy();
@@ -198,6 +191,9 @@ SplendorousGames.menuState.prototype = {
         secondMenu=false;
         this.thirdMenu();
     },
+    
+    //Destruye los botones del segundo menú y llama al tercer menú para crearse.
+    //con la distinción del modo de juego que vamos a jugar.
     multiPlayer: function(){
         buttonSingleplayer.destroy();
         buttonMultiplayer.destroy();
@@ -209,6 +205,7 @@ SplendorousGames.menuState.prototype = {
         secondMenu=false;
         this.thirdMenu();
     },
+    //Crea los botones del segundo menú.
     secondMenu:function(){
         secondMenu=true;
         if(idioma==="Ingles"){
@@ -254,6 +251,7 @@ SplendorousGames.menuState.prototype = {
         buttonPuntuacionSP.tint=buttonsColorOut;
         buttonPuntuacionMP.tint=buttonsColorOut;
     },
+    //Crea los botones del tercer menú.
     thirdMenu:function(){
         thirdMenu=true;
         if(idioma==="Ingles"){
@@ -312,9 +310,10 @@ SplendorousGames.menuState.prototype = {
         reglasNivel.imagenPlataformas=['miniPlataforma','plataforma','miniPlataforma'];
         //Definimos la frecuencia de aparicion de los proyectiles.
         reglasNivel.frecuenciaDeAparicion=10000;
-	//Definimos las posibles posiciones de las dos sillas:
-	reglasNivel.sillaPosY=[600,350];
+	    //Definimos las posibles posiciones de las dos sillas:
+	    reglasNivel.sillaPosY=[600,350];
         reglasNivel.pared="pared";
+        //Definimos los muebles y su escala.
         reglasNivel.muebles="muebleslv1";
         reglasNivel.scaleX=0.35;
         reglasNivel.scaleY=0.275;
@@ -358,9 +357,10 @@ SplendorousGames.menuState.prototype = {
         reglasNivel.velPhantoms=[100,120];
         //Definimos la frecuencia de aparicion de los proyectiles.
         reglasNivel.frecuenciaDeAparicion=7000;
-	//Definimos las posibles posiciones de las dos sillas:
-	reglasNivel.sillaPosY=[600,350];
+	    //Definimos las posibles posiciones de las dos sillas:
+	    reglasNivel.sillaPosY=[600,350];
         reglasNivel.pared="pared";
+        //Definimos los muebles y su escala.
         reglasNivel.muebles="muebleslv2";
         reglasNivel.scaleX=0.35;
         reglasNivel.scaleY=0.27;
@@ -408,6 +408,7 @@ SplendorousGames.menuState.prototype = {
         reglasNivel.sillaPosY=[450,250];
         reglasNivel.damageLava=1;
         reglasNivel.pared="pared";
+        //Definimos los muebles y su escala.
         reglasNivel.muebles="muebleslv3";
         reglasNivel.scaleX=0.35;
         reglasNivel.scaleY=0.26;
@@ -422,6 +423,7 @@ SplendorousGames.menuState.prototype = {
             game.state.start("multi");
         }
     },
+    //Destruimos los botones del primer menú y llamamos a la función que crea el menú donde se van a elegir los idiomas.
     languageState: function(){
         buttonJugar.destroy();
         buttonIdioma.destroy();
@@ -431,6 +433,7 @@ SplendorousGames.menuState.prototype = {
 
         this.languageMenu();
     },
+    //Función donde se crean los botones del menú de idiomas
     languageMenu:function(){
         languageMenu=true;
         if(idioma==="Ingles"){
@@ -461,6 +464,7 @@ SplendorousGames.menuState.prototype = {
         buttonIngles.tint=buttonsColorOut;
         buttonVolver.tint=buttonsColorOut;
     },
+    //Cambio de idioma al Español.
     idiomaEspanol:function(){
         buttonEspanol.destroy();
         buttonIngles.destroy();
@@ -469,6 +473,7 @@ SplendorousGames.menuState.prototype = {
         languageMenu=false;
         this.languageMenu();
     },
+    //Cambio de idioma al Inglés.
     idiomaIngles:function(){
         buttonEspanol.destroy();
         buttonIngles.destroy();
@@ -477,6 +482,7 @@ SplendorousGames.menuState.prototype = {
         languageMenu=false;
         this.languageMenu();
     },
+    //Destruye los botones del menú de idioma o del segundo menú y llama al primer menú.
     volverFirstMenu:function(){
         if(languageMenu===true){
             buttonEspanol.destroy();
@@ -493,6 +499,7 @@ SplendorousGames.menuState.prototype = {
         }
         this.firstMenu();
     },
+    //Destruye los botones del tercer menú y llama al segundo menú.
     volverSecondMenu:function(){
         buttonLevel1.destroy();
         buttonLevel2.destroy();

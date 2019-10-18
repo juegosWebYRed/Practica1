@@ -9,7 +9,6 @@ SplendorousGames.gameOverState.prototype = {
 
     },
 
-
     create: function() {
         var generalX=250;
         var initialY=100;
@@ -20,7 +19,8 @@ SplendorousGames.gameOverState.prototype = {
 
         //Use for sorting
         this.background = this.createBackground();
-        
+        //Creación de los menús de información de fin de partida en inglés,
+        //tanto en el modo Un jugador como en el modo multijugador.
         if(idioma==="Ingles"){
             buttonVolverMenu = game.add.button(190,670, 'btn-backMenu', this.volverMenu, this, 0);
             if(ganador==="player1"){
@@ -89,6 +89,8 @@ SplendorousGames.gameOverState.prototype = {
 
             }
         }else{
+            //Creación de los menús de información de fin de partida en español,
+            //tanto en el modo Un jugador como en el modo multijugador.
             buttonVolverMenu = game.add.button(150,680, 'btn-volverMenu', this.volverMenu, this, 0);
             if(ganador==="player1"){
                 game.add.text(generalX+40, initialY-12, player.puntuacion,style);
@@ -175,7 +177,6 @@ SplendorousGames.gameOverState.prototype = {
         buttonVolverMenu.tint=buttonsColorOut;
 
     },
-
 
     update: function() {
         this.changeButtonsColors(buttonVolverMenu);

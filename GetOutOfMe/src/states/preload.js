@@ -5,6 +5,7 @@ SplendorousGames.preloadState = function(game) {
 SplendorousGames.preloadState.prototype = {
 
     preload: function() {
+        //Carga de imagenes.
 		this.load.crossOrigin = 'Anonymous';
         this.load.image('btn-online', 'https://i.imgur.com/YGzc3W5.png');
         this.load.image('ground', 'https://i.imgur.com/cSBy8Xo.png');
@@ -91,4 +92,5 @@ SplendorousGames.preloadState.prototype = {
     update: function() {
 
     }
+    
 }

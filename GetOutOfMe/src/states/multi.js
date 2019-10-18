@@ -100,6 +100,7 @@ SplendorousGames.multiState.prototype = {
         //---Suelo---
         //Para que el jugador camine "encima" del suelo y no en el extremo inferior
         game.world.setBounds(0, 0, 1280, 665);
+        //Suelo del nivel será de una forma u otra dependiendo del nivel que juguemos.
         if(reglasNivel.sueloNivel==="lava"){
                 levelGround = game.add.sprite(640, 655, reglasNivel.sueloNivel);
             levelGround.anchor.setTo(0.5);
@@ -113,6 +114,7 @@ SplendorousGames.multiState.prototype = {
         }
 
         //JUGADOR 1
+        //Asignación de variables al jugador 1.
         player = game.add.sprite(reglasNivel.jugadoresPosX[0], reglasNivel.jugadoresPosY[0], 'personaje');
         game.physics.enable(player, Phaser.Physics.ARCADE);
         player.body.collideWorldBounds = true;
@@ -135,7 +137,7 @@ SplendorousGames.multiState.prototype = {
     
 	
 		//JUGADOR 2
-
+        //Asignación de variables al jugador 2.
 		player2 = game.add.sprite(reglasNivel.jugadoresPosX[1], reglasNivel.jugadoresPosY[1], 'personaje');
         game.physics.enable(player2, Phaser.Physics.ARCADE);
         player2.body.collideWorldBounds = true;
@@ -157,9 +159,10 @@ SplendorousGames.multiState.prototype = {
         player2.animations.add('idleright', [1], 1, true);
         player2.animations.add('right', [0, 1, 2, 3], 10, true);
 
+        //Fantasmas
+        //Creación de los fantasmas.
         if(reglasNivel.phantoms===true){
             for(var i=0;i<reglasNivel.numPhantoms;i++){
-                //Fantasmas
                 phantom = game.add.sprite(reglasNivel.posPhantomsX[i], reglasNivel.posPhantomsY[i], 'fantasma');
                 game.physics.enable(phantom, Phaser.Physics.ARCADE);
                 phantom.body.collideWorldBounds = true;
@@ -180,7 +183,7 @@ SplendorousGames.multiState.prototype = {
         platforms.enableBody = true;
         
         game.physics.enable(platforms, Phaser.Physics.ARCADE);
-
+        //Creación de las plataformas.
         if(reglasNivel.plataforms===true){
             for(var i=0;i<reglasNivel.numPlataforms;i++){
 
@@ -197,45 +200,8 @@ SplendorousGames.multiState.prototype = {
         }
         
         //Proyectiles
-		var randTimerPlayer1 = game.rnd.integerInRange(1000,reglasNivel.frecuenciaDeAparicion);
-
-		timerProyectilCercaJugador1 = game.time.create(false);
-
-        timerProyectilCercaJugador1.loop(randTimerPlayer1,this.generarProyectilCercaJugador1,this)
-        
-        timerProyectilCercaJugador1.start();
-
-		var randTimerPlayer2 = game.rnd.integerInRange(1000,reglasNivel.frecuenciaDeAparicion);
-
-		timerProyectilCercaJugador2 = game.time.create(false);
-
-        timerProyectilCercaJugador2.loop(randTimerPlayer2,this.generarProyectilCercaJugador2,this)
-        
-        timerProyectilCercaJugador2.start();
-        
-        var randTimerIzquierdo = game.rnd.integerInRange(1000,reglasNivel.frecuenciaDeAparicion);
-
-		timerProyectilIzquierdo = game.time.create(false);
-
-        timerProyectilIzquierdo.loop(randTimerIzquierdo,this.generarProyectilIzquierdo,this)
-        
-        timerProyectilIzquierdo.start();
-        
-        var randTimerDerecho= game.rnd.integerInRange(1000,reglasNivel.frecuenciaDeAparicion);
-
-		timerProyectilDerecho = game.time.create(false);
-
-        timerProyectilDerecho.loop(randTimerDerecho,this.generarProyectilDerecho,this)
-        
-        timerProyectilDerecho.start();
-        
-        var randTimerHorizontal= game.rnd.integerInRange(1000,reglasNivel.frecuenciaDeAparicion);
-
-		timerProyectilHorizontal = game.time.create(false);
-
-        timerProyectilHorizontal.loop(randTimerHorizontal,this.generarProyectilHorizontal,this)
-        
-        timerProyectilHorizontal.start();
+        //A cada proyectil le asignamos un timer distinto para que no salgan todos al mismo tiempo.
+        this.timerProyectiles();
 
 
         //Controles
@@ -256,7 +222,7 @@ SplendorousGames.multiState.prototype = {
 		player2.jumpCount = 0;
         player2.facing = 'left';
 
-},
+    },
 
     update: function () {
         game.physics.arcade.collide(player, platforms);
@@ -272,6 +238,7 @@ SplendorousGames.multiState.prototype = {
                     phantoms[i].animations.play('patrullarDer', 6, true);
                     phantoms[i].body.velocity.x = reglasNivel.velPhantoms[i];
                 }
+                //El fantasma inflinge daño al contactar con el jugador y le proporciona unos segundos de invulnerabilidad.
                 if(game.physics.arcade.overlap(player,phantoms[i])&&player.invulnerabilidad<=0){
                     player.vida-=1;
                     this.actualizarSpriteVida(1);
@@ -287,6 +254,7 @@ SplendorousGames.multiState.prototype = {
                         game.state.start("gameOver");
                     }
                 }
+                //El fantasma inflinge daño al contactar con el jugador y le proporciona unos segundos de invulnerabilidad.
                 if(game.physics.arcade.overlap(player2,phantoms[i])&&player2.invulnerabilidad<=0){
                     player2.vida-=1;
                     this.actualizarSpriteVida(2);
@@ -307,6 +275,7 @@ SplendorousGames.multiState.prototype = {
 
         //Movimiento de las plataformas
         for(var i = 0; i < plataformas.length; i++){
+            //Movimiento de las plataformas.
             if(plataformas[i].movility && plataformas[i].body.blocked.right || plataformas[i].movility && plataformas[i].body.blocked.left){
                 reglasNivel.velPlataforms[i]=-reglasNivel.velPlataforms[i];
                 plataformas[i].body.velocity.x = reglasNivel.velPlataforms[i];
@@ -370,6 +339,7 @@ SplendorousGames.multiState.prototype = {
         }
         w.onDown.add(p2jump);
 
+        //La lava daña al juagdor y le proporciona invulnerabilidad durante unos segundos.
         if(reglasNivel.sueloNivel==="lava" && player.body.onFloor() && player.invulnerabilidad<=0){
             player.vida -= reglasNivel.damageLava;
             player.invulnerabilidad=100;
@@ -385,6 +355,7 @@ SplendorousGames.multiState.prototype = {
                 game.state.start("gameOver");
             }
         }
+        //La lava daña al juagdor y le proporciona invulnerabilidad durante unos segundos.
         if(reglasNivel.sueloNivel==="lava" && player2.body.onFloor() && player2.invulnerabilidad<=0){
             player2.vida -= reglasNivel.damageLava;
             player2.invulnerabilidad=100;
@@ -417,21 +388,9 @@ SplendorousGames.multiState.prototype = {
                 }
                 i=this.destruirProyectil(i);
             }else if(proyectiles[i].sprite.body!=null && (proyectiles[i].sprite.body.blocked.right || proyectiles[i].sprite.body.blocked.left) && proyectiles[i].tipo=="Horizontal"){
-                //En el caso de que se esquive un candelabro se sumara a candelabros esquivados y la racha que se lleve de candelabros esquivados.
-                if(proyectiles[i].imagen==='candelabro'){
-                    player.candelabrosEsquivados++;
-                    player.candelabrosEsquivadosTotal++;
-                    player2.candelabrosEsquivados++;
-                    player2.candelabrosEsquivadosTotal++;
-                    if(player.candelabrosEsquivados-acumulacionCandelabrosPlayer1===10){
-                        acumulacionCandelabrosPlayer1=player.candelabrosEsquivados;
-                    }
-                    if(player2.candelabrosEsquivados-acumulacionCandelabrosPlayer2===10){
-                        acumulacionCandelabrosPlayer2=player2.candelabrosEsquivados;
-                    }
-                }
                 i=this.destruirProyectil(i);
             }else if(proyectiles[i].sprite!=null && game.physics.arcade.overlap(player,proyectiles[i].sprite) && player.invulnerabilidad<=0){
+                    //El proyectil le inflinge daño al jugador y le proporciona unos segundos de invulnerabilidad.
                     player.vida -= proyectiles[i].damage;
                     player.invulnerabilidad=100;
                     this.actualizarSpriteVida(1);
@@ -454,6 +413,7 @@ SplendorousGames.multiState.prototype = {
                         game.state.start("gameOver");
                     }
             }else if(proyectiles[i].sprite!=null && game.physics.arcade.overlap(player2,proyectiles[i].sprite) && player2.invulnerabilidad<=0){
+                //El proyectil le inflinge daño al jugador y le proporciona unos segundos de invulnerabilidad.
                 player2.vida -= proyectiles[i].damage;
                 player2.invulnerabilidad=100;
                 this.actualizarSpriteVida(2);
@@ -492,6 +452,48 @@ SplendorousGames.multiState.prototype = {
         player.puntuacion++;
         player2.puntuacion++;
 
+    },
+
+    timerProyectiles:function(){
+        var randTimerPlayer1 = game.rnd.integerInRange(1000,reglasNivel.frecuenciaDeAparicion);
+
+		timerProyectilCercaJugador1 = game.time.create(false);
+
+        timerProyectilCercaJugador1.loop(randTimerPlayer1,this.generarProyectilCercaJugador1,this)
+        
+        timerProyectilCercaJugador1.start();
+
+		var randTimerPlayer2 = game.rnd.integerInRange(1000,reglasNivel.frecuenciaDeAparicion);
+
+		timerProyectilCercaJugador2 = game.time.create(false);
+
+        timerProyectilCercaJugador2.loop(randTimerPlayer2,this.generarProyectilCercaJugador2,this)
+        
+        timerProyectilCercaJugador2.start();
+        
+        var randTimerIzquierdo = game.rnd.integerInRange(1000,reglasNivel.frecuenciaDeAparicion);
+
+		timerProyectilIzquierdo = game.time.create(false);
+
+        timerProyectilIzquierdo.loop(randTimerIzquierdo,this.generarProyectilIzquierdo,this)
+        
+        timerProyectilIzquierdo.start();
+        
+        var randTimerDerecho= game.rnd.integerInRange(1000,reglasNivel.frecuenciaDeAparicion);
+
+		timerProyectilDerecho = game.time.create(false);
+
+        timerProyectilDerecho.loop(randTimerDerecho,this.generarProyectilDerecho,this)
+        
+        timerProyectilDerecho.start();
+        
+        var randTimerHorizontal= game.rnd.integerInRange(1000,reglasNivel.frecuenciaDeAparicion);
+
+		timerProyectilHorizontal = game.time.create(false);
+
+        timerProyectilHorizontal.loop(randTimerHorizontal,this.generarProyectilHorizontal,this)
+        
+        timerProyectilHorizontal.start();
     },
 
     generarProyectilCercaJugador1:function(){
@@ -543,6 +545,7 @@ SplendorousGames.multiState.prototype = {
 		timerProyectilIzquierdo.delay=Timer;
         this.generarProyectil(proyectil);
     },
+
     generarProyectilDerecho:function(){
         var proyectil = new Object();
         proyectil.tipo="Vertical";
@@ -559,6 +562,7 @@ SplendorousGames.multiState.prototype = {
 		timerProyectilDerecho.delay=Timer;
         this.generarProyectil(proyectil);
     },
+
     generarProyectilHorizontal:function(){
         var proyectil = new Object();
         proyectil.tipo="Horizontal";
