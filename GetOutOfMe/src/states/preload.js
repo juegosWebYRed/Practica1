@@ -92,6 +92,8 @@ SplendorousGames.preloadState.prototype = {
         this.load.audio('jumpSound', 'assets/audio/salto1.mp3');
         this.load.audio('candleSound', 'assets/audio/CaidaCandelabro2.mp3');
         this.load.image('exclamation','https://i.imgur.com/QwhqnFo.png');
+        this.load.image('controlesPC','https://i.imgur.com/0199CCs.png');
+        this.load.image('controlesSmartphone','https://i.imgur.com/3y2UhX2.png');
     },
 
     create: function () {

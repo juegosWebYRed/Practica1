@@ -562,6 +562,8 @@ SplendorousGames.menuState.prototype = {
             secondMenu=false;
         }else if(controls===true){
             buttonVolver.destroy();
+            controlesPc.destroy();
+            controlesSmartphone.destroy();
             controls=false;
         }
         this.firstMenu();
@@ -611,6 +613,18 @@ SplendorousGames.menuState.prototype = {
         }else{
             buttonVolver = game.add.button(110,initialY+variacion*2.5, 'btn-volver', this.volverFirstMenu, this, 0);
         }
+
+        //Imágenes de los controles
+        controlesPc = game.add.image(150,250,'controlesPC');
+
+        controlesPc.scale.x=0.6;
+        controlesPc.scale.y=0.6;
+
+        controlesSmartphone = game.add.image(800,150,'controlesSmartphone');
+
+        controlesSmartphone.scale.x=0.6;
+        controlesSmartphone.scale.y=0.6;
+
         //Centrado de botones.
         buttonVolver.anchor.x=0.5;
         buttonVolver.anchor.y=0.5;
