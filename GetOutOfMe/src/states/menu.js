@@ -589,7 +589,7 @@ SplendorousGames.menuState.prototype = {
     },
 
     contactState:function(){
-        window.open("http://www.google.com", "_blank");
+        window.open("https://juegoswebyred.github.io/Portfolio/", "_blank");
     },
 
     controlsState:function(){
