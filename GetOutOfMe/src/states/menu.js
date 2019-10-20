@@ -58,11 +58,15 @@ SplendorousGames.menuState.prototype = {
         game.sound.setDecodedCallback(musicIntro, this.start, this);
 
         if(idioma==="Ingles"){
-            buttonJugar = game.add.button(generalX,initialY+variacion, 'btn-play', this.menuState, this, 0);
-            buttonIdioma = game.add.button(generalX,initialY+(2*variacion), 'btn-language', this.languageState, this, 0);
+            buttonJugar = game.add.button(generalX,initialY, 'btn-play', this.menuState, this, 0);
+            buttonIdioma = game.add.button(generalX,initialY+variacion, 'btn-language', this.languageState, this, 0);
+            buttonContacto = game.add.button(generalX-200,initialY+(2*variacion), 'btn-contact', this.contactState, this, 0);
+            buttonControles = game.add.button(generalX+200,initialY+(2*variacion), 'btn-controls', this.controlsState, this, 0);
         }else{
-            buttonJugar = game.add.button(generalX,initialY+variacion, 'btn-jugar', this.menuState, this, 0);
-            buttonIdioma = game.add.button(generalX,initialY+(2*variacion), 'btn-idioma', this.languageState, this, 0);
+            buttonJugar = game.add.button(generalX,initialY, 'btn-jugar', this.menuState, this, 0);
+            buttonIdioma = game.add.button(generalX,initialY+variacion, 'btn-idioma', this.languageState, this, 0);
+            buttonContacto = game.add.button(generalX-200,initialY+(2*variacion), 'btn-contacto', this.contactState, this, 0);
+            buttonControles = game.add.button(generalX+200,initialY+(2*variacion), 'btn-controles', this.controlsState, this, 0);
         }
         
         //Centrado de botones.
@@ -70,14 +74,24 @@ SplendorousGames.menuState.prototype = {
         buttonJugar.anchor.y=0.5;
         buttonIdioma.anchor.x=0.5;
         buttonIdioma.anchor.y=0.5;
+        buttonContacto.anchor.x=0.5;
+        buttonContacto.anchor.y=0.5;
+        buttonControles.anchor.x=0.5;
+        buttonControles.anchor.y=0.5;
         //Escalado de botones.
         buttonJugar.scale.x = 0.6;
         buttonJugar.scale.y = 0.6;
         buttonIdioma.scale.x = 0.6;
         buttonIdioma.scale.y = 0.6;
+        buttonContacto.scale.x = 0.6;
+        buttonContacto.scale.y = 0.6;
+        buttonControles.scale.x = 0.6;
+        buttonControles.scale.y = 0.6;
         //Tintado de botones
         buttonJugar.tint=buttonsColorOut;
         buttonIdioma.tint=buttonsColorOut;
+        buttonContacto.tint=buttonsColorOut;
+        buttonControles.tint=buttonsColorOut;
 
     },
 
@@ -99,6 +113,8 @@ SplendorousGames.menuState.prototype = {
         if(firstMenu){
             this.changeButtonsColors(buttonJugar);
             this.changeButtonsColors(buttonIdioma);
+            this.changeButtonsColors(buttonContacto);
+            this.changeButtonsColors(buttonControles);
         }else if(secondMenu){
             this.changeButtonsColors(buttonSingleplayer);
             this.changeButtonsColors(buttonMultiplayer);
@@ -113,6 +129,8 @@ SplendorousGames.menuState.prototype = {
         }else if(languageMenu){
             this.changeButtonsColors(buttonEspanol);
             this.changeButtonsColors(buttonIngles);
+            this.changeButtonsColors(buttonVolver);
+        }else if(controls){
             this.changeButtonsColors(buttonVolver);
         }
     },
@@ -169,6 +187,8 @@ SplendorousGames.menuState.prototype = {
     menuState: function(){
         buttonJugar.destroy();
         buttonIdioma.destroy();
+        buttonContacto.destroy();
+        buttonControles.destroy();
         firstMenu=false;
         this.secondMenu();
     },
@@ -177,27 +197,41 @@ SplendorousGames.menuState.prototype = {
         //Primer menu
         firstMenu=true;
 
+        
         if(idioma==="Ingles"){
-            buttonJugar = game.add.button(generalX,initialY+variacion, 'btn-play', this.menuState, this, 0);
-            buttonIdioma = game.add.button(generalX,initialY+(2*variacion), 'btn-language', this.languageState, this, 0);
+            buttonJugar = game.add.button(generalX,initialY, 'btn-play', this.menuState, this, 0);
+            buttonIdioma = game.add.button(generalX,initialY+variacion, 'btn-language', this.languageState, this, 0);
+            buttonContacto = game.add.button(generalX-200,initialY+(2*variacion), 'btn-contact', this.contactState, this, 0);
+            buttonControles = game.add.button(generalX+200,initialY+(2*variacion), 'btn-controls', this.controlsState, this, 0);
         }else{
-            buttonJugar = game.add.button(generalX,initialY+variacion, 'btn-jugar', this.menuState, this, 0);
-            buttonIdioma = game.add.button(generalX,initialY+(2*variacion), 'btn-idioma', this.languageState, this, 0);
+            buttonJugar = game.add.button(generalX,initialY, 'btn-jugar', this.menuState, this, 0);
+            buttonIdioma = game.add.button(generalX,initialY+variacion, 'btn-idioma', this.languageState, this, 0);
+            buttonContacto = game.add.button(generalX-200,initialY+(2*variacion), 'btn-contacto', this.contactState, this, 0);
+            buttonControles = game.add.button(generalX+200,initialY+(2*variacion), 'btn-controles', this.controlsState, this, 0);
         }
-
         //Centrado de botones.
         buttonJugar.anchor.x=0.5;
         buttonJugar.anchor.y=0.5;
         buttonIdioma.anchor.x=0.5;
         buttonIdioma.anchor.y=0.5;
+        buttonContacto.anchor.x=0.5;
+        buttonContacto.anchor.y=0.5;
+        buttonControles.anchor.x=0.5;
+        buttonControles.anchor.y=0.5;
         //Escalado de botones.
         buttonJugar.scale.x = 0.6;
         buttonJugar.scale.y = 0.6;
         buttonIdioma.scale.x = 0.6;
         buttonIdioma.scale.y = 0.6;
+        buttonContacto.scale.x = 0.6;
+        buttonContacto.scale.y = 0.6;
+        buttonControles.scale.x = 0.6;
+        buttonControles.scale.y = 0.6;
         //Tintado de botones
         buttonJugar.tint=buttonsColorOut;
         buttonIdioma.tint=buttonsColorOut;
+        buttonContacto.tint=buttonsColorOut;
+        buttonControles.tint=buttonsColorOut;
     },
     //Destruye los botones del segundo menú y llama al tercer menú para crearse,
     //con la distinción del modo de juego que vamos a jugar.
@@ -455,6 +489,8 @@ SplendorousGames.menuState.prototype = {
     languageState: function(){
         buttonJugar.destroy();
         buttonIdioma.destroy();
+        buttonControles.destroy();
+        buttonContacto.destroy();
         firstMenu=false;
         secondMenu=false;
         thirdMenu=false;
@@ -524,6 +560,9 @@ SplendorousGames.menuState.prototype = {
             buttonPuntuacionSP.destroy();
             buttonPuntuacionMP.destroy();
             secondMenu=false;
+        }else if(controls===true){
+            buttonVolver.destroy();
+            controls=false;
         }
         this.firstMenu();
     },
@@ -540,12 +579,48 @@ SplendorousGames.menuState.prototype = {
         multiPlayer=false;
         this.secondMenu();
     },
+
     singlePlayerPuntuacion: function(){
         game.state.start("singlePuntuacion");
     },
+
     multiPlayerPuntuacion: function(){
         game.state.start("multiPuntuacion");
     },
+
+    contactState:function(){
+        window.open("http://www.google.com", "_blank");
+    },
+
+    controlsState:function(){
+        buttonJugar.destroy();
+        buttonIdioma.destroy();
+        buttonControles.destroy();
+        buttonContacto.destroy();
+        firstMenu=false;
+        secondMenu=false;
+        thirdMenu=false;
+
+        this.controls();
+    },
+
+    controls:function(){
+        controls=true;
+        if(idioma==="Ingles"){
+            buttonVolver = game.add.button(100,initialY+variacion*2.5, 'btn-back', this.volverFirstMenu, this, 0);
+        }else{
+            buttonVolver = game.add.button(110,initialY+variacion*2.5, 'btn-volver', this.volverFirstMenu, this, 0);
+        }
+        //Centrado de botones.
+        buttonVolver.anchor.x=0.5;
+        buttonVolver.anchor.y=0.5;
+        //Escalado de botones.
+        buttonVolver.scale.x = 0.6;
+        buttonVolver.scale.y = 0.6;
+        //Tintado de botones
+        buttonVolver.tint=buttonsColorOut;
+    },
+
     //Borra todas las puntuaciones
     delete: function(){
         localStorage.clear();

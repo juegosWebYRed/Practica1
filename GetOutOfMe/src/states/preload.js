@@ -7,7 +7,10 @@ SplendorousGames.preloadState.prototype = {
     preload: function() {
         //Carga de imagenes.
 		this.load.crossOrigin = 'Anonymous';
-        this.load.image('btn-online', 'https://i.imgur.com/YGzc3W5.png');
+        this.load.image('btn-contact', 'https://i.imgur.com/9mbj7Sn.png');
+        this.load.image('btn-contacto', 'https://i.imgur.com/Z78E3eJ.png');
+        this.load.image('btn-controles', 'https://i.imgur.com/7NFyDNR.png');
+        this.load.image('btn-controls', 'https://i.imgur.com/spceIxY.png');
         this.load.image('ground', 'https://i.imgur.com/cSBy8Xo.png');
         this.load.image('proyectil','https://i.imgur.com/pHkpyji.png');
         this.load.image('miniPlataforma','https://i.imgur.com/p9azVFf.png');
