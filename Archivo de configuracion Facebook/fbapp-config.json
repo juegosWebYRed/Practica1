@@ -1,0 +1,15 @@
+//Código extraído de https://developers.facebook.com/docs/games/instant-games/sdk/bundle-config
+{
+  instant_games: {
+    platform_version: "RICH_GAMEPLAY",
+    orientation: "LANDSCAPE",
+    override_web_orientation: "LANDSCAPE",
+    navigation_menu_version: "NAV_FLOATING",
+    custom_update_templates: { },
+    surfaceable_stats: { },
+    match_player_config: {
+      min_context_size: 2,
+      max_context_size: 20
+    }
+  }
+}

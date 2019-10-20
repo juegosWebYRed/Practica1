@@ -7,6 +7,9 @@
     <!-- Título de la página -->
     <title>Get out of me!</title>
 
+    <!-- Llamada al CDN de Facebook (extraido del tutorial del aula virtual) -->
+    <script src="https://connect.facebook.net/en_US/fbinstant.6.0.js"></script>
+
     <!-- Cargamos los archivos JS -->
     <script src="scripts/phaser.min.js"></script>
     <script src="src/states/boot.js"></script>
@@ -29,6 +32,19 @@
     <!-- div donde ubicaremos el juego -->
     <div id="gameDiv">
         <script type="text/javascript">
+
+            //Código extraido del tutorial del aula virtual para el funcionamiento del juego en facebook
+            FBInstant.initializeAsync().then(function () {
+                FBInstant.setLoadingProgress(100);
+                FBInstant.startGameAsync().then(function () {
+                    var windowWidth = window.innerWidth;
+                    var windowHeight = window.innerHeight;
+                    if (windowWidth > windowHeight) {
+                        windowWidth = windowHeight / 1.8;
+                    }
+                    var gameWidth = windowWidth * gameOptions.gameHeight / windowHeight;
+                })
+            })
 
             game.state.add('boot', SplendorousGames.bootState);
             game.state.add('preload', SplendorousGames.preloadState);
